@@ -1,0 +1,12 @@
+// main.scss
+@import '~normalize.css/normalize.css';
+@import './node_modules/swiper/swiper-bundle';
+@import './base/variables';
+@import './base/typography';
+@import './components/hero';
+@import './components/about';
+@import './components/portfolio';
+@import './components/services';
+@import './components/testimonials';
+@import './components/philosophy';
+@import './components/contact';
