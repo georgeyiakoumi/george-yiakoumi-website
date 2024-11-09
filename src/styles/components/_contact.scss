@@ -1,0 +1,38 @@
+.contact {
+    padding: 4rem 2rem;
+    background-color: #fff;
+  
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+  
+      label {
+        display: flex;
+        flex-direction: column;
+        font-size: 1rem;
+      }
+  
+      input, textarea {
+        padding: 0.5rem;
+        border: 1px solid $primary-light;
+        border-radius: 4px;
+        font-size: 1rem;
+      }
+  
+      button {
+        margin-top: 1rem;
+        padding: 0.75rem 1.5rem;
+        background: $primary-color;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+  
