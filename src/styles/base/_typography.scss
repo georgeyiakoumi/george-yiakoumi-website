@@ -1,10 +1,131 @@
 // _typography.scss
-body {
-  font-family: $font-stack;
-  line-height: 1.6;
-  color: $text-color;
+
+@use "./scale";
+
+///Font Families
+
+$font-family-heading: Merriweather;
+$font-family-body: Lato;
+
+///Font Families
+
+$font-weight-strong: 'Semi Bold';
+$font-weight-weak: Regular;
+
+// maps
+
+// Breakpoints
+$breakpoints: (
+  small: 480px,
+  medium: 768px,
+  large: 1024px,
+  xlarge: 1440px
+);
+
+// Typography map
+$typography: (
+  heading-1: (
+    small: (font-size: 2.25rem, line-height: 2.75rem),
+    xlarge: (font-size: 2.5rem, line-height: 3rem)
+  ),
+  heading-2: (
+    small: (font-size: 1.75rem, line-height: 2.25rem),
+    xlarge: (font-size: 2rem, line-height: 2.5rem)
+  ),
+  heading-3: (
+    xlarge: (font-size: 1.5rem, line-height: 3rem)
+  ),
+  heading-4: (
+    xlarge: (font-size: 2.5rem, line-height: 3rem)
+  ),
+  heading-5: (
+    xlarge: (font-size: 2.5rem, line-height: 3rem)
+  ),
+  heading-6: (
+    xlarge: (font-size: 2.5rem, line-height: 3rem)
+  ),
+  paragraph: (
+    xlarge: (font-size: 1rem, line-height: 1.5rem)
+  ),
+  text-small: (
+    xlarge: (font-size: 0.875rem, line-height: 1.25rem)
+  ),
+  text-uppercase: (
+    xlarge: (font-size: 0.875rem, line-height: 1.25rem, text-transform: uppercase)
+  ),
+  text-display: (
+    small: (font-size: 2.5rem, line-height: 3rem),
+    xlarge: (font-size: 3.5rem, line-height: 4rem)
+  )
+
+);
+
+@mixin responsive-typography($element, $font-family: null, $font-weight: null) {
+  // Apply font-family if provided
+  @if $font-family != null {
+    font-family: $font-family;
+  }
+  
+  // Apply font-weight if provided
+  @if $font-weight != null {
+    font-weight: $font-weight;
+  }
+
+  // Loop through each breakpoint in the map
+  @each $breakpoint, $styles in map-get($typography, $element) {
+    @if $breakpoint == small {
+      font-size: map-get($styles, font-size);
+      line-height: map-get($styles, line-height);
+    } @else {
+      @media (min-width: map-get($breakpoints, $breakpoint)) {
+        font-size: map-get($styles, font-size);
+        line-height: map-get($styles, line-height);
+      }
+    }
+  }
 }
 
-h1, h2, h3 {
-  color: $primary-color;
+
+h1 {
+  @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong);
+}
+
+h2 {
+  @include responsive-typography(heading-2, $font-family-heading, $font-weight-strong);
+}
+
+h3 {
+  @include responsive-typography(heading-3, $font-family-heading, $font-weight-strong);
+}
+
+h4 {
+  @include responsive-typography(heading-4, $font-family-heading, $font-weight-strong);
+}
+
+h5 {
+  @include responsive-typography(heading-5, $font-family-heading, $font-weight-strong);
+}
+
+h6 {
+  @include responsive-typography(heading-6, $font-family-heading, $font-weight-strong);
+}
+
+p {
+  @include responsive-typography(paragraph, $font-family-body, $font-weight-weak);
+}
+
+small {
+  @include responsive-typography(text-small, $font-family-body, $font-weight-weak);
+}
+
+.uppercase {
+  @include responsive-typography(text-uppercase, $font-family-heading, $font-weight-strong);
+}
+
+.display {
+  @include responsive-typography(text-display, $font-family-heading, $font-weight-strong);
+}
+
+body {
+  font-family: $font-family-body;
 }

@@ -1,5 +1,3 @@
-@import '../base/variables';
-
 .portfolio {
   padding: 4rem 2rem;
   background-color: #fff;
@@ -16,7 +14,7 @@
 
     .portfolio-item {
       padding: 1.5rem;
-      background: $primary-light;
+      background: white;
       border-radius: 8px;
       text-align: center;
 
@@ -28,7 +26,7 @@
       button {
         margin-top: 1rem;
         padding: 0.5rem 1rem;
-        background: $secondary-color;
+        background: blue;
         color: white;
         border: none;
         cursor: pointer;

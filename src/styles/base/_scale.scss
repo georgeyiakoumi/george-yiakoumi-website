@@ -1,0 +1,31 @@
+// _scale.scss
+
+$xl-10: 16rem;
+$xl-9: 12rem;
+$xl-8: 8rem;
+$xl-7: 6rem;
+$xl-6: 5rem;
+$xl-5: 4rem;
+$xl-4: 3.5rem;
+$xl-3: 3rem;
+$xl-2: 2.5rem;
+$xl: 2rem;
+$lg: 1.50rem;
+$md: 1.25rem;
+$root: 1rem;
+$sm: 0.75rem;
+$xs: 0.5rem;
+$xs-2: 0.25rem;
+$xs-3: 0.125rem;
+$xs-4: 0.063rem;
+
+/// Corner Radius
+
+$corner-radius-1: $xs-2;
+$corner-radius-2: $xs;
+$corner-radius-3: $sm;
+$corner-radius-4: $root;
+$corner-radius-5: $md;
+$corner-radius-6: $lg;
+$corner-radius-7: $xl;
+$corner-radius-full: 100svw;

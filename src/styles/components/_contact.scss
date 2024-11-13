@@ -20,7 +20,7 @@
   
       input, textarea {
         padding: 0.5rem;
-        border: 1px solid $primary-light;
+        border: 1px solid black;
         border-radius: 4px;
         font-size: 1rem;
       }
@@ -28,7 +28,7 @@
       button {
         margin-top: 1rem;
         padding: 0.75rem 1.5rem;
-        background: $primary-color;
+        background: grey;
         color: white;
         border: none;
         cursor: pointer;

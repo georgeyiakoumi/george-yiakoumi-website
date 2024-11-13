@@ -1,0 +1,44 @@
+// _colours-primitive.scss
+
+// Hues
+
+///Brand
+$brand-hue: 230;
+$brand-saturation: 65;
+$brand-blackness: 85;
+
+///Red
+$red-hue: 0;
+$red-light-saturation: 71;
+$red-light-blackness: 78;
+
+// Because SASS Doesn't support HSBA, this function converts it to HSL.
+@function hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, $alpha: 1) {
+    $lightness: 100% - ($brand-blackness / 2);
+    @return hsla($brand-hue, $brand-saturation, $lightness, $alpha);
+  }
+
+// Transparent
+
+///Grey
+
+$grey-light-1000: hsba-to-hsla($brand-hue, 100, 15%, 0.9);
+$grey-light-700: hsba-to-hsla($brand-hue, 100, 20%, 0.65);
+$grey-light-500: hsba-to-hsla($brand-hue, 100, 30%, 0.45);
+$grey-light-100: hsba-to-hsla($brand-hue, 100, 40%, 0.10);
+$grey-light-50: hsba-to-hsla($brand-hue, 100, 50%, 0.04);
+$grey-light-25: hsba-to-hsla($brand-hue, 100, 50%, 0.02);
+
+///Brand
+
+$brand-light-1000: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 1);
+$brand-light-800: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.8);
+$brand-light-200: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.2);
+$brand-light-50: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.05);
+
+///Red
+
+$red-light-1000: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 1);
+$red-light-800: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.8);
+$red-light-200: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.14);
+$red-light-50: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.05);

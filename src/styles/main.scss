@@ -2,7 +2,8 @@
 @import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,ROND@0..1,100&icon_names=home,palette,settings,search&display=block';
 @import '~normalize.css/normalize.css';
 @import './node_modules/swiper/swiper-bundle';
-@import './base/variables';
+@import './base/elevation';
+@import './base/scale';
 @import './base/typography';
 @import './components/hero';
 @import './components/about';

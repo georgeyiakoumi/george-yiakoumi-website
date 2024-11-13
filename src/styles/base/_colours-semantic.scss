@@ -1,0 +1,15 @@
+@use "./colours-primitive" as *;
+
+//Text
+
+$text-strong: $grey-light-1000;
+$text-weak: $grey-light-700;
+$text-brand: $brand-light-1000;
+$text-disabled: $grey-light-100;
+$text-error: $red-light-1000;
+$text-warning: $amber-light-1000;
+$text-success: $green-light-1000;
+$text-information: $teal-light-1000;
+$text-inverse-strong: $grey-dark-1000;
+$text-inverse-weak: $grey-dark-700;
+$text-inverse-disabled: $grey-dark-100;
