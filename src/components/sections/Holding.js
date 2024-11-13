@@ -10,7 +10,7 @@ function Holding() {
     return (
         <div style={{ textAlign: 'center', padding: '50px' }}>
             <h1>George Yiakoumi</h1>
-            <h2>Design Consultant</h2>
+            <h2>I solve problems and build intuitive design systems for projects that inspire and intrigue.</h2>
             <p>Website coming soon</p>
             <ul style={{ listStyle: 'none', display: 'flex', justifyContent: 'center', gap: '20px', padding: 0 }}>
                 <li>
