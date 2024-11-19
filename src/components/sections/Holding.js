@@ -16,9 +16,8 @@ const iconComponents = {
 function Holding() {
     return (
         <div style={{ textAlign: 'center', padding: '50px' }}>
-            <h1>George Yiakoumi</h1>
-            <h2>Design Consultant</h2>
-            <p>Website coming soon</p>
+            <h1>This is a holding page at best, don't judge me</h1>
+            <h2>George Yiakoumi - Design Consultant - Website coming soon</h2>
             <ul style={{ listStyle: 'none', display: 'flex', justifyContent: 'center', gap: '20px', padding: 0 }}>
                 {socialLinks.map((link) => (
                     <li key={link.name}>
