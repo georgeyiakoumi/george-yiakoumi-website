@@ -61,7 +61,7 @@ const Entry = ({ collection }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSection]);
+  }, [activeSection, sections]);
 
   useEffect(() => {
     const load = async () => {
@@ -191,14 +191,7 @@ const Entry = ({ collection }) => {
             <ul>
               {sections.map((section) => (
                 <li key={section}>
-                  <a
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveSection(section);
-                    }}
-                    className={activeSection === section ? "active" : ""}
-                  >
+                  <a href="#" role="button" onClick={(e) => { e.preventDefault(); setActiveSection(section); }} className={activeSection === section ? "active" : ""}>
                     {sectionLabels[section]}
                   </a>
                 </li>
