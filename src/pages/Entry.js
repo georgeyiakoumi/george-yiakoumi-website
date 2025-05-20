@@ -62,7 +62,7 @@ const Entry = ({ collection }) => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSection, sections]);
+  }, [activeSection]);
 
   useEffect(() => {
     const load = async () => {
