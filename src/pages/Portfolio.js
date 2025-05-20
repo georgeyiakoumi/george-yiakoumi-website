@@ -123,7 +123,8 @@ const Portfolio = ({ collection }) => {
         <h1>Nothing to see here, yet.</h1>
         <p>I'm still adding to this, but would hate for it to be the reason we don't work together. If you're keen, and are open to a having a chat, I can show you some stuff over a call.</p>
         <Button
-          to="/contact"
+          to="/contact?from=ui-lab"
+
           label="Get in touch"
           iconLeft={Send}
           

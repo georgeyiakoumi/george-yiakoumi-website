@@ -34,6 +34,7 @@ input, textarea {
 
 textarea {
   resize: none;
+  height: 100%;
 }
   
 input:focus, textarea:focus {
@@ -49,3 +50,4 @@ input:focus, textarea:focus {
 .form-error {
   color: semantic.$text-error;
 }
+

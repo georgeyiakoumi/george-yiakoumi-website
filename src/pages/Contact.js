@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Button from "../components/ui/Button/Button";
 import Loading from "../components/ui/Loading/Loading";
 import { ReactComponent as Send } from "../assets/icons/send.svg";
@@ -10,6 +11,17 @@ const Contact = () => {
   const [formStatus, setFormStatus] = useState("");
   const [contactContent, setContactContent] = useState(null);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const from = searchParams.get("from");
+
+  const prefillMessages = {
+    "ui-lab": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
+    "projects": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
+    "details": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
+  };
+
+  const defaultMessage = from && prefillMessages[from] ? prefillMessages[from] : "";
 
   useEffect(() => {
     const fetchContactData = async () => {
@@ -107,7 +119,15 @@ const Contact = () => {
 
           <div className="form-group">
             <label htmlFor="message">Your message *</label>
-            <textarea id="message" name="message" rows="5" required autoComplete="off"></textarea>
+            <textarea 
+              id="message"
+              name="message"
+              rows="5"
+              required 
+              autoComplete="off" 
+              defaultValue={defaultMessage}
+            />
+              
           </div>
 
           <Button

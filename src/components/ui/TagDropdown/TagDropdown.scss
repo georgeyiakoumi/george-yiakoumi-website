@@ -22,10 +22,18 @@
     overflow: visible;
     position: relative;
 
+    @include respond(mobile) {
+        flex-wrap: nowrap;
+      }
+
     .placeholder {
       color: var(--colour-text-brand);
       font-size: get-typography(paragraph);
       font-weight: $font-weight-strong;
+
+      @include respond(mobile) {
+        font-size: get-typography(text-small);
+      }
     }
 
     .tags-wrapper {
