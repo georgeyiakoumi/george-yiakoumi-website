@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
+import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
 import Loading from "../components/ui/Loading/Loading";
@@ -20,6 +21,7 @@ const Details = () => {
   const [content, setContent] = useState([]);
   const svgRefs = useRef({});
   const [loading, setLoading] = useState(true);
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -187,6 +189,7 @@ const renderContent = () =>
         ]}
         selectedOption={viewMode}
         setSelectedOption={setViewMode}
+        size={isMobile ? "small" : undefined}
       />
 
       <div className="details-content">{renderTools(viewMode)}</div>

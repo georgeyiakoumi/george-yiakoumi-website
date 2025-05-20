@@ -2,6 +2,7 @@
 
 .segment-control-wrapper {
   display: flex;
+  height: $scale-xl-3;
 
   @include respond(mobile) {
     justify-content: center;
@@ -33,7 +34,6 @@
   &.size-small {
 
     .segment-option {
-      height: $scale-xl;
       padding: 0 $scale-sm;
 
       .segment-icon {

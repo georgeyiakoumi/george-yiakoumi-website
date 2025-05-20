@@ -43,8 +43,7 @@ const Contact = () => {
       .catch(() => setFormStatus("error"));
   };
 
-  if (loading) return 
-  <Loading title="One sec..." />;
+  if (loading) return <Loading title="One sec..." />;
   if (!contactContent) return <p>Error loading content.</p>;
 
   return (
@@ -53,7 +52,6 @@ const Contact = () => {
         switch (block.type) {
           case "heading":
             return <h1 key={index}>{block.children[0].text}</h1>;
-
           case "paragraph":
             return (
               <p key={index}>
@@ -68,7 +66,6 @@ const Contact = () => {
                 )}
               </p>
             );
-
           default:
             return null;
         }
@@ -87,7 +84,10 @@ const Contact = () => {
           netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
         >
+          {/* Required for Netlify to identify the form */}
           <input type="hidden" name="form-name" value="contact" />
+
+          {/* Honeypot field (spam prevention) */}
           <div style={{ display: "none" }}>
             <label>
               Don’t fill this out: <input name="bot-field" />
@@ -116,7 +116,6 @@ const Contact = () => {
             size="medium"
             tone="brand"
             variant="primary"
-            onClick={() => {}}
             iconLeft={Send}
           />
         </form>

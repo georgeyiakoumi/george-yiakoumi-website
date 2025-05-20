@@ -12,7 +12,7 @@
     }
 
     @include respond(mobile) {
-        grid-column: 1 / span 9;
+        grid-column: 1 / span 4;
         padding: $scale-lg;
     }
 
@@ -23,10 +23,13 @@
         gap: var(--gap); 
 
         @include respond(tablet) {
-            
             gap: $scale-root;
             display: flex;
         }
+    }
+
+    .segment-control-wrapper {
+        align-self: center;
     }
 
     .details-content {

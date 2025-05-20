@@ -158,6 +158,7 @@ const Portfolio = ({ collection }) => {
 
           {isMobile && (
             <SegmentControl
+              size="small"
               options={[
                 { value: "swiper", label: "Carousel", icon: <CarouselIcon /> },
                 { value: "list", label: "List", icon: <ListIcon /> },
@@ -200,7 +201,7 @@ const Portfolio = ({ collection }) => {
               renderSlide={(item) => (
                 <PortfolioCard
                   slug={item.Slug || item.slug || ""}
-                  thumbnail={item.Thumbnail?.formats?.thumbnail?.url || ""}
+                  thumbnail={item.Thumbnail.url || ""}
                   title={item.Title || "Untitled"}
                   tags={item.Tags || []}
                   routePrefix={routePrefix}

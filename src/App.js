@@ -14,12 +14,12 @@ import "./styles/main.scss";
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
 // SEO_API_URL is kept for future use
-// const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
+const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;
 
 const AppContent = () => {
   const location = useLocation();
-  const [seoData] = useState(null);
+  const [seoData, setSeoData] = useState(null);
   const [navRoutes, setNavRoutes] = useState({});
   const [, setHomePageUrl] = useState("about");
 
@@ -47,6 +47,21 @@ const AppContent = () => {
       }
     };
     fetchNavigation();
+  }, []);
+
+  useEffect(() => {
+    const fetchSeo = async () => {
+      try {
+        const res = await fetch(SEO_API_URL);
+        const data = await res.json();
+        if (data?.data) {
+          setSeoData(data.data);
+        }
+      } catch (err) {
+        console.error("Error fetching SEO data:", err);
+      }
+    };
+    fetchSeo();
   }, []);
 
 

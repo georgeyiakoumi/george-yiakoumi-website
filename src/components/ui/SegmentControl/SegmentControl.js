@@ -23,13 +23,13 @@ const SegmentControl = ({ options, selectedOption, setSelectedOption, size = "me
     }
   };
 
-  // Schedule a highlight update after paint
+  
   const animationFrame = requestAnimationFrame(() => {
-    // Delay slightly again to be safe
+  
     setTimeout(updateHighlight, 10);
   });
 
-  // Listen on resize too
+  
   window.addEventListener("resize", updateHighlight);
 
   return () => {
