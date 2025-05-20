@@ -41,6 +41,8 @@ const sectionLabels = {
   takeaway: "Key takeaways",
 };
 
+const sections = ["challenge", "solution", "role", "impact", "takeaway"];
+
 const Entry = ({ collection }) => {
   const { slug } = useParams();
   const [entry, setEntry] = useState(null);
@@ -48,7 +50,6 @@ const Entry = ({ collection }) => {
   const [activeSection, setActiveSection] = useState("challenge");
   const [showTags, setShowTags] = useState(false);
   const { isMobile, isTablet } = useBreakpoint();
-  const sections = ["challenge", "solution", "role", "impact", "takeaway"];
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -191,9 +192,13 @@ const Entry = ({ collection }) => {
             <ul>
               {sections.map((section) => (
                 <li key={section}>
-                  <a href="#" role="button" onClick={(e) => { e.preventDefault(); setActiveSection(section); }} className={activeSection === section ? "active" : ""}>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSection(section)}
+                    className={activeSection === section ? "active" : ""}
+                  >
                     {sectionLabels[section]}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>

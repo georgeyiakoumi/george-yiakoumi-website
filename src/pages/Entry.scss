@@ -205,8 +205,14 @@
                     }
                     
             
-                    & > a {
+                    & > button {
                         display: block;
+                        text-align: left;
+                        text-transform: uppercase;
+                        letter-spacing: $scale-xs-4;
+                        font-size: get-typography(text-small);
+                        background: none;
+                        width: 100%;
                         color: $text-weak;
                         text-decoration: none;
                         padding: $scale-root 0;
