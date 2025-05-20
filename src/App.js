@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "./context/ThemeContext";
@@ -13,12 +13,13 @@ import NotFound from "./pages/NotFound";
 import "./styles/main.scss";
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
-const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
+// SEO_API_URL is kept for future use
+// const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;
 
 const AppContent = () => {
   const location = useLocation();
-  const [seoData, setSeoData] = useState(null);
+  const [seoData] = useState(null);
   const [navRoutes, setNavRoutes] = useState({});
   const [, setHomePageUrl] = useState("about");
 

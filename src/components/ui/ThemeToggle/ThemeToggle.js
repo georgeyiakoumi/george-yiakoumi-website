@@ -9,9 +9,6 @@ const ThemeToggle = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const isLight = theme === "light";
   const lottieRef = useRef();
-  const getCSSVariable = (name) =>
-  getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-
 
   useEffect(() => {
   if (!lottieRef.current) return;

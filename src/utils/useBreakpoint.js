@@ -5,7 +5,8 @@ const breakpoints = {
   tablet: 1024,
 };
 
-const getWindowWidth = () => (typeof window !== "undefined" ? window.innerWidth : 1024);
+// Helper function for SSR compatibility
+// const getWindowWidth = () => (typeof window !== "undefined" ? window.innerWidth : 1024);
 
 const useBreakpoint = () => {
   const [width, setWidth] = useState(null); // start as null so we know when ready

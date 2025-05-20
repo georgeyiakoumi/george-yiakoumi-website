@@ -19,7 +19,7 @@ const Portfolio = ({ collection }) => {
   const COLLECTION_API = `${API_BASE}/api/${collection}?populate=*`;
   const PAGE_API = `${API_BASE}/api/${collection}?populate=*`;
   const [entries, setEntries] = useState([]);
-  const [pageData, setPageData] = useState(null);
+  const [, setPageData] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
   const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -76,7 +76,7 @@ const Portfolio = ({ collection }) => {
     };
 
     fetchData();
-  }, [collection]);
+  }, [collection, COLLECTION_API, PAGE_API]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -94,13 +94,14 @@ const Portfolio = ({ collection }) => {
   }, []);
   
 
-  const extractTextFromBlocks = (blocks, type) => {
-    if (!blocks || !Array.isArray(blocks)) return "";
-    const filtered = blocks.filter((block) => block.type === type);
-    return filtered.length > 0
-      ? filtered[0].children.map((child) => child.text).join(" ")
-      : "";
-  };
+  // Utility function for future use
+  // const extractTextFromBlocks = (blocks, type) => {
+  //   if (!blocks || !Array.isArray(blocks)) return "";
+  //   const filtered = blocks.filter((block) => block.type === type);
+  //   return filtered.length > 0
+  //     ? filtered[0].children.map((child) => child.text).join(" ")
+  //     : "";
+  // };
 
   
   const allTags = [...new Set(entries.flatMap((item) => item.Tags?.map((tag) => tag.name) || []))];

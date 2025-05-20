@@ -16,7 +16,7 @@ const SvgIcon = ({ svgMarkup, width }) => {
           // Calculate height based on aspect ratio
           const viewBox = svg.getAttribute('viewBox');
           if (viewBox) {
-            const [minX, minY, vbWidth, vbHeight] = viewBox.split(' ').map(Number);
+            const [, , vbWidth, vbHeight] = viewBox.split(' ').map(Number);
             const aspectRatio = vbHeight / vbWidth;
             const height = parseFloat(width) * aspectRatio;
             svg.setAttribute('height', `${height}rem`);

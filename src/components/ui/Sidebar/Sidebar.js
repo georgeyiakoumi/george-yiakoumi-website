@@ -16,7 +16,7 @@ const Sidebar = () => {
   const [navLinks, setNavLinks] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
   const [homePageUrl, setHomePageUrl] = useState(null);
-  const { isMobile, isTablet, isDesktop } = useBreakpoint();
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     const fetchNavigation = async () => {
