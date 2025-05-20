@@ -17,8 +17,7 @@ const Contact = () => {
 
   const prefillMessages = {
     "ui-lab": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
-    "projects": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
-    "details": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
+    
   };
 
   const defaultMessage = from && prefillMessages[from] ? prefillMessages[from] : "";
