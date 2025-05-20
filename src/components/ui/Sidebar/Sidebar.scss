@@ -1,0 +1,287 @@
+@use '../../../styles/base' as *;
+@use "../socialIcons" as icon;
+
+.sidebar {
+  box-sizing: border-box;
+  grid-column: span sidebar;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
+  gap: var(--gap);
+  background: $background-sunken;
+  border-right: $scale-xs-4 solid $stroke-weak;
+
+  @include respond(tablet) {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 var(--gap);
+  }
+
+  @include respond(mobile) {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(4, 1fr);
+    background: none;
+    padding: 0;
+    position: fixed;
+    left: 0;
+    height: $scale-xl-7;
+    overflow: hidden;
+    width: 100%;
+    z-index: 1100;
+  }
+
+  &.open .sidebar-contents {
+    @include respond(mobile) {
+      background: $fill-overlay;
+      backdrop-filter: blur($scale-xs);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  
+  &.open .sidebar-contents-container {
+    @include respond(mobile) {
+      transform: translateX(0%);
+    }
+  }
+
+  &.open {
+
+    @include respond(mobile) {
+      height: 100vh;
+    }
+    
+  }
+
+}
+
+.sidebar-wrapper {
+  grid-column: 3 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  padding-right: var(--gap);
+
+  @include respond(tablet) {
+    grid-column: 1 / span 2;
+    padding-right: 0;
+  }
+
+  @include respond(mobile) {
+    grid-column: 1 / span 4;
+  }
+}
+
+.mobile-header {
+  padding-top: var(--container-padding);
+
+  @include respond(mobile) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+    align-items: center;
+    padding: 0 var(--gap);
+    height: $scale-xl-7;
+    background-color: $background-overlay;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1200;
+    box-shadow: $elevation-overlay;
+  }
+
+  .brand-wordmark {
+    display: flex;
+
+    svg {
+      width: $scale-xl-5;
+      height: $scale-xl-5;
+  }
+  }
+  
+}
+
+.theme-toggle-wrapper {
+
+  @include respond(mobile) { 
+    grid-column: 1 / span 1;
+    justify-self: center; 
+  }
+
+}
+
+.brand-wordmark {
+  display: none;
+
+  @include respond(mobile) {
+    grid-column: 2 / span 2;
+    justify-self: center;
+    display: block;
+    font-size: get-typography(text-uppercase);
+    text-transform: uppercase;
+    color: var(--colour-text-strong);
+  }
+}
+
+.hamburger-button-wrapper {
+  grid-column: 4 / span 1;
+  justify-self: center;
+  align-self: stretch;
+  display: flex;
+
+  .hamburger-button {
+    display: none !important;
+
+    @include respond(mobile) {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: $scale-xs-2;
+      background: none;
+      border: none;
+      z-index: 1200;
+      padding: var(--gap) 0;
+      width: $scale-xl;
+
+      .line {
+        width: 100%;
+        height: $scale-xs-2;
+        background-color: var(--colour-text-weak);
+        border-radius: $corner-radius-2;
+        transition: background-color $time;
+      }
+    }
+  }
+}
+
+.sidebar-contents {
+  flex-grow: 1;
+  display: flex;
+
+  @include respond(mobile) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap);
+    background: transparent;
+    backdrop-filter: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: all $time;
+  }
+}
+
+.sidebar-contents-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  @include respond(mobile) {
+    grid-column: 1 / span 3;
+    background: $background-alternate;
+    transform: translateX(-100%);
+    transition: all $time;
+    padding: $scale-xl-7 var(--gap);
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  
+    @include respond(mobile) {
+      justify-content: center;
+    }
+  
+    & > ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: $scale-xs;
+  
+      @include respond(mobile) {
+        gap: var(--gap);
+      }
+  
+      & > li {
+        padding-bottom: 0;
+  
+        @include respond(tablet) {
+          padding-bottom: $scale-sm;
+        }
+  
+        & > a {
+          box-sizing: border-box;
+          text-decoration: none;
+          color: var(--colour-text-strong);
+          font-size: get-typography(paragraph);
+          padding: $scale-sm;
+          display: block;
+          border: $scale-xs-4 solid rgba(255, 255, 255, 0);
+          border-radius: $corner-radius-2;
+          transition: all $time, color $time;
+
+          @include respond(tablet) {
+              border: none;
+            }
+  
+          &:hover {
+            background-color: $fill-hover;
+            color: var(--colour-text-weak);
+            border: $scale-xs-4 solid $stroke-weak;
+  
+            @include respond(tablet) {
+              background: none;
+              color: var(--colour-text-strong);
+              border: none;
+            }
+          }
+  
+          &.active {
+            color: var(--colour-text-strong);
+            font-weight: 700;
+          }
+  
+          @include respond(tablet) {
+            font-size: get-typography(paragraph);
+            font-weight: $font-weight-weak;
+            padding: 0;
+          }
+  
+          @include respond(mobile) {
+            font-size: get-typography(heading-3);
+            font-weight: $font-weight-weak;
+          }
+        }
+      }
+    }
+  }
+  
+  footer {
+    
+    color: $text-weak;
+    display: flex;
+    flex-direction: column;
+    gap: $scale-root;
+    padding-bottom: var(--container-padding);
+  
+    @include respond(mobile) {
+      padding-bottom: 0;
+    }
+  
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: $scale-sm;
+  
+      .social-icon {
+        @include respond(mobile) {
+          width: $scale-xl;
+          height: $scale-xl;
+        }
+      }
+    }
+  }
+}

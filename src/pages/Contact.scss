@@ -1,0 +1,61 @@
+@use '../styles/base' as *;
+
+.contact {
+    grid-column-end: 8;
+    display: flex; 
+    flex-direction: column;
+    gap: var(--gap);
+
+    @include respond(tablet) {
+        grid-column-end: 6;
+    }
+
+    @include respond(mobile) {
+        padding-left: var(--gap);
+        padding-right: var(--gap);
+    }
+
+    & > * {
+        @include respond (mobile) {
+            align-self: center;
+        }
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap);
+        
+        .form-row {
+            width: 100%;              
+            display: grid;
+            grid-template-columns: 1fr 1fr; 
+            gap: var(--gap);
+
+            @include respond(tablet) {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+          
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-self: stretch;
+        }
+
+        @include respond(mobile) {
+            justify-self: stretch;
+        }
+    }
+
+    button {
+        align-self: start;
+
+        @include respond(mobile) {
+            justify-self: stretch;
+            align-self: stretch;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+@use '../../../styles/base' as *;
+
+.spinner {
+  width: $scale-xl-2;
+  height: $scale-xl-2;
+  border: $scale-xs solid var(--colour-fill-weak);
+  border-top: $scale-xs solid var(--colour-fill-strong);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

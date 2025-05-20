@@ -1,0 +1,135 @@
+@use '../../../styles/base' as *;
+
+.text-link {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: $scale-xs;
+    text-decoration: none;
+    border-radius: $scale-xs-3;
+    transition: all $time;
+
+    &:hover {
+
+        svg {
+            width: $scale-md;
+        }
+
+    }
+
+    &:focus-visible { 
+        outline: $scale-xs-3 solid $stroke-focus;
+        outline-offset: $scale-xs-2;
+    }
+  
+    &:hover:not(.disabled) {
+        text-decoration: underline;
+        gap: $scale-sm;
+    }
+
+   svg {
+        display: flex;
+        width: $scale-md;
+        align-items: center;
+        flex-shrink: 0;
+    }
+
+    &.tone-default {
+        color: $text-brand;
+
+        & > svg {
+            color: $icon-brand;
+        }
+    }
+
+    &.tone-neutral-strong {
+        color: $text-strong;
+
+        & > svg {
+            color: $icon-neutral;
+        }
+    }
+
+    &.tone-neutral-weak {
+        color: $text-weak;
+
+        & > svg {
+            color: $icon-neutral;
+        }
+    }
+
+    &.tone-destructive {
+        color: $text-error;
+
+        & > svg {
+            color: $icon-error;
+        }
+    }
+
+    &.tone-inverse-strong {
+        color: $text-inverse-strong;
+
+        & > svg {
+            color: $icon-inverse-strong;
+        }
+    }
+
+    &.tone-inverse-weak {
+        color: $text-inverse-weak;
+
+        & > svg {
+            color: $icon-inverse;
+        }
+    }
+
+    &.tone-default, &.tone-neutral-strong, &.tone-neutral-weak, &.tone-destructive {
+        
+        &.disabled {
+          
+          color: $text-disabled;
+          
+          & > svg {
+            color: $icon-disabled;
+          }
+
+        }
+      }
+
+    &.tone-inverse-strong, &.tone-inverse-weak {
+
+        &.disabled {
+
+            color: $text-inverse-disabled;
+    
+            & > svg {
+                color: $icon-inverse-disabled;
+            }
+    
+        }
+    } 
+
+    &.size-small {
+        font-size: get-typography(paragraph);
+    }
+    
+    &.size-tiny {
+        font-size: get-typography(text-small);
+    }
+
+    &.weight-bold {
+        font-weight: $font-weight-strong;
+    }
+
+    &.underline {
+        text-decoration: underline;
+        
+        &:hover:not(.disabled) {
+            text-decoration: none;
+        }
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
+  
+}

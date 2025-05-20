@@ -1,0 +1,32 @@
+@use "./breakpoints" as breakpoint;
+@use "./scale" as scale;
+
+:root {
+  --gap: #{scale.$scale-xl};
+  --container-padding: #{scale.$scale-xl-8};
+}
+
+@include breakpoint.respond(tablet) {
+  :root {
+    --gap: #{scale.$scale-xl-2};
+    --container-padding: #{scale.$scale-xl-4};
+  }
+}
+
+@include breakpoint.respond(mobile-wide) {
+  :root {
+    --gap: #{scale.$scale-xl};
+    --container-padding: #{scale.$scale-xl};
+  }
+}
+
+@include breakpoint.respond(mobile) {
+  :root {
+    --gap: #{scale.$scale-xl};
+    --container-padding: #{scale.$scale-xl};
+  }
+}
+
+body , #root, main, section {
+  gap: var(--gap);
+}

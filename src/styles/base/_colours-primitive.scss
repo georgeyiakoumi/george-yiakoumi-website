@@ -2,43 +2,152 @@
 
 // Hues
 
-///Brand
-$brand-hue: 230;
-$brand-saturation: 65;
-$brand-blackness: 85;
+/// Blue
+$blue-hue: 230;
+$blue-light-saturation: 65%;
+$blue-light-lightness: 57%;
+$blue-dark-saturation: 100%;
+$blue-dark-lightness: 82%;
 
-///Red
+/// Red
 $red-hue: 0;
-$red-light-saturation: 71;
-$red-light-blackness: 78;
+$red-light-saturation: 56%;
+$red-light-lightness: 50%;
+$red-dark-saturation: 100%;
+$red-dark-lightness: 81%;
 
-// Because SASS Doesn't support HSBA, this function converts it to HSL.
-@function hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, $alpha: 1) {
-    $lightness: 100% - ($brand-blackness / 2);
-    @return hsla($brand-hue, $brand-saturation, $lightness, $alpha);
-  }
+/// Amber
+$amber-hue: 42;
+$amber-light-saturation: 69%;
+$amber-light-lightness: 33%;
+$amber-dark-saturation: 64%;
+$amber-dark-lightness: 66%;
+
+/// Green
+$green-hue: 162;
+$green-light-saturation: 91%;
+$green-light-lightness: 25%;
+$green-dark-saturation: 41%;
+$green-dark-lightness: 62%;
+
+/// Teal
+$teal-hue: 202;
+$teal-light-saturation: 73%;
+$teal-light-lightness: 38%;
+$teal-dark-saturation: 67%;
+$teal-dark-lightness: 70%;
+
+/// Purple
+$purple-hue: 265;
+$purple-light-saturation: 57%;
+$purple-light-lightness: 54%;
+$purple-dark-saturation: 100%;
+$purple-dark-lightness: 85%;
+
+/// Yellow
+$yellow-solid-1000: #FEC62E;
+
+
+// Solid
+
+/// Grey Slate
+
+$grey-slate-solid-1000: #000000;
+$grey-slate-solid-900: #12131A;
+$grey-slate-solid-850: #1D1E26;
+$grey-slate-solid-800: #292B33;
+$grey-slate-solid-50: #F5F6FA;
+$grey-slate-solid-0: #FFFFFF;
+
+/// Grey Neutral
+
+$grey-neutral-solid-1000: #000000;
+$grey-neutral-solid-900: #1A1A1A;
+$grey-neutral-solid-850: #262626;
+$grey-neutral-solid-800: #333333;
+$grey-neutral-solid-50: #F7F7F7;
+$grey-neutral-solid-0: #FFFFFF;
+
 
 // Transparent
 
-///Grey
+/// Grey Neutral
 
-$grey-light-1000: hsba-to-hsla($brand-hue, 100, 15%, 0.9);
-$grey-light-700: hsba-to-hsla($brand-hue, 100, 20%, 0.65);
-$grey-light-500: hsba-to-hsla($brand-hue, 100, 30%, 0.45);
-$grey-light-100: hsba-to-hsla($brand-hue, 100, 40%, 0.10);
-$grey-light-50: hsba-to-hsla($brand-hue, 100, 50%, 0.04);
-$grey-light-25: hsba-to-hsla($brand-hue, 100, 50%, 0.02);
+$grey-neutral-light-1000: hsla(0, 0, 0, 0.9);
+$grey-neutral-light-700: hsla(0, 0, 0, 0.6);
+$grey-neutral-light-500: hsla(0, 0, 0, 0.45);
+$grey-neutral-light-100: hsla(0, 0, 0, 0.1);
+$grey-neutral-light-50: hsla(0, 0, 0, 0.04);
+$grey-neutral-light-25: hsla(0, 0, 0, 0.02);
+$grey-neutral-dark-1000: hsla(0, 0, 100, 1);
+$grey-neutral-dark-700: hsla(0, 0, 100, 0.78);
+$grey-neutral-dark-500: hsla(0, 0, 100, 0.6);
+$grey-neutral-dark-100: hsla(0, 0, 100, 0.12);
+$grey-neutral-dark-50: hsla(0, 0, 100, 0.06);
+$grey-neutral-dark-25: hsla(0, 0, 100, 0.03);
 
-///Brand
+/// Red
 
-$brand-light-1000: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 1);
-$brand-light-800: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.8);
-$brand-light-200: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.2);
-$brand-light-50: hsba-to-hsla($brand-hue, $brand-saturation, $brand-blackness, 0.05);
+$red-light-1000: hsla($red-hue, $red-light-saturation, $red-light-lightness, 1);
+$red-light-800: hsla($red-hue, $red-light-saturation, $red-light-lightness, 0.8);
+$red-light-200: hsla($red-hue, $red-light-saturation, $red-light-lightness, 0.14);
+$red-light-50: hsla($red-hue, 100%, 65%, 0.05);
+$red-dark-1000: hsla($red-hue, $red-dark-saturation, $red-dark-lightness, 1);
+$red-dark-800: hsla($red-hue, $red-dark-saturation, $red-dark-lightness, 0.8);
+$red-dark-200: hsla($red-hue, $red-dark-saturation, $red-dark-lightness, 0.14);
+$red-dark-50: hsla($red-hue, $red-dark-saturation, $red-dark-lightness, 0.08);
 
-///Red
+/// Amber
 
-$red-light-1000: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 1);
-$red-light-800: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.8);
-$red-light-200: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.14);
-$red-light-50: hsba-to-hsla($red-hue, $red-light-saturation, $red-light-blackness, 0.05);
+$amber-light-1000: hsla($amber-hue, $amber-light-saturation, $amber-light-lightness, 1);
+$amber-light-800: hsla($amber-hue, $amber-light-saturation, $amber-light-lightness, 0.8);
+$amber-light-200: hsla($amber-hue, $amber-light-saturation, $amber-light-lightness, 0.2);
+$amber-light-50: hsla($amber-hue, 100%, 59%, 0.05);
+$amber-dark-1000: hsla($amber-hue, $amber-dark-saturation, $amber-dark-lightness, 1);
+$amber-dark-800: hsla($amber-hue, $amber-dark-saturation, $amber-dark-lightness, 0.8);
+$amber-dark-200: hsla($amber-hue, $amber-dark-saturation, $amber-dark-lightness, 0.2);
+$amber-dark-50: hsla($amber-hue, $amber-dark-saturation, $amber-dark-lightness, 0.08);
+
+/// Green
+
+$green-light-1000: hsla($green-hue, $green-light-saturation, $green-light-lightness, 1);
+$green-light-800: hsla($green-hue, $green-light-saturation, $green-light-lightness, 0.8);
+$green-light-200: hsla($green-hue, $green-light-saturation, $green-light-lightness, 0.2);
+$green-light-50: hsla($green-hue, $green-light-saturation, 42%, 0.05);
+$green-dark-1000: hsla($green-hue, $green-dark-saturation, $green-dark-lightness, 1);
+$green-dark-800: hsla($green-hue, $green-dark-saturation, $green-dark-lightness, 0.8);
+$green-dark-200: hsla($green-hue, $green-dark-saturation, $green-dark-lightness, 0.2);
+$green-dark-50: hsla($green-hue, $green-dark-saturation, $green-dark-lightness, 0.08);
+
+/// Teal
+
+$teal-light-1000: hsla($teal-hue, $teal-light-saturation, $teal-light-lightness, 1);
+$teal-light-800: hsla($teal-hue, $teal-light-saturation, $teal-light-lightness, 0.8);
+$teal-light-200: hsla($teal-hue, $teal-light-saturation, $teal-light-lightness, 0.2);
+$teal-light-50: hsla($teal-hue, 100%, 58%, 0.05);
+$teal-dark-1000: hsla($teal-hue, $teal-dark-saturation, $teal-dark-lightness, 1);
+$teal-dark-800: hsla($teal-hue, $teal-dark-saturation, $teal-dark-lightness, 0.8);
+$teal-dark-200: hsla($teal-hue, $teal-dark-saturation, $teal-dark-lightness, 0.2);
+$teal-dark-50: hsla($teal-hue, $teal-dark-saturation, $teal-dark-lightness, 0.08);
+
+/// Purple
+
+$purple-light-1000: hsla($purple-hue, $purple-light-saturation, $purple-light-lightness, 1);
+$purple-light-800: hsla($purple-hue, $purple-light-saturation, $purple-light-lightness, 0.8);
+$purple-light-200: hsla($purple-hue, $purple-light-saturation, $purple-light-lightness, 0.2);
+$purple-light-50: hsla($purple-hue, $purple-light-saturation, $purple-light-lightness, 0.05);
+$purple-dark-1000: hsla($purple-hue, $purple-dark-saturation, $purple-dark-lightness, 1);
+$purple-dark-800: hsla($purple-hue, $purple-dark-saturation, $purple-dark-lightness, 0.8);
+$purple-dark-200: hsla($purple-hue, $purple-dark-saturation, $purple-dark-lightness, 0.2);
+$purple-dark-50: hsla($purple-hue, $purple-dark-saturation, $purple-dark-lightness, 0.05);
+
+/// Blue
+
+$blue-light-1000: hsla($blue-hue, $blue-light-saturation, $blue-light-lightness, 1);
+$blue-light-800: hsla($blue-hue, $blue-light-saturation, $blue-light-lightness, 0.8);
+$blue-light-200: hsla($blue-hue, $blue-light-saturation, $blue-light-lightness, 0.2);
+$blue-light-50: hsla($blue-hue, 100%, 67%, 0.05);
+$blue-dark-1000: hsla($blue-hue, $blue-dark-saturation, $blue-dark-lightness, 1);
+$blue-dark-800: hsla($blue-hue, $blue-dark-saturation, $blue-dark-lightness, 0.8);
+$blue-dark-200: hsla($blue-hue, $blue-dark-saturation, $blue-dark-lightness, 0.2);
+$blue-dark-50: hsla($blue-hue, $blue-dark-saturation, $blue-dark-lightness, 0.06);

@@ -1,131 +1,155 @@
-// _typography.scss
+@use "sass:map";
+@use "./scale" as scale;
+@use "./breakpoints" as breakpoint;
+@use "./colours-semantic" as semantic;
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 
-@use "./scale";
+/// Font Families
+$font-family-heading: Mulish;
+$font-family-body: Mulish;
 
-///Font Families
+/// Font Weights
+$font-weight-strong: 600;
+$font-weight-weak: 400;
 
-$font-family-heading: Merriweather;
-$font-family-body: Lato;
-
-///Font Families
-
-$font-weight-strong: 'Semi Bold';
-$font-weight-weak: Regular;
-
-// maps
-
-// Breakpoints
-$breakpoints: (
-  small: 480px,
-  medium: 768px,
-  large: 1024px,
-  xlarge: 1440px
-);
+body {
+  font-family: $font-family-body;
+}
 
 // Typography map
 $typography: (
   heading-1: (
     small: (font-size: 2.25rem, line-height: 2.75rem),
-    xlarge: (font-size: 2.5rem, line-height: 3rem)
+    desktop: (font-size: 2.5rem, line-height: 3rem)
   ),
   heading-2: (
     small: (font-size: 1.75rem, line-height: 2.25rem),
-    xlarge: (font-size: 2rem, line-height: 2.5rem)
+    desktop: (font-size: 2rem, line-height: 2.5rem)
   ),
   heading-3: (
-    xlarge: (font-size: 1.5rem, line-height: 3rem)
+    desktop: (font-size: 1.5rem, line-height: 2rem)
   ),
   heading-4: (
-    xlarge: (font-size: 2.5rem, line-height: 3rem)
+    desktop: (font-size: 1.25rem, line-height: 1.75rem)
   ),
   heading-5: (
-    xlarge: (font-size: 2.5rem, line-height: 3rem)
+    desktop: (font-size: 2.5rem, line-height: 3rem)
   ),
   heading-6: (
-    xlarge: (font-size: 2.5rem, line-height: 3rem)
+    desktop: (font-size: 2.5rem, line-height: 3rem)
   ),
   paragraph: (
-    xlarge: (font-size: 1rem, line-height: 1.5rem)
+    desktop: (font-size: 1rem, line-height: 1.5rem)
   ),
   text-small: (
-    xlarge: (font-size: 0.875rem, line-height: 1.25rem)
+    desktop: (font-size: 0.875rem, line-height: 1.25rem)
   ),
   text-uppercase: (
-    xlarge: (font-size: 0.875rem, line-height: 1.25rem, text-transform: uppercase)
+    desktop: (font-size: 0.875rem, line-height: 1.25rem)
   ),
   text-display: (
     small: (font-size: 2.5rem, line-height: 3rem),
-    xlarge: (font-size: 3.5rem, line-height: 4rem)
+    desktop: (font-size: 3.5rem, line-height: 4rem)
   )
-
 );
 
-@mixin responsive-typography($element, $font-family: null, $font-weight: null) {
-  // Apply font-family if provided
+@function get-typography($key, $breakpoint: desktop, $property: font-size) {
+  @return map.get(map.get(map.get($typography, $key), $breakpoint), $property);
+}
+
+@mixin responsive-typography($element, $font-family: null, $font-weight: null, $color: null) {
+  margin: 0;
+  
   @if $font-family != null {
     font-family: $font-family;
-  }
-  
-  // Apply font-weight if provided
+  }  
+
   @if $font-weight != null {
     font-weight: $font-weight;
   }
 
-  // Loop through each breakpoint in the map
-  @each $breakpoint, $styles in map-get($typography, $element) {
-    @if $breakpoint == small {
-      font-size: map-get($styles, font-size);
-      line-height: map-get($styles, line-height);
-    } @else {
-      @media (min-width: map-get($breakpoints, $breakpoint)) {
-        font-size: map-get($styles, font-size);
-        line-height: map-get($styles, line-height);
-      }
-    }
+  @if $color != null {
+    color: $color;
+  }
+
+  $element-typography: map.get($typography, $element);
+  $styles-small: map.get($element-typography, small);
+  $styles-desktop: map.get($element-typography, desktop);
+  
+
+  @if $styles-small == null {
+    font-size: map.get($styles-desktop, font-size);
+    line-height: map.get($styles-desktop, line-height);
+  } @else {
+    font-size: map.get($styles-small, font-size);
+    line-height: map.get($styles-small, line-height);
+  }
+
+  @media (min-width: map.get(breakpoint.$breakpoints, desktop)) {
+    font-size: map.get($styles-desktop, font-size);
+    line-height: map.get($styles-desktop, line-height);
   }
 }
 
-
 h1 {
-  @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 h2 {
-  @include responsive-typography(heading-2, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-2, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 h3 {
-  @include responsive-typography(heading-3, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-3, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 h4 {
-  @include responsive-typography(heading-4, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-4, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 h5 {
-  @include responsive-typography(heading-5, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-5, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 h6 {
-  @include responsive-typography(heading-6, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(heading-6, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
 p {
-  @include responsive-typography(paragraph, $font-family-body, $font-weight-weak);
+  @include responsive-typography(paragraph, $font-family-body, $font-weight-weak, semantic.$text-weak);
 }
 
 small {
-  @include responsive-typography(text-small, $font-family-body, $font-weight-weak);
+  @include responsive-typography(text-small, $font-family-body, $font-weight-weak, semantic.$text-weak);
+}
+
+.large {
+  @include responsive-typography(heading-4, $font-family-body, $font-weight-weak, semantic.$text-weak);
 }
 
 .uppercase {
-  @include responsive-typography(text-uppercase, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(text-uppercase, $font-family-heading, $font-weight-weak, semantic.$text-strong);
+  text-transform: uppercase;
 }
 
 .display {
-  @include responsive-typography(text-display, $font-family-heading, $font-weight-strong);
+  @include responsive-typography(text-display, $font-family-heading, $font-weight-strong, semantic.$text-strong);
 }
 
-body {
-  font-family: $font-family-body;
+ul {
+  margin: 0;
+}
+
+li {
+  @include responsive-typography(paragraph);
+  padding-bottom: scale.$scale-sm;
+}
+
+a {
+  color: semantic.$text-brand;
+  
+  &:hover {
+    text-decoration: none;
+  }
+  
 }

@@ -1,0 +1,51 @@
+@use 'colours-semantic.scss' as semantic;
+@use 'scale.scss' as scale;
+@use 'typography.scss' as typography;
+@use 'breakpoints.scss' as breakpoints;
+@use 'transitions.scss' as transition;
+  
+label {
+  font-size: typography.get-typography(text-small);
+  color: semantic.$text-strong;
+  margin-bottom: scale.$scale-xs;
+}
+  
+input, textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-size: typography.get-typography(paragraph);
+  color: semantic.$text-strong;
+  padding: scale.$scale-root;
+  border: scale.$scale-xs-4 solid semantic.$stroke-strong;
+  background-color: semantic.$fill-inverse-strong;
+  border-radius: scale.$corner-radius-2;
+  transition: background-color transition.$time;
+
+  &:hover {
+    background-color: semantic.$fill-hover;
+  }
+
+  &:active {
+    background-color: semantic.$fill-press;
+  }
+  
+}
+
+textarea {
+  resize: none;
+}
+  
+input:focus, textarea:focus {
+  outline: none;
+  border-color: semantic.$stroke-strong;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.5);
+}
+
+.form-success {
+  color: semantic.$text-success;
+}
+
+.form-error {
+  color: semantic.$text-error;
+}

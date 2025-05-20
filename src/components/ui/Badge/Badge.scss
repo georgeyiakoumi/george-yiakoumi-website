@@ -1,0 +1,57 @@
+@use '../../../styles/base' as *;
+
+.badge {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    border: $scale-xs-4 solid $stroke-weak;
+    background-color: $fill-weak;
+    color: $text-weak;
+    border-radius: $corner-radius-full;
+    padding: 0 $scale-xs;
+
+    svg {
+        color: $icon-neutral;
+    }
+
+    span {
+        padding: 0 $scale-xs-2;
+    }
+
+    &.medium {
+        height: $scale-xl;
+
+        svg {
+            width: $scale-lg;
+        }
+
+    }
+
+    &.small {
+        height: $scale-lg;
+
+        svg {
+            width: $scale-root;
+        }
+    }
+
+    &.success {
+        border: $scale-xs-4 solid $stroke-success-weak;
+        background-color: $fill-success-weak;
+        color: $text-success;
+
+        svg {
+            color: $icon-success;    
+        }
+    }
+
+    &.warning {
+        border: $scale-xs-4 solid $stroke-warning-weak;
+        background-color: $fill-warning-weak;
+        color: $text-warning;
+
+        svg {
+            color: $icon-warning;    
+        }
+    }
+}

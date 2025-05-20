@@ -1,0 +1,115 @@
+@use '../../../styles/base' as *;
+
+.tag-dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: $scale-xs;
+  align-items: center;
+
+  .selected-tags {
+    height: $scale-xl-3;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $scale-xs;
+    padding: 0 $scale-root;
+    border: $scale-xs-4 solid $stroke-brand-strong;
+    background-color: $fill-inverse-strong;
+    border-radius: $corner-radius-2;
+    box-shadow: $elevation-raised;
+    cursor: pointer;
+    overflow: visible;
+    position: relative;
+
+    .placeholder {
+      color: var(--colour-text-brand);
+      font-size: get-typography(paragraph);
+      font-weight: $font-weight-strong;
+    }
+
+    .tags-wrapper {
+      display: flex;
+      align-items: center;
+      gap: $scale-xs-2;
+      flex-wrap: wrap;
+      overflow: visible;
+    }
+
+    .arrow {
+      color: $icon-brand;
+      width: $scale-md;
+      height: $scale-md;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform $time;
+    
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+  
+    .clear-all {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--colour-accent);
+      font-size: 0.8rem;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+
+  .tag-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: $scale-xl-10;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: $scale-xs;
+    background: $background-overlay;
+    box-shadow: $elevation-overlay;
+    border: $scale-xs-4 solid $stroke-brand-weak;
+    border-radius: $corner-radius-2;
+    padding: $scale-xs $scale-xs-4;
+    z-index: 9999;
+
+    .tag-option {
+      display: flex;
+      align-items: center;
+      gap: $scale-sm;
+
+       .checkbox {
+        padding: $scale-sm $scale-root;
+        cursor: pointer;
+        flex-grow: 1;
+      }
+
+      input[type='checkbox'] {
+        width: $scale-lg;
+        height: $scale-lg;
+        background-color: $fill-inverse-strong;
+
+        &:checked {
+          background: $fill-overlay;
+          border-color: $stroke-brand-strong;
+        }
+      }
+
+      .custom-checkbox {
+        width: 1rem;
+        height: 1rem;
+        border: 2px solid var(--colour-border);
+        border-radius: 4px;
+        background: transparent;
+        flex-shrink: 0;
+      }
+    }
+  }
+}

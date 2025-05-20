@@ -1,0 +1,80 @@
+@use '../styles/base' as *;
+
+.details {
+    grid-column-end: main-end;
+    grid-template-columns: repeat(10, 1fr);
+    padding-right: var(--gap);
+
+    @include respond(tablet) {
+        grid-column: 1 / span 6;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @include respond(mobile) {
+        grid-column: 1 / span 9;
+        padding: $scale-lg;
+    }
+
+    & > header {
+        grid-column: 1 / span 8;
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap); 
+
+        @include respond(tablet) {
+            
+            gap: $scale-root;
+            display: flex;
+        }
+    }
+
+    .details-content {
+        grid-column: 1 / span 8;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-self: stretch;
+        gap: var(--gap);
+
+        @include respond(tablet) {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: $scale-root;
+        }
+
+        .details-container {
+            justify-self: stretch;
+            align-self: stretch;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: var(--gap);
+            @include container;
+
+            > svg {
+                width: $scale-xl-3;
+                min-width: $scale-xl-3;
+                height: auto;
+            }
+
+            header {
+                display: flex;
+                align-items: center;
+                gap: $scale-sm;
+
+                h2 {
+                    font-size: get-typography(heading-3);
+                }
+                
+            }
+
+            p {
+                font-size: get-typography(text-small) !important;
+            }
+            
+        }
+
+    }
+
+}

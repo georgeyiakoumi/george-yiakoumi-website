@@ -1,0 +1,210 @@
+@use "./colours-primitive" as primitive;
+@use "./brand" as brand;
+
+// Grey Slate
+$grey-slate-light-1000: hsla(brand.$brand-hue, 100, 8, 0.9);
+$grey-slate-light-700: hsla(brand.$brand-hue, 100, 10, 0.65);
+$grey-slate-light-500: hsla(brand.$brand-hue, 100, 15, 0.45);
+$grey-slate-light-100: hsla(brand.$brand-hue, 100n, 20, 0.1);
+$grey-slate-light-50: hsla(brand.$brand-hue, 100, 25, 0.04);
+$grey-slate-light-25: hsla(brand.$brand-hue, 100, 25, 0.02);
+
+// Grey Solid
+$grey-solid-1000: primitive.$grey-slate-solid-1000;
+$grey-solid-900: primitive.$grey-slate-solid-900;
+$grey-solid-850: primitive.$grey-slate-solid-850;
+$grey-solid-800: primitive.$grey-slate-solid-800;
+$grey-solid-50: primitive.$grey-slate-solid-50;
+$grey-solid-0: primitive.$grey-slate-solid-0;
+
+// Grey Light
+$grey-light-1000: primitive.$grey-neutral-light-1000;
+$grey-light-700: primitive.$grey-neutral-light-700;
+$grey-light-500: primitive.$grey-neutral-light-500;
+$grey-light-100: primitive.$grey-neutral-light-100;
+$grey-light-50: primitive.$grey-neutral-light-50;
+$grey-light-25: primitive.$grey-neutral-light-25;
+
+// Grey Dark
+$grey-dark-1000: primitive.$grey-neutral-dark-1000;
+$grey-dark-700: primitive.$grey-neutral-dark-700;
+$grey-dark-500: primitive.$grey-neutral-dark-500;
+$grey-dark-100: primitive.$grey-neutral-dark-100;
+$grey-dark-50: primitive.$grey-neutral-dark-50;
+$grey-dark-25: primitive.$grey-neutral-dark-25;
+
+:root {
+  /* Light Theme */
+
+    --varColor: var(--colour-icon-neutral);
+
+  /* Text */
+  --colour-text-strong: #{$grey-light-1000};
+  --colour-text-weak: #{$grey-light-700};
+  --colour-text-brand: #{brand.$brand-light-1000};
+  --colour-text-disabled: #{$grey-light-100};
+  --colour-text-error: #{primitive.$red-light-1000};
+  --colour-text-warning: #{primitive.$amber-light-1000};
+  --colour-text-success: #{primitive.$green-light-1000};
+  --colour-text-information: #{primitive.$teal-light-1000};
+  --colour-text-inverse-strong: #{$grey-dark-1000};
+  --colour-text-inverse-weak: #{$grey-dark-700};
+  --colour-text-inverse-disabled: #{$grey-dark-100};
+
+  /* Background */
+  --colour-background-base: #{$grey-solid-0};
+  --colour-background-raised: #{$grey-solid-0};
+  --colour-background-overlay: #{$grey-solid-0};
+  --colour-background-sunken: #{$grey-solid-50};
+  --colour-background-alternate: #{$grey-solid-50};
+  --colour-background-brand: #{brand.$brand-light-1000};
+  --colour-background-inverse: #{$grey-solid-900};
+
+  /* Stroke */
+  --colour-stroke-strong: #{$grey-light-500};
+  --colour-stroke-weak: #{$grey-light-100};
+  --colour-stroke-selected: #{brand.$brand-light-1000};
+  --colour-stroke-focus: #{brand.$brand-light-1000};
+  --colour-stroke-disabled: #{$grey-light-100};
+  --colour-stroke-brand-strong: #{brand.$brand-light-800};
+  --colour-stroke-brand-weak: #{brand.$brand-light-200};
+  --colour-stroke-error-strong: #{primitive.$red-light-800};
+  --colour-stroke-error-weak: #{primitive.$red-light-200};
+  --colour-stroke-warning-strong: #{primitive.$amber-light-800};
+  --colour-stroke-warning-weak: #{primitive.$amber-light-200};
+  --colour-stroke-success-strong: #{primitive.$green-light-800};
+  --colour-stroke-success-weak: #{primitive.$green-light-200};
+  --colour-stroke-information-strong: #{primitive.$teal-light-800};
+  --colour-stroke-information-weak: #{primitive.$teal-light-200};
+  --colour-stroke-inverse-strong: #{$grey-dark-500};
+  --colour-stroke-inverse-weak: #{$grey-dark-100};
+  --colour-stroke-inverse-disabled: #{$grey-dark-100};
+
+  /* Icon */
+  --colour-icon-neutral: #{$grey-light-500};
+  --colour-icon-brand: #{brand.$brand-light-800};
+  --colour-icon-disabled: #{$grey-light-100};
+  --colour-icon-error: #{primitive.$red-light-800};
+  --colour-icon-warning: #{primitive.$amber-light-800};
+  --colour-icon-success: #{primitive.$green-light-800};
+  --colour-icon-information: #{primitive.$teal-light-800};
+  --colour-icon-inverse: #{$grey-dark-500};
+  --colour-icon-inverse-strong: #{$grey-dark-1000};
+  --colour-icon-inverse-disabled: #{$grey-dark-100};
+
+  /* Fill */
+
+  --colour-fill-strong: #{$grey-light-1000};
+  --colour-fill-weak: #{$grey-light-50};
+  --colour-fill-weaker: #{$grey-light-25};
+  --colour-fill-hover: #{$grey-light-50};
+  --colour-fill-press: #{$grey-light-100};
+  --colour-fill-selected: #{brand.$brand-light-1000};
+  --colour-fill-disabled: #{$grey-light-100};
+  --colour-fill-overlay: #{$grey-light-500};
+  --colour-fill-brand-strong: #{brand.$brand-light-1000};
+  --colour-fill-brand-weak: #{brand.$brand-light-50};
+  --colour-fill-error-strong: #{primitive.$red-light-1000};
+  --colour-fill-error-weak: #{primitive.$red-light-50};
+  --colour-fill-warning-strong: #{primitive.$amber-light-1000};
+  --colour-fill-warning-weak: #{primitive.$amber-light-50};
+  --colour-fill-success-strong: #{primitive.$green-light-1000};
+  --colour-fill-success-weak: #{primitive.$green-light-50};
+  --colour-fill-information-strong: #{primitive.$teal-light-1000};
+  --colour-fill-information-weak: #{primitive.$teal-light-50};
+  --colour-fill-inverse-strong: #{$grey-solid-0};
+  --colour-fill-inverse-weak: #{$grey-dark-50};
+  --colour-fill-inverse-hover: #{$grey-dark-50};
+  --colour-fill-inverse-press: #{$grey-dark-100};
+  --colour-fill-inverse-disabled: #{$grey-dark-100};
+  --colour-fill-white: #{$grey-solid-0};
+  --colour-fill-yellow: #{primitive.$yellow-solid-1000};
+}
+  
+[data-theme="dark"] {
+  /* Dark Theme */
+
+  --varColor: var(--colour-icon-brand);
+
+  /* Text */
+  --colour-text-strong: #{$grey-dark-1000};
+  --colour-text-weak: #{$grey-dark-700};
+  --colour-text-brand: #{brand.$brand-dark-1000};
+  --colour-text-disabled: #{$grey-dark-100};
+  --colour-text-error: #{primitive.$red-dark-1000};
+  --colour-text-warning: #{primitive.$amber-dark-1000};
+  --colour-text-success: #{primitive.$green-dark-1000};
+  --colour-text-information: #{primitive.$teal-dark-1000};
+  --colour-text-inverse-strong: #{$grey-light-1000};
+  --colour-text-inverse-weak: #{$grey-light-700};
+  --colour-text-inverse-disabled: #{$grey-light-100};
+
+  /* Background */
+  --colour-background-base: #{$grey-solid-900};
+  --colour-background-raised: #{$grey-solid-850};
+  --colour-background-overlay: #{$grey-solid-800};
+  --colour-background-sunken: #{$grey-solid-1000};
+  --colour-background-alternate: #{$grey-solid-850};
+  --colour-background-brand: #{brand.$brand-dark-1000};
+  --colour-background-inverse: #{$grey-solid-0};
+
+  /* stroke */
+  --colour-stroke-strong: #{$grey-dark-500};
+  --colour-stroke-weak: #{$grey-dark-100};
+  --colour-stroke-selected: #{brand.$brand-dark-1000};
+  --colour-stroke-focus: #{brand.$brand-dark-1000};
+  --colour-stroke-disabled: #{$grey-dark-100};
+  --colour-stroke-brand-strong: #{brand.$brand-dark-800};
+  --colour-stroke-brand-weak: #{brand.$brand-dark-200};
+  --colour-stroke-error-strong: #{primitive.$red-dark-800};
+  --colour-stroke-error-weak: #{primitive.$red-dark-200};
+  --colour-stroke-warning-strong: #{primitive.$amber-dark-800};
+  --colour-stroke-warning-weak: #{primitive.$amber-dark-200};
+  --colour-stroke-success-strong: #{primitive.$green-dark-800};
+  --colour-stroke-success-weak: #{primitive.$green-dark-200};
+  --colour-stroke-information-strong: #{primitive.$teal-dark-800};
+  --colour-stroke-information-weak: #{primitive.$teal-dark-200};
+  --colour-stroke-inverse-strong: #{$grey-light-500};
+  --colour-stroke-inverse-weak: #{$grey-light-100};
+  --colour-stroke-inverse-disabled: #{$grey-light-100};
+
+  /* icon */
+  --colour-icon-neutral: #{$grey-dark-500};
+  --colour-icon-brand: #{brand.$brand-dark-800};
+  --colour-icon-disabled: #{$grey-dark-100};
+  --colour-icon-error: #{primitive.$red-dark-800};
+  --colour-icon-warning: #{primitive.$amber-dark-800};
+  --colour-icon-success: #{primitive.$green-dark-800};
+  --colour-icon-information: #{primitive.$teal-dark-800};
+  --colour-icon-inverse: #{$grey-light-500};
+  --colour-icon-inverse-strong: #{$grey-light-1000};
+  --colour-icon-inverse-disabled: #{$grey-light-100};
+
+   /* Fill */
+
+   --colour-fill-strong: #{$grey-dark-1000};
+   --colour-fill-weak: #{$grey-dark-50};
+   --colour-fill-weaker: #{$grey-dark-25};
+   --colour-fill-hover: #{$grey-dark-50};
+   --colour-fill-press: #{$grey-dark-100};
+   --colour-fill-selected: #{brand.$brand-dark-1000};
+   --colour-fill-disabled: #{$grey-dark-100};
+   --colour-fill-overlay: #{$grey-light-1000};
+   --colour-fill-brand-strong: #{brand.$brand-dark-1000};
+   --colour-fill-brand-weak: #{brand.$brand-dark-50};
+   --colour-fill-error-strong: #{primitive.$red-dark-1000};
+   --colour-fill-error-weak: #{primitive.$red-dark-50};
+   --colour-fill-warning-strong: #{primitive.$amber-dark-1000};
+   --colour-fill-warning-weak: #{primitive.$amber-dark-50};
+   --colour-fill-success-strong: #{primitive.$green-dark-1000};
+   --colour-fill-success-weak: #{primitive.$green-dark-50};
+   --colour-fill-information-strong: #{primitive.$teal-dark-1000};
+   --colour-fill-information-weak: #{primitive.$teal-dark-50};
+   --colour-fill-inverse-strong: #{$grey-solid-900};
+   --colour-fill-inverse-weak: #{$grey-light-50};
+   --colour-fill-inverse-hover: #{$grey-light-50};
+   --colour-fill-inverse-press: #{$grey-light-100};
+   --colour-fill-inverse-disabled: #{$grey-light-100};
+   --colour-fill-white: #{$grey-solid-0};
+   --colour-fill-yellow: #{primitive.$yellow-solid-1000};
+}

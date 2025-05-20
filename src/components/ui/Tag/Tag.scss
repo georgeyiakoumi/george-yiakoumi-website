@@ -1,0 +1,66 @@
+@use '../../../styles/base' as *;
+
+.tag {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    padding: $scale-xs-2 $scale-xs;
+    border-radius: $corner-radius-full;
+    background-color: $fill-weak;
+    border: $scale-xs-4 solid $stroke-weak;
+    color: $text-strong;
+    transition: $time;
+
+    svg {
+      width: $scale-root;
+      height: $scale-root;
+    }
+
+    &.medium {
+      height: $scale-xl;
+      font-size: get-typography(paragraph);
+    }
+
+    &.small {
+      height: $scale-lg;
+      font-size: get-typography(text-small);
+    }
+
+    &.selectable {
+      cursor: pointer;
+
+      &:hover {
+        background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), #{$fill-weak};
+        }
+
+    }
+
+    span {
+      padding: 0 $scale-xs-2;
+    }
+  
+    &.selected {
+      background-color: $fill-selected;
+      color: $text-inverse-strong;
+
+      &:hover:not(.disabled) {
+        background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), #{$fill-selected};
+      }
+      &:active:not(.disabled) {
+        background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), #{$fill-selected};
+      }
+
+    }
+  
+    &.disabled {
+      background-color: $fill-disabled;
+      color: $text-inverse-strong;
+      border: none;
+      pointer-events: none;
+
+      .selected-icon {
+        color: $icon-inverse-strong;
+      }
+    }
+
+  }

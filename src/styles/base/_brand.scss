@@ -1,0 +1,16 @@
+@use "./colours-primitive" as primitive;
+
+// Brand Hues
+$brand-hue: primitive.$purple-hue;
+
+// Light Brand Colours
+$brand-light-1000: primitive.$purple-light-1000;
+$brand-light-800: primitive.$purple-light-800;
+$brand-light-200: primitive.$purple-light-200;
+$brand-light-50: primitive.$purple-light-50;
+
+// Dark Brand Colours
+$brand-dark-1000: primitive.$purple-dark-1000;
+$brand-dark-800: primitive.$purple-dark-800;
+$brand-dark-200: primitive.$purple-dark-200;
+$brand-dark-50: primitive.$purple-dark-50;

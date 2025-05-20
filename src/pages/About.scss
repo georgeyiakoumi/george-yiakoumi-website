@@ -1,0 +1,124 @@
+@use '../styles/base' as *;
+
+.about {
+  grid-column-end: 10;
+  grid-template-columns: repeat(8, 1fr);
+  place-items: center;
+  padding-bottom: 0;
+
+  @include respond(tablet) {
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-template-columns: repeat(5, 1fr);
+    gap: $scale-lg;
+  }
+
+  @include respond(mobile) {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr;
+    padding: var(--gap);
+  }
+
+  .avatar {
+    grid-column: 1 / span 2;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border-radius: $corner-radius-full;
+    border: solid $scale-xs-4 $stroke-weak;
+
+    @include respond(tablet) {
+      grid-column: 1 / span 2;
+    }
+
+    @include respond(mobile) {
+      grid-column: 1 / -1;
+      width: $scale-xl-9;
+      justify-self: center;
+    }
+  }
+
+  p {
+
+    @include respond(mobile) {
+      grid-column: 1 / -1;
+     
+    }
+
+  }
+
+}
+
+.companies-container {
+  grid-column-end: 10;
+  padding-top: $scale-lg;
+  display: flex;
+  flex-wrap: wrap;
+  gap: $scale-xl-2;
+  align-items: center;
+
+  @include respond(tablet) {
+    grid-column: 1 / span 6;
+    gap: $scale-lg;
+  }
+
+  @include respond(mobile) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: space-evenly;
+    row-gap: $scale-xl-2;
+    padding: $scale-xl;
+    background: $background-sunken;
+  }
+  
+  .company-logo-wrapper {
+    height: auto;
+    place-self: auto;
+
+    @include respond(tablet) {
+      justify-self: center;
+    }
+
+    @include respond(mobile) {
+      grid-column: auto;
+    }
+
+    .gofundme-logo {
+      width: $scale-xl-6;
+    }
+    
+    .novartis-logo {
+      width: $scale-xl-7;
+    }
+    
+    .hp-logo {
+      width: $scale-xl;
+    }
+    
+    .jj-logo {
+      width: $scale-xl-8;
+    }
+    
+    .takeda-logo {
+      width: $scale-xl-6;
+    }
+    
+    .wickes-logo {
+      width: $scale-xl-4;
+    }
+    
+    .ocean-logo {
+      width: $scale-xl-6;
+    }
+    
+    svg {
+      height: auto;
+    }
+  }
+  
+  .company-logo {
+    width: $scale-xl-7;
+    height: auto;
+  }
+}

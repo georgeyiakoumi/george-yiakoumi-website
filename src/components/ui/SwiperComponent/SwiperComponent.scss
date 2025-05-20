@@ -1,0 +1,37 @@
+@use '../../../styles/base' as *;
+
+.swiper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+
+  .swiper-wrapper {
+    width: 100%;
+    margin-bottom: $scale-xl-3;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100% !important;
+    height: auto;
+  }
+
+  .swiper-pagination-bullet {
+    background-color: $icon-neutral;
+  }
+
+  .swiper-pagination-bullet-active {
+    background-color: $icon-brand;
+  }
+
+}
+
+.swiper-horizontal {
+  @include respond(mobile) {
+      padding: 0 var(--gap) !important;
+  }
+}

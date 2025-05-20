@@ -1,0 +1,403 @@
+@use '../../../styles/base' as *;
+
+button {
+    box-sizing: border-box;
+    display: inline-flex;
+    gap: $scale-xs-2;
+    justify-content: center;
+    align-items: center;
+    font-weight: $font-weight-strong;
+    cursor: pointer;
+    border: none;
+
+    &.button {
+      box-shadow: $elevation-raised;
+    }
+
+    &:active, &.disabled {
+      box-shadow: none;
+    }
+
+    &:focus:visible {
+      outline: $scale-xs-3 solid $stroke-focus;
+      outline-offset: $scale-xs-3;
+      box-shadow: $elevation-raised;
+    }
+
+    .label {
+      padding: 0 $scale-xs-2;
+    }
+
+    &.disabled {
+
+      pointer-events: none;
+      
+    }
+
+    /* Variant */
+
+
+    &.variant-primary {
+
+      &.tone-brand, &.tone-neutral, &.tone-destructive {
+        
+        &.disabled {
+          
+          background-color: $fill-disabled;
+          color: $text-inverse-strong;
+          
+          & > .icon {
+            color: $icon-inverse;
+          }
+
+        }
+
+      }
+
+      &.tone-brand {
+        color: $text-inverse-strong;
+        background-color: $fill-brand-strong;
+
+        & > .icon {
+            color: $icon-inverse;
+        }
+        &:hover:not(.disabled) {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), #{$fill-brand-strong};
+        }
+        &:active:not(.disabled) {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), #{$fill-brand-strong};
+        }
+
+      }
+
+      &.tone-neutral {
+        color: $text-inverse-strong;
+        background-color: $fill-strong;
+
+        & > .icon {
+            color: $icon-inverse;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-inverse-hover}, #{$fill-inverse-hover}), #{$fill-strong};
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-inverse-press}, #{$fill-inverse-press}), #{$fill-strong};
+        }
+
+      }
+
+      &.tone-destructive {
+        color: $text-inverse-strong;
+        background-color: $fill-error-strong;
+
+        & > .icon {
+            color: $icon-inverse;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), #{$fill-error-strong};
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), #{$fill-error-strong};
+        }
+
+      }
+
+      &.tone-inverse {
+        color: $text-strong;
+        background-color: $fill-inverse-strong;
+
+        & > .icon {
+            color: $icon-neutral;
+        }
+
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), #{$fill-inverse-strong};
+        }
+
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), #{$fill-inverse-strong};
+        }
+
+        &.disabled {
+          color: $text-inverse-disabled;
+          background: $fill-inverse-disabled;
+
+          & > .icon {
+              color: $icon-inverse-disabled;
+          }
+
+        }
+
+      }
+
+      &.tone-white {
+        color: $grey-light-1000;
+        background-color: $grey-solid-0;
+
+        & > .icon {
+            color: $grey-light-500;
+        }
+
+        &:hover {
+          background: linear-gradient(0deg, #{$grey-light-50}, #{$grey-light-50}), #{$grey-solid-0};
+        }
+
+        &:active {
+          background: linear-gradient(0deg, #{$grey-light-100}, #{$grey-light-100}), #{$grey-solid-0};
+        }
+
+        &.disabled {
+          color: $grey-dark-100;
+          background: $grey-dark-100;
+
+          & > .icon {
+              color: $grey-dark-100;
+          }
+
+        }
+
+      }
+
+    }
+
+    &.variant-secondary {
+
+      &.tone-brand {
+        color: $text-brand;
+        background-color: rgba(255, 255, 255, 0.01);
+        border: solid $scale-xs-4 $stroke-brand-strong;
+
+        & > .icon {
+            color: $icon-brand;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), rgba(255, 255, 255, 0.01);
+        }
+
+      }
+
+      &.tone-neutral {
+        color: $text-weak;
+        background-color: rgba(255, 255, 255, 0.01);
+        border: solid $scale-xs-4 $stroke-strong;
+
+        & > .icon {
+            color: $icon-neutral;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), rgba(255, 255, 255, 0.01);
+        }
+
+      }
+
+      &.tone-destructive {
+        color: $text-error;
+        background-color: rgba(255, 255, 255, 0.01);
+        border: solid $scale-xs-4 $stroke-error-strong;
+
+        & > .icon {
+            color: $icon-error;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), rgba(255, 255, 255, 0.01);
+        }
+
+      }
+
+      &.tone-inverse {
+        color: $text-inverse-strong;
+        background-color: rgba(255, 255, 255, 0.01);
+        border: solid $scale-xs-4 $stroke-inverse-strong;
+
+        & > .icon {
+          color: $icon-inverse;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$fill-press}, #{$fill-press}), rgba(255, 255, 255, 0.01);
+        }
+
+        &.disabled {
+          color: $text-inverse-disabled;
+          border: solid $scale-xs-4 $stroke-inverse-disabled;
+
+          & > .icon {
+              color: $icon-inverse-disabled;
+          }
+
+        }
+
+      }
+
+      &.tone-white {
+        color: $grey-dark-1000;
+        background-color: rgba(255, 255, 255, 0.01);
+        border: solid $scale-xs-4 $grey-dark-500;
+
+        & > .icon {
+          color: $grey-dark-500;
+        }
+        &:hover {
+          background: linear-gradient(0deg, #{$grey-light-50}, #{$grey-light-50}), rgba(255, 255, 255, 0.01);
+        }
+        &:active {
+          background: linear-gradient(0deg, #{$grey-light-100}, #{$grey-light-100}), rgba(255, 255, 255, 0.01);
+        }
+
+        &.disabled {
+          color: $grey-light-100;
+          border: solid $scale-xs-4 $grey-light-100;
+
+          & > .icon {
+              color: $grey-light-100;
+          }
+
+        }
+
+      }
+      
+    }
+
+    &.variant-tertiary {
+      text-decoration: underline;
+      background: none;
+      box-shadow: none;
+      
+      &:hover {
+        text-decoration: none;
+        background: $fill-hover;
+      }
+
+      &:active {
+        background: $fill-press;
+      }
+
+      &.tone-brand, &.tone-neutral, &.tone-destructive {
+
+        &.disabled {
+          color: $text-disabled;
+  
+          & > .icon {
+            color: $icon-disabled;
+          }
+  
+        }
+
+      } 
+
+      &.tone-brand {
+        color: $text-brand;
+
+        & > .icon {
+          color: $icon-brand;
+        }
+
+      }
+
+      &.tone-neutral {
+        color: $text-weak;
+
+        & > .icon {
+          color: $icon-neutral;
+        }
+
+      }
+
+      &.tone-destructive {
+        color: $text-error;
+
+        & > .icon {
+          color: $icon-error;
+        }
+
+      }
+
+      &.tone-inverse {
+        color: $text-inverse-strong;
+
+        & > .icon {
+          color: $icon-inverse;
+        }
+
+        &.disabled {
+          color: $text-inverse-disabled;
+
+          & > .icon {
+            color: $icon-inverse-disabled;
+          }
+
+        }
+
+      }
+
+      &.tone-white {
+        color: $grey-light-1000;
+
+        & > .icon {
+          color: $grey-light-500;
+        }
+
+        &.disabled {
+          color: $grey-dark-100;
+
+          & > .icon {
+            color: $grey-light-100;
+          }
+
+        }
+
+      }
+      
+    }
+
+    /* Sizes */
+
+    &.size-large {
+      padding: 0 $scale-lg;
+      height: $scale-xl-4;
+      border-radius: $corner-radius-3;
+      font-size: get-typography(heading-4);
+      
+      .icon {
+        width: $scale-lg;
+      }
+
+    }
+
+    &.size-medium {
+      padding: 0 $scale-root;
+      height: $scale-xl-3;
+      border-radius: $corner-radius-2;
+      font-size: get-typography(paragraph);
+
+      .icon {
+        width: $scale-md;
+      }
+
+    }
+
+    &.size-small {
+      gap: 0;
+      padding: 0 $scale-sm;
+      height: $scale-xl;
+      border-radius: $corner-radius-2;
+      font-size: get-typography(text-small);
+
+      .icon {
+        width: $scale-root;
+      }
+
+    }
+
+  }

@@ -1,0 +1,56 @@
+@use '../../../styles/base' as *;
+
+.tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+  
+    .tooltip-box {
+        position: absolute;
+        bottom: 100%; // Position the tooltip above the element
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: $background-inverse;
+        color: $text-weak;
+        padding: $scale-lg $scale-xl;
+        border-radius: $corner-radius-3;
+        white-space: nowrap;
+        box-shadow: $elevation-overlay;
+        opacity: 0;
+        visibility: hidden;
+        transition: $time;
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            font-size: get-typography(text-small);
+            color: $text-inverse-weak;
+        }
+
+        small {
+            color: $text-inverse-strong;
+        }
+
+        p {
+            color: $text-inverse-weak;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 100%; // Triangle pointing downwards
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: $scale-xs;
+            border-style: solid;
+            border-color: $background-inverse transparent transparent transparent;
+        }
+    }
+
+    &:hover .tooltip-box {
+        opacity: 1;
+        visibility: visible;
+    }
+}  

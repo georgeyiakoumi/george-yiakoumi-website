@@ -1,0 +1,27 @@
+@use 'colours-semantic' as semantic;
+@use 'elevation' as elevation;
+@use 'scale' as scale;
+
+@mixin container ($container-background: var(--colour-background-base), $container-box-shadow: 0, $container-padding: scale.$scale-lg, $container-border: scale.$scale-xs-4 solid semantic.$stroke-weak, $container-border-radius: scale.$corner-radius-2) {
+    padding: $container-padding;
+    background: $container-background;
+    box-shadow: $container-box-shadow;
+    border-radius: $container-border-radius;
+    border: $container-border;
+}
+
+.container-base {
+    @include container ($container-box-shadow: none);
+}
+
+.container-raised {
+    @include container($container-background: var(--colour-background-raised), $container-box-shadow: elevation.$elevation-raised);
+}
+
+.container-overlay {
+    @include container($container-background: var(--colour-background-overlay), $container-box-shadow: elevation.$elevation-overlay);
+}
+
+.container-sunken {
+    @include container($container-background: var(--colour-background-sunken), $container-box-shadow: elevation.$elevation-sunken);
+}

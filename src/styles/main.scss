@@ -1,14 +1,13 @@
-// main.scss
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,ROND@0..1,100&icon_names=home,palette,settings,search&display=block';
+@use 'base' as *;
+@use './node_modules/swiper/swiper-bundle';
+@use '../components/ui/SwiperComponent/SwiperComponent.scss';
 @import '~normalize.css/normalize.css';
-@import './node_modules/swiper/swiper-bundle';
-@import './base/elevation';
-@import './base/scale';
-@import './base/typography';
-@import './components/hero';
-@import './components/about';
-@import './components/portfolio';
-@import './components/services';
-@import './components/testimonials';
-@import './components/philosophy';
-@import './components/contact';
+
+.cryptokitty {
+  width: $scale-xl-10;
+  margin-left: $scale-xl-7;
+
+  @include respond(mobile) {
+      margin-left: $scale-xl-5;
+    }
+}

@@ -1,0 +1,103 @@
+@use '../../../styles/base' as *;
+
+.checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: $scale-sm;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    margin-bottom: 0;
+  
+    input[type="checkbox"] {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+    }
+  
+    // Size variants
+    &.small {
+        font-size: get-typography(text-small);
+  
+        .checkbox-box {
+            width: $scale-md;
+            height: $scale-md;
+        }
+    }
+  
+    &.large {
+        font-size: get-typography(paragraph);
+  
+        .checkbox-box {
+            width: $scale-xl;
+            height: $scale-xl;
+        }
+    }
+
+    &.selected {
+        .checkbox-box {
+            color: $text-inverse-strong;
+            background-color: $fill-brand-strong;
+            border: none;
+        }
+    }
+  
+    .checkbox-box {
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: $scale-xs-4 solid $stroke-strong;
+        border-radius: $corner-radius-1;
+        background-color: $fill-inverse-strong;
+        transition: all $time;
+    
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+  
+        path {
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+    }
+
+  
+    &.selected .checkbox-box path {
+        stroke-dashoffset: 0;
+    }
+  
+    .checkbox-label {
+        color: $text-strong;
+    }
+  
+    // State styles
+    &.hover .checkbox-box {
+        border-color: var(--colour-hover, #999);
+        background-color: $fill-hover;
+    }
+  
+    &.pressed .checkbox-box {
+        background-color: var(--colour-pressed-bg, #eee);
+        border-color: var(--colour-pressed-border, #666);
+    }
+  
+    &.focused .checkbox-box {
+        outline: 2px solid var(--colour-focus, #66f);
+        outline-offset: 2px;
+    }
+  
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+  
+    &.invalid .checkbox-box {
+        border-color: var(--colour-error, #e53935);
+    }
+}

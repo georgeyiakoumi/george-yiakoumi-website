@@ -1,0 +1,159 @@
+@use "../../styles/base/colours-semantic" as semantic;
+
+:root {
+
+--colour-gy-black: var(--colour-icon-neutral);
+  
+/* Businesses */
+
+  /* gofundme */
+  --colour-gofundme-green: #02A95C;
+
+  /* HP */
+  --colour-hp-blue: #024AD8;
+  --colour-hp-white: #FFFFFF;
+
+  /* Johnson & Johnson */
+  --colour-jj-red: #EB1700;
+
+  /* Novartis */
+  --colour-novartis-gradient-1: #E74A21;
+  --colour-novartis-gradient-2: #EC9A1E;
+  --colour-novartis-blue: #0460A9;
+
+  /* Ocean */
+  --colour-ocean-light-blue: #3D6BEB;
+  --colour-ocean-dark-blue: #000D5C;
+
+  /* Takeda */
+  --colour-takeda-red: #E1242A;
+
+  /* Wickes */
+  --colour-wickes-blue: #004587;
+  --colour-wickes-white: #FFFFFF;
+
+/* Tools */
+
+  /* Dribbble */
+  --colour-dribbble-light-pink: #EA4C89;
+  --colour-dribbble-dark-pink: #C32361;
+  
+  /* Figma */
+  --colour-figma-green: #0ACF83;
+  --colour-figma-purple: #A259FF;
+  --colour-figma-red: #F24E1E;
+  --colour-figma-light-red: #FF7262;
+  --colour-figma-blue: #1ABCFE;
+
+  /* Github */
+  --colour-github-black: #24292F;
+
+  /* GoDaddy */
+  --colour-godaddy-black: #111111;
+  
+  /* LinkedIn */
+  --colour-linkedin-blue: #0A66C2;
+
+  /* X */
+  --colour-x-black: black;
+
+  /* React */ 
+  --colour-react: #087ea4;
+
+  /* Sass */
+  --colour-sass-pink: #CC6699;
+  --colour-sass-white: #FFFFFF;
+
+  /* Framer Motion */
+  --colour-framer-blue: #0D63F8;
+  --colour-framer-white: #F5F5F5;
+
+  /* Netlify */
+  --colour-netlify-light-green: #05BDBA;
+  --colour-netlify-dark-green: #014847;
+
+  /* Render */
+  --colour-render: #0D0D0D;
+
+  /* Cloudinary */
+  --colour-cloudinary: #3448C5;
+}
+ 
+[data-theme="dark"] {
+
+  --colour-gy-black: var(--colour-icon-neutral);
+
+/* Businesses */
+
+  /* gofundme */
+  --colour-gofundme-green: var(--colour-icon-neutral);
+
+  /* HP */
+  --colour-hp-blue: var(--colour-icon-neutral);
+  --colour-hp-white: rgba(255, 255, 255, 0);
+
+  /* Johnson & Johnson */
+  --colour-jj-red: var(--colour-icon-neutral);
+
+  /* Novartis */
+  --colour-novartis-gradient-1: var(--colour-icon-neutral);
+  --colour-novartis-gradient-2: var(--colour-icon-neutral);
+  --colour-novartis-blue: var(--colour-icon-neutral);
+
+  /* Ocean */
+  --colour-ocean-light-blue: var(--colour-icon-neutral);
+  --colour-ocean-dark-blue: var(--colour-icon-neutral);
+
+  /* Takeda */
+  --colour-takeda-red: var(--colour-icon-neutral);
+
+  /* Wickes */
+  --colour-wickes-blue: rgba(255, 255, 255, 0);
+  --colour-wickes-white: var(--colour-icon-neutral);
+
+/* Tools */
+
+  /* Dribbble */
+  --colour-dribbble-light-pink: #B8509A;
+  --colour-dribbble-dark-pink: #FFABE7;
+    
+  /* Figma */
+  --colour-figma-green: #0ACF83;
+  --colour-figma-purple: #A259FF;
+  --colour-figma-red: #F24E1E;
+  --colour-figma-light-red: #FF7262;
+  --colour-figma-blue: #1ABCFE;
+
+  /* X */
+  --colour-x-black: white;
+  
+  /* Github */
+  --colour-github-black: white;
+
+  /* GoDaddy */
+  --colour-godaddy-black: #1CDBDB;
+
+  /* LinkedIn */
+  --colour-linkedin-blue: white;
+
+  /* React */ 
+  --colour-react: #58c4dc;
+
+  /* Sass */
+  --colour-sass-pink: #FFFFFF;
+  --colour-sass-white: #CC6699;
+
+  /* Framer Motion */
+  --colour-framer-blue: #fff312;
+  --colour-framer-white: #0f1115;
+
+  /* Netlify */
+  --colour-netlify-light-green: #ffffff;
+  --colour-netlify-dark-green: #ffffff;
+
+  /* Render */
+  --colour-render: #FFFFFF;
+
+  /* Cloudinary */
+  --colour-cloudinary: #FFFFFF;
+}
