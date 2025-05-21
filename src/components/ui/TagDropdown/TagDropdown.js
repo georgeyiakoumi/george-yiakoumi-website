@@ -74,7 +74,7 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
       >
         <div className="tags-wrapper">
           {selectedTags.length === 0 ? (
-            <span className="placeholder">Filter by tag</span>
+            <span className="placeholder">Filter</span>
           ) : isMobile ? (
             <span className="placeholder">
               {selectedTags.length} {selectedTags.length === 1 ? "tag" : "tags"}
