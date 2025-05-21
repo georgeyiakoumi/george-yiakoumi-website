@@ -13,6 +13,7 @@ import NotFound from "./NotFound";
 import "./Entry.scss";
 
 const API_BASE = process.env.REACT_APP_STRAPI_URL.replace(/\/$/, "");
+
 const fetchEntry = async (collection, slug) => {
   try {
     const res = await fetch(

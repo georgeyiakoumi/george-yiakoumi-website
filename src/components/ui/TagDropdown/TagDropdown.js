@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import useBreakpoint from "../../../utils/useBreakpoint";
 import "./TagDropdown.scss";
 import Tag from "../Tag/Tag";
 import Button from "../Button/Button";
@@ -9,15 +10,8 @@ import { ReactComponent as ChevronDown } from "../../../assets/icons/chevron-dow
 
 const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
   const [open, setOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+  const { isMobile } = useBreakpoint();
 
   const toggleDropdown = () => setOpen((prev) => !prev);
 
@@ -79,7 +73,6 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
             <span className="placeholder">
               {selectedTags.length} {selectedTags.length === 1 ? "tag" : "tags"}
             </span>
-            
           ) : (
             <>
               {visibleTags.map((tag) => (
@@ -92,10 +85,7 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
                 />
               ))}
               {remainingCount > 0 && (
-                <Tooltip
-                  
-                  text={selectedTags.slice(maxVisibleTags)}
-                >
+                <Tooltip text={selectedTags.slice(maxVisibleTags)}>
                   <Tag
                     label={`+${remainingCount} ${remainingCount === 1 ? "other" : "others"}`}
                     size="small"
@@ -103,7 +93,6 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
                   />
                 </Tooltip>
               )}
-
             </>
           )}
         </div>
@@ -118,9 +107,7 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
           {allTags.map((tag) => (
             <div key={tag} className="tag-option">
               <CheckBox
-                checkedType={
-                  selectedTags.includes(tag) ? "Selected" : "Unselected"
-                }
+                checkedType={selectedTags.includes(tag) ? "Selected" : "Unselected"}
                 onChange={() => handleTagToggle(tag)}
                 size="Small"
                 label={true}
@@ -135,14 +122,12 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
       {selectedTags.length > 0 && (
         <Button
           {...(!isMobile && { label: "Clear all" })}
-          size="medium"
+          size={isMobile ? "small" : undefined}
           variant="tertiary"
           iconLeft={Delete}
           onClick={handleClearAll}
         />
       )}
-
-
     </div>
   );
 };

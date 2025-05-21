@@ -66,8 +66,8 @@ const Details = () => {
   useEffect(() => {
     const fetchSvgs = async () => {
       setSvgIcons({});
-
       const newSvgIcons = {};
+
       for (const category in tools) {
         for (const tool of tools[category]) {
           if (tool.logoUrl && tool.logoUrl.endsWith(".svg")) {
@@ -81,6 +81,7 @@ const Details = () => {
           }
         }
       }
+
       setSvgIcons(newSvgIcons);
     };
 
@@ -104,83 +105,76 @@ const Details = () => {
   }, [svgIcons, viewMode]);
 
   const renderTextNode = (child, i) => {
-  let node = child.text;
-  if (child.bold) node = <strong key={i}>{node}</strong>;
-  if (child.italic) node = <em key={i}>{node}</em>;
-  if (child.underline) node = <u key={i}>{node}</u>;
-  return node;
-};
+    let node = child.text;
+    if (child.bold) node = <strong key={i}>{node}</strong>;
+    if (child.italic) node = <em key={i}>{node}</em>;
+    if (child.underline) node = <u key={i}>{node}</u>;
+    return node;
+  };
 
-const renderContent = () =>
-  content.map((block, index) => {
-    const children = block.children.map(renderTextNode);
-    if (block.type === "heading") {
-      return React.createElement(`h${block.level || 1}`, { key: index }, children);
-    }
-    if (block.type === "paragraph") {
-      return <p key={index}>{children}</p>;
-    }
-    return null;
-  });
+  const renderContent = () =>
+    content.map((block, index) => {
+      const children = block.children.map(renderTextNode);
+      if (block.type === "heading") {
+        return React.createElement(`h${block.level || 1}`, { key: index }, children);
+      }
+      if (block.type === "paragraph") {
+        return <p key={index}>{children}</p>;
+      }
+      return null;
+    });
 
+  const renderTools = (category) =>
+    tools[category].map((tool, index) => (
+      <div
+        key={index}
+        className="details-container"
+        ref={(el) => {
+          if (!el || !svgIcons[tool.name]) return;
 
-    const renderTools = (category) =>
-      tools[category].map((tool, index) => (
-        <div
-          key={index}
-          className="details-container"
-          ref={(el) => {
-            if (!el || !svgIcons[tool.name]) return;
-    
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(svgIcons[tool.name], "image/svg+xml");
-            const svgElement = doc.querySelector("svg");
-    
-            if (svgElement) {
-              el.innerHTML = "";
-              el.append(svgElement);
-    
-              const wrapper = document.createElement("div");
-              wrapper.className = "details-wrapper-container";
-    
-              const header = document.createElement("header");
-              header.innerHTML = `<h2>${tool.name}</h2>`;
-    
-              const badgeContainer = document.createElement("div");
-              header.appendChild(badgeContainer);
-    
-              const description = document.createElement("p");
-              description.textContent = tool.description;
-    
-              wrapper.appendChild(header);
-              wrapper.appendChild(description);
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(svgIcons[tool.name], "image/svg+xml");
+          const svgElement = doc.querySelector("svg");
 
-              el.append(wrapper);
-    
-              ReactDOM.render(
-                <Badge
-                  tone={tool.paid ? "warning" : "success"}
-                  label={tool.paid ? "Paid" : "Free"}
-                  icon={tool.paid ? AlertTriangle : CheckCircle}
-                />,
-                badgeContainer
-              );
-            }
-          }}
-        ></div>
-      ));
-    
+          if (svgElement) {
+            el.innerHTML = "";
+            el.append(svgElement);
 
-  if (loading) {
-    return <Loading title="Loading..." />;
-  }
+            const wrapper = document.createElement("div");
+            wrapper.className = "details-wrapper-container";
+
+            const header = document.createElement("header");
+            header.innerHTML = `<h2>${tool.name}</h2>`;
+
+            const badgeContainer = document.createElement("div");
+            header.appendChild(badgeContainer);
+
+            const description = document.createElement("p");
+            description.textContent = tool.description;
+
+            wrapper.appendChild(header);
+            wrapper.appendChild(description);
+            el.append(wrapper);
+
+            ReactDOM.render(
+              <Badge
+                tone={tool.paid ? "warning" : "success"}
+                label={tool.paid ? "Paid" : "Free"}
+                icon={tool.paid ? AlertTriangle : CheckCircle}
+              />,
+              badgeContainer
+            );
+          }
+        }}
+      ></div>
+    ));
+
+  if (loading) return <Loading title="Loading..." />;
 
   return (
     <section className="details">
+      <header>{renderContent()}</header>
 
-      <header>
-        {renderContent()}
-      </header>
       <SegmentControl
         options={[
           { value: "development", label: "Development", icon: <CodeIcon /> },
@@ -189,7 +183,7 @@ const renderContent = () =>
         ]}
         selectedOption={viewMode}
         setSelectedOption={setViewMode}
-        size={isMobile ? "small" : undefined}
+        
       />
 
       <div className="details-content">{renderTools(viewMode)}</div>

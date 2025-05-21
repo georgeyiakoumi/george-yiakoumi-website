@@ -68,6 +68,7 @@
     @include respond(mobile) {
       padding: 0 var(--gap);
       justify-content: space-between;
+      align-items: center;
     }
 
     .tag-dropdown {

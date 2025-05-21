@@ -2,31 +2,39 @@ import { useEffect, useState } from "react";
 
 const breakpoints = {
   mobile: 548,
+  mobileWide: 767,
   tablet: 1024,
 };
 
-// Helper function for SSR compatibility
-// const getWindowWidth = () => (typeof window !== "undefined" ? window.innerWidth : 1024);
-
 const useBreakpoint = () => {
-  const [width, setWidth] = useState(null); // start as null so we know when ready
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 1024 // SSR-safe default
+  );
 
   useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
+    let timeoutId;
 
-    // Set initial width
-    handleResize();
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        setWidth(window.innerWidth);
+      }, 0); // debounce resize
+    };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
-  const isReady = width !== null;
-  const isMobile = isReady && width < breakpoints.mobile;
-  const isTablet = isReady && width >= breakpoints.mobile && width < breakpoints.tablet;
-  const isDesktop = isReady && width >= breakpoints.tablet;
+  const isMobile = width < breakpoints.mobile;
+  const isMobileWide = width >= breakpoints.mobile && width < breakpoints.tablet;
+  const isTablet = width >= breakpoints.mobile && width < breakpoints.tablet;
+  const isDesktop = width >= breakpoints.tablet;
+  const isReady = typeof width === "number";
 
-  return { width, isMobile, isTablet, isDesktop, isReady };
+  return { width, isMobile, isMobileWide, isTablet, isDesktop, isReady };
 };
 
 export default useBreakpoint;

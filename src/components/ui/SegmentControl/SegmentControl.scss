@@ -6,12 +6,13 @@
 
   @include respond(mobile) {
     justify-content: center;
+    height: $scale-xl;
   }
 
   &.size-medium {
     
     .segment-option {
-      height: $scale-xl-3;
+      height: 100%;
       padding: 0 $scale-root;
 
       .segment-icon {

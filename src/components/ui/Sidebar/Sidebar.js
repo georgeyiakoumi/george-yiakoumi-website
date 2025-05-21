@@ -6,8 +6,8 @@ import { getIcon } from "../../../utils/iconMapper";
 import { motion } from "framer-motion";
 import TextLink from "../TextLink/TextLink";
 import { ReactComponent as GyLogo } from "../../../assets/logos/gy-logo.svg";
-import "./Sidebar.scss";
 import { ReactComponent as Info } from "../../../assets/icons/info.svg";
+import "./Sidebar.scss";
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
 
@@ -17,6 +17,13 @@ const Sidebar = () => {
   const [socialLinks, setSocialLinks] = useState([]);
   const [homePageUrl, setHomePageUrl] = useState(null);
   const { isMobile } = useBreakpoint();
+
+  // Auto-close sidebar when switching from mobile to desktop
+  useEffect(() => {
+    if (!isMobile && isOpen) {
+      setIsOpen(false);
+    }
+  }, [isMobile, isOpen]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
@@ -42,7 +49,7 @@ const Sidebar = () => {
     fetchNavigation();
   }, []);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
+  const toggleMenu = () => setIsOpen(prev => !prev);
   const closeMenu = () => setIsOpen(false);
 
   const detailsLink = navLinks.find(link => link.url === "details");
@@ -68,7 +75,7 @@ const Sidebar = () => {
             </button>
           </div>
         </div>
-        
+
         <div className="sidebar-contents">
           <div className="sidebar-contents-container">
             <nav>

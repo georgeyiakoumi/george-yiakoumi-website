@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ReactLenis } from "lenis/react";
+import useBreakpoint from "../utils/useBreakpoint";
 import PortfolioCard from "../components/ui/PortfolioCard/PortfolioCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import SwiperComponent from "../components/ui/SwiperComponent/SwiperComponent";
@@ -18,45 +19,37 @@ const API_BASE = process.env.REACT_APP_STRAPI_URL.replace(/\/$/, "");
 const Portfolio = ({ collection }) => {
   const COLLECTION_API = `${API_BASE}/api/${collection}?populate=*`;
   const PAGE_API = `${API_BASE}/api/${collection}?populate=*`;
+
   const [entries, setEntries] = useState([]);
   const [, setPageData] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
-  const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState([]);
-  
+
+  const { isMobile, isTablet, isDesktop } = useBreakpoint();
+
   const isProjects = collection === "projects";
   const introHeading = isProjects
     ? "Solving problems through design"
     : "Where pixels go to party";
 
-    const introMainParagraph = isProjects
+  const introMainParagraph = isProjects
     ? "A collection of projects, case studies, and insights that showcase my approach to UX, UI, and digital product design."
     : "This is my sandbox for testing visual languages, micro-interactions, and UI polish — a place for pushing creative boundaries.";
-  
+
   const introSecondaryLink = isProjects ? (
     <>
       <h4>For something more visual...</h4>
-      <Button 
-      to="/ui-lab" 
-      label="Go to UI Lab" 
-      size="small"
-      variant="secondary"
-      />
+      <Button to="/ui-lab" label="Go to UI Lab" size="small" variant="secondary" />
     </>
   ) : (
     <>
       <h4>For applied strategy or design thinking...</h4>
-      <Button 
-      to="/projects" 
-      label="Projects"
-      size="small"
-      variant="tertiary"
-      />
+      <Button to="/projects" label="Projects" size="small" variant="tertiary" />
     </>
   );
 
-  const routePrefix = collection === "projects" ? "projects" : "ui-lab";
+  const routePrefix = isProjects ? "projects" : "ui-lab";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -79,38 +72,22 @@ const Portfolio = ({ collection }) => {
   }, [collection, COLLECTION_API, PAGE_API]);
 
   useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const isNowMobile = width <= 768;
-      const isNowTablet = width > 768 && width <= 1024;
-  
-      setIsMobile(isNowMobile);
-      setViewMode(isNowMobile ? "swiper" : isNowTablet ? "list" : "grid");
-    };
-  
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  
+    if (isMobile) {
+      setViewMode("swiper");
+    } else if (isTablet) {
+      setViewMode("list");
+    } else {
+      setViewMode("grid");
+    }
+  }, [isMobile, isTablet]);
 
-  // Utility function for future use
-  // const extractTextFromBlocks = (blocks, type) => {
-  //   if (!blocks || !Array.isArray(blocks)) return "";
-  //   const filtered = blocks.filter((block) => block.type === type);
-  //   return filtered.length > 0
-  //     ? filtered[0].children.map((child) => child.text).join(" ")
-  //     : "";
-  // };
-
-  
   const allTags = [...new Set(entries.flatMap((item) => item.Tags?.map((tag) => tag.name) || []))];
 
   const filteredEntries = selectedTags.length
-    ? entries.filter((entry) => entry.Tags?.some((tag) => selectedTags.includes(tag.name)))
+    ? entries.filter((entry) =>
+        entry.Tags?.some((tag) => selectedTags.includes(tag.name))
+      )
     : entries;
-
-  
 
   if (loading) {
     return <Loading title="Fetching entries..." description="This may take a few seconds." />;
@@ -121,15 +98,10 @@ const Portfolio = ({ collection }) => {
       <section className="blank">
         <Arun />
         <h1>Nothing to see here, yet.</h1>
-        <p>I'm still adding to this, but would hate for it to be the reason we don't work together. If you're keen, and are open to a having a chat, I can show you some stuff over a call.</p>
-        <Button
-          to="/contact?from=ui-lab"
-
-          label="Get in touch"
-          iconLeft={Send}
-          
-          
-        />
+        <p>
+          I'm still adding to this, but would hate for it to be the reason we don't work together. If you're keen, and are open to having a chat, I can show you some stuff over a call.
+        </p>
+        <Button to="/contact?from=ui-lab" label="Get in touch" iconLeft={Send} />
       </section>
     );
   }
@@ -137,16 +109,15 @@ const Portfolio = ({ collection }) => {
   return (
     <ReactLenis>
       <section className="portfolio">
-      <header>
-        <h1>{introHeading}</h1>
-        <p>{introMainParagraph}</p>
-      </header>
-      <section className="other-side">
-        {introSecondaryLink}
-      </section>
+        <header>
+          <h1>{introHeading}</h1>
+          <p>{introMainParagraph}</p>
+        </header>
+
+        <section className="other-side">{introSecondaryLink}</section>
 
         <div className="portfolio-filters">
-          {!isMobile && window.innerWidth > 1024 && (
+          {isDesktop && (
             <SegmentControl
               options={[
                 { value: "grid", label: "Grid", icon: <GridIcon /> },
@@ -167,16 +138,15 @@ const Portfolio = ({ collection }) => {
               selectedOption={viewMode}
               setSelectedOption={setViewMode}
             />
-          )}  
-
-          {allTags.length > 0 && (
-              <TagDropdown
-                allTags={allTags}
-                selectedTags={selectedTags}
-                setSelectedTags={setSelectedTags}
-              />
           )}
 
+          {allTags.length > 0 && (
+            <TagDropdown
+              allTags={allTags}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          )}
         </div>
 
         <div className={`portfolio-display ${viewMode}`}>

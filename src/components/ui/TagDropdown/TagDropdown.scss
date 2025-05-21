@@ -24,6 +24,8 @@
 
     @include respond(mobile) {
         flex-wrap: nowrap;
+        padding: 0 $scale-sm;
+        height: $scale-xl;
       }
 
     .placeholder {
