@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
-import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
 import Loading from "../components/ui/Loading/Loading";
