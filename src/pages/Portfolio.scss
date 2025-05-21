@@ -51,6 +51,7 @@
     @include respond(mobile) {
       flex-direction: row;
       border-radius: 0;
+      padding: $scale-sm;
       
       h4 {
         font-size: get-typography(paragraph);

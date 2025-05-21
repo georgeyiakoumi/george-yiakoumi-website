@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
 import PortfolioCard from "../components/ui/PortfolioCard/PortfolioCard";
@@ -17,26 +18,27 @@ import "./Portfolio.scss";
 const API_BASE = process.env.REACT_APP_STRAPI_URL.replace(/\/$/, "");
 
 const Portfolio = ({ collection }) => {
-  const COLLECTION_API = `${API_BASE}/api/${collection}?populate=*`;
-  const PAGE_API = `${API_BASE}/api/${collection}?populate=*`;
 
+  const COLLECTION_API = `${API_BASE}/api/${collection}?populate=*`;
+  const PAGE_API = `${API_BASE}/api/portfolio-page?populate=*`;
   const [entries, setEntries] = useState([]);
-  const [, setPageData] = useState(null);
+  const [pageData, setPageData] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
   const [loading, setLoading] = useState(true);
   const [selectedTags, setSelectedTags] = useState([]);
-
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
 
+  const renderContent = () => {
+    const content = isProjects
+      ? pageData?.projectsContent
+      : pageData?.uiLabContent;
+
+    if (!content) return null;
+
+    return <BlocksRenderer content={content} />;
+  };
+
   const isProjects = collection === "projects";
-  const introHeading = isProjects
-    ? "Solving problems through design"
-    : "Where pixels go to party";
-
-  const introMainParagraph = isProjects
-    ? "A collection of projects, case studies, and insights that showcase my approach to UX, UI, and digital product design."
-    : "This is my sandbox for testing visual languages, micro-interactions, and UI polish — a place for pushing creative boundaries.";
-
   const introSecondaryLink = isProjects ? (
     <>
       <h4>For something more visual...</h4>
@@ -112,11 +114,10 @@ const Portfolio = ({ collection }) => {
   return (
     <ReactLenis>
       <section className="portfolio">
-        <header>
-          <h1>{introHeading}</h1>
-          <p>{introMainParagraph}</p>
-        </header>
-
+        {pageData && (
+        <header>{renderContent()}</header>
+        )}
+        
         <section className="other-side">{introSecondaryLink}</section>
 
         <div className="portfolio-filters">

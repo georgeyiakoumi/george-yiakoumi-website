@@ -43,10 +43,6 @@
             display: flex;
             flex-direction: column;
             align-self: stretch;
-            
-            @include respond(mobile) {
-                flex-grow: 1;
-            }
         }
 
         @include respond(mobile) {
