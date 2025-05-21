@@ -16,7 +16,7 @@ const Contact = () => {
   const from = searchParams.get("from");
 
   const prefillMessages = {
-    "ui-lab": "Hi, George,\n\n\I was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
+    "ui-lab": "Hi, George,\n\nI was checking out the UI Lab and would be keen to set up a call and have a look at what you can share.\n\nCheers,\n\n",
     
   };
 
