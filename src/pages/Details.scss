@@ -29,7 +29,11 @@
     }
 
     .segment-control-wrapper {
-        align-self: center;
+        
+        @include respond(mobile) {
+            align-self: center;
+        }
+ 
     }
 
     .details-content {

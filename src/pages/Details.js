@@ -21,7 +21,6 @@ const Details = () => {
   const [content, setContent] = useState([]);
   const svgRefs = useRef({});
   const [loading, setLoading] = useState(true);
-  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     const fetchData = async () => {
