@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; 
 import { NavLink } from "react-router-dom";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
@@ -13,12 +14,12 @@ const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?popu
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [navLinks, setNavLinks] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
   const [homePageUrl, setHomePageUrl] = useState(null);
   const { isMobile } = useBreakpoint();
 
-  // Auto-close sidebar when switching from mobile to desktop
   useEffect(() => {
     if (!isMobile && isOpen) {
       setIsOpen(false);
@@ -49,23 +50,42 @@ const Sidebar = () => {
     fetchNavigation();
   }, []);
 
-  const toggleMenu = () => setIsOpen(prev => !prev);
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = () => {
+    if (isMobile) {
+      setIsClosing(true);
+      setTimeout(() => {
+        setIsOpen(false);   // remove .open
+        setIsClosing(false); // remove .closing
+      }, 300); // match $time (300ms)
+    } else {
+      setIsOpen(false);
+    }
+  };
+
+const toggleMenu = () => {
+  if (isOpen && isMobile) {
+    closeMenu(); // handle closing through animation
+  } else {
+    setIsOpen(true); // just open directly
+  }
+};
+
 
   const detailsLink = navLinks.find(link => link.url === "details");
   const filteredNavLinks = navLinks.filter(link => link.url !== "details");
 
   return (
-    <aside className={`sidebar${isOpen ? " open" : ""}`}>
+    <aside className={`sidebar ${isOpen ? "open" : ""} ${isClosing ? "closing" : ""}`}>
+
       <div className="sidebar-wrapper">
         <div className="mobile-header">
           <div className="theme-toggle-wrapper">
             <ThemeToggle />
           </div>
           {isMobile && (
-            <div className="brand-wordmark">
+            <Link to="/" className="brand-wordmark" onClick={closeMenu}>
               <GyLogo />
-            </div>
+            </Link>
           )}
           <div className="hamburger-button-wrapper">
             <button className="hamburger-button" onClick={toggleMenu} aria-label="Toggle Menu">

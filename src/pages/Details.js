@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
+import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
 import Loading from "../components/ui/Loading/Loading";
@@ -20,6 +21,7 @@ const Details = () => {
   const [content, setContent] = useState([]);
   const svgRefs = useRef({});
   const [loading, setLoading] = useState(true);
+  const { isMobile } = useBreakpoint();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -175,9 +177,18 @@ const Details = () => {
 
       <SegmentControl
         options={[
-          { value: "development", label: "Development", icon: <CodeIcon /> },
-          { value: "backend", label: "Backend", icon: <DatabaseIcon /> },
-          { value: "hosting", label: "Hosting", icon: <ServerIcon /> },
+          { value: "development", 
+            label: isMobile  ? "Dev" : "Development", 
+            icon: isMobile  ? undefined : <CodeIcon /> 
+          },
+          { value: "backend",
+            label: "Backend",
+            icon: isMobile  ? undefined : <DatabaseIcon /> 
+          },
+          { value: "hosting",
+            label: "Hosting",
+            icon: isMobile  ? undefined : <ServerIcon />
+          },
         ]}
         selectedOption={viewMode}
         setSelectedOption={setViewMode}

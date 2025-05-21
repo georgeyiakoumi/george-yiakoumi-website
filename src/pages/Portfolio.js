@@ -40,7 +40,10 @@ const Portfolio = ({ collection }) => {
   const introSecondaryLink = isProjects ? (
     <>
       <h4>For something more visual...</h4>
-      <Button to="/ui-lab" label="Go to UI Lab" size="small" variant="secondary" />
+      <Button to="/ui-lab"
+      label={isMobile ? "UI Lab" : "Go to UI Lab"}
+      size="small" 
+      variant="secondary" />
     </>
   ) : (
     <>
