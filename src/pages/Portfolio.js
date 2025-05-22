@@ -121,6 +121,14 @@ const Portfolio = ({ collection }) => {
         <section className="other-side">{introSecondaryLink}</section>
 
         <div className="portfolio-filters">
+          {allTags.length > 0 && (
+            <TagDropdown
+              allTags={allTags}
+              selectedTags={selectedTags}
+              setSelectedTags={setSelectedTags}
+            />
+          )}
+          
           {isDesktop && (
             <SegmentControl
               options={[
@@ -141,14 +149,6 @@ const Portfolio = ({ collection }) => {
               ]}
               selectedOption={viewMode}
               setSelectedOption={setViewMode}
-            />
-          )}
-
-          {allTags.length > 0 && (
-            <TagDropdown
-              allTags={allTags}
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
             />
           )}
         </div>

@@ -63,6 +63,7 @@
   .portfolio-filters {
     grid-column: 1 / -1;
     display: flex;
+    justify-content: space-between;
     gap: $scale-root;
 
 

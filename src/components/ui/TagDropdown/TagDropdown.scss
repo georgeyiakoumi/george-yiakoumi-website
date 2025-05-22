@@ -23,10 +23,10 @@
     position: relative;
 
     @include respond(mobile) {
-        flex-wrap: nowrap;
-        padding: 0 $scale-sm;
-        height: $scale-xl;
-      }
+      flex-wrap: nowrap;
+      padding: 0 $scale-sm;
+      height: $scale-xl;
+    }
 
     .placeholder {
       color: var(--colour-text-brand);
@@ -77,11 +77,9 @@
   .tag-options {
     position: absolute;
     top: 100%;
-    left: 0;
-    width: $scale-xl-10;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+    left: 0; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     margin-top: $scale-xs;
     background: $background-overlay;
     box-shadow: $elevation-overlay;
@@ -90,10 +88,19 @@
     padding: $scale-xs $scale-xs-4;
     z-index: 9999;
 
+    @include respond(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     .tag-option {
       display: flex;
       align-items: center;
       gap: $scale-sm;
+      min-width: $scale-xl-10;
+
+        @include respond(mobile) {
+          min-width: $scale-xl-9;
+        }
 
        .checkbox {
         padding: $scale-sm $scale-root;
