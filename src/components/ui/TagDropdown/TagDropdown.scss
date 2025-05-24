@@ -103,10 +103,6 @@
       align-items: center;
       gap: $scale-sm;
 
-        @include respond(mobile) {
-          min-width: $scale-xl-9;
-        }
-
        .checkbox {
         padding: $scale-sm $scale-root;
         cursor: pointer;
