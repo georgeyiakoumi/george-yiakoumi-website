@@ -61,23 +61,41 @@
   }  
 
   .portfolio-filters {
-    grid-column: 1 / -1;
-    display: flex;
-    justify-content: space-between;
-    gap: $scale-root;
-
+    grid-column: 1 / span 8;
+    display: block;  
+    position: relative;
 
     @include respond(mobile) {
-      padding: 0 var(--gap);
-      justify-content: space-between;
-      align-items: center;
+      margin: 0 var(--gap);      
+    }
+
+    .tag-dropdown-wrapper {
+      position: absolute;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      align-items: start;
+      gap: var(--gap);
+
+      @include respond(tablet) {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .tag-dropdown {
+      grid-column: 1 / -1;
 
       @include respond(mobile) {
         order: -1;
       }
+
+    }
+
+    .segment-control-wrapper {
+
+    display: flex;
+    width: 100%;
+    justify-content:  flex-end;
 
     }
 

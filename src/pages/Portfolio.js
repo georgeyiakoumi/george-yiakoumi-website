@@ -122,13 +122,15 @@ const Portfolio = ({ collection }) => {
 
         <div className="portfolio-filters">
           {allTags.length > 0 && (
-            <TagDropdown
-              allTags={allTags}
-              selectedTags={selectedTags}
-              setSelectedTags={setSelectedTags}
-            />
+            <div className="tag-dropdown-wrapper">
+              <TagDropdown
+                allTags={allTags}
+                selectedTags={selectedTags}
+                setSelectedTags={setSelectedTags}
+              />
+            </div>
           )}
-          
+          <div className="segment-control-wrapper">
           {isDesktop && (
             <SegmentControl
               options={[
@@ -151,6 +153,7 @@ const Portfolio = ({ collection }) => {
               setSelectedOption={setViewMode}
             />
           )}
+          </div>
         </div>
 
         <div className={`portfolio-display ${viewMode}`}>

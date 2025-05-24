@@ -78,8 +78,10 @@
     position: absolute;
     top: 100%;
     left: 0; 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    display: inline-grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: var(--gap);
     margin-top: $scale-xs;
     background: $background-overlay;
     box-shadow: $elevation-overlay;
@@ -89,6 +91,10 @@
     z-index: 9999;
 
     @include respond(tablet) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include respond(mobile) {
       grid-template-columns: repeat(2, 1fr);
     }
 
@@ -96,7 +102,6 @@
       display: flex;
       align-items: center;
       gap: $scale-sm;
-      min-width: $scale-xl-10;
 
         @include respond(mobile) {
           min-width: $scale-xl-9;
