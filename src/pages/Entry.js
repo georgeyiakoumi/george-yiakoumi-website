@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useBreakpoint from "../utils/useBreakpoint";
 import Loading from "../components/ui/Loading/Loading";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Tag from "../components/ui/Tag/Tag";
@@ -48,22 +47,7 @@ const Entry = ({ collection }) => {
   const { slug } = useParams();
   const [entry, setEntry] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [activeSection, setActiveSection] = useState("challenge");
   const [showTags, setShowTags] = useState(false);
-  const { isMobile, isTablet } = useBreakpoint();
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      const currentIndex = sections.indexOf(activeSection);
-      if (e.key === "ArrowDown" && currentIndex < sections.length - 1) {
-        setActiveSection(sections[currentIndex + 1]);
-      } else if (e.key === "ArrowUp" && currentIndex > 0) {
-        setActiveSection(sections[currentIndex - 1]);
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSection]);
 
   useEffect(() => {
     const load = async () => {
@@ -100,32 +84,27 @@ const Entry = ({ collection }) => {
     },
   };
 
-  const activeSectionImage = sectionContentMap[activeSection]?.image || entry.Banner?.url;
   const backPath = collection === "projects" ? "/projects" : "/ui-lab";
 
   return (
     <section className="entry">
       <header
         style={{
-          backgroundImage: isMobile
-            ? entry.Banner?.url
-              ? `url(${entry.Banner.url})`
-              : undefined
-            : activeSectionImage
-            ? `url(${activeSectionImage})`
-            : undefined,
+          backgroundImage: entry.Banner?.url ? `url(${entry.Banner.url})` : undefined,
         }}
       >
         <div className="header-overlay"></div>
-        <section className="header-details">
+        <div className="back-wrapper">
           <TextLink
             to={backPath}
             label={`Back to ${collection === "projects" ? "projects" : "UI Lab"}`}
             iconLeft={ArrowLeft}
             size="tiny"
           />
+        </div>
+        <section className="header-details">
           <h1>{entry.Title || "Untitled"}</h1>
-          <p className="large">{entry.Description || ""}</p>
+          <p>{entry.Description || ""}</p>
           <div className="entry-tags-container">
             {showTags &&
               entry.Tags?.map((tag, i) => (
@@ -150,75 +129,26 @@ const Entry = ({ collection }) => {
         </section>
       </header>
 
-      {isMobile && entry.Banner?.url && (
-        <img
-          className="entry-banner"
-          src={entry.Banner.url}
-          alt={`${entry.Title} banner`}
-        />
-      )}
+      {sections.map((section) => {
+          const sectionData = sectionContentMap[section];
+          if (!sectionData?.content) return null;
 
-      {!isTablet && activeSectionImage && (
-        <div
-          className="entry-section-image"
-          style={{ backgroundImage: `url(${activeSectionImage})` }}
-        />
-      )}
-
-      {isMobile ? (
-        <>
-          {sections.map((section) => {
-            const sectionData = sectionContentMap[section];
-            if (!sectionData?.content) return null;
-            return (
-              <React.Fragment key={section}>
-                <div className="entry-section-wrapper">
-                  <h2>{sectionLabels[section]}</h2>
-                  <BlocksRenderer content={sectionData.content} />
-                </div>
-                {sectionData.image && (
-                  <img
-                    className="entry-section-image"
-                    src={sectionData.image}
-                    alt={`${sectionLabels[section]} visual`}
-                  />
-                )}
-              </React.Fragment>
-            );
-          })}
-        </>
-      ) : (
-        <div className="entry-content">
-          <nav className="entry-nav">
-            <ul>
-              {sections.map((section) => (
-                <li key={section}>
-                  <button
-                    type="button"
-                    onClick={() => setActiveSection(section)}
-                    className={activeSection === section ? "active" : ""}
-                  >
-                    {sectionLabels[section]}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <section className="entry-section-wrapper fade">
-            {sectionContentMap[activeSection]?.content && (
-              <BlocksRenderer content={sectionContentMap[activeSection].content} />
-            )}
-          </section>
-
-          {isTablet && !isMobile && activeSectionImage && (
-            <div
-              className="entry-image"
-              style={{ backgroundImage: `url(${activeSectionImage})` }}
-            />
-          )}
-        </div>
-      )}
+          return (
+            <div className="entry-section" key={section}>
+              <div className="entry-section-content">
+                <h2>{sectionLabels[section]}</h2>
+                <BlocksRenderer content={sectionData.content} />
+              </div>
+              {sectionData.image && (
+                <img
+                  src={sectionData.image}
+                  alt={`${sectionLabels[section]} visual`}
+                  className="entry-section-image"
+                />
+              )}
+            </div>
+          );
+        })}
     </section>
   );
 };

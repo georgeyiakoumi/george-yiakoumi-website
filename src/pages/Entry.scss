@@ -3,69 +3,86 @@
 .entry {
     grid-column: 1 / -1;
     grid-template-columns: repeat(11, 1fr);
-    grid-template-rows: [entry-header] auto [entry-content] 1fr;
-    padding: 0;
+    padding: var(--gap) 0;
 
     @include respond(tablet) {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
+        grid-template-columns: repeat(6, 1fr);
     }
 
     @include respond(mobile) {
-        padding: 0 0 $scale-xl 0;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
         margin: 0;
+        row-gap: 0;
     }
 
     header {
         z-index: 999;
         position: relative;
-        grid-column: 1 / span 7;
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: var(--gap);
-        padding-left: var(--gap);
-        margin-left: calc(-1 * var(--gap));        
+        grid-column: 1 / span 10;
+        justify-self: stretch;
+        display: flex;
+        flex-direction: column;
+        padding: $scale-xl-9 var(--gap) var(--gap) var(--gap);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position-y: bottom;
+        border-radius: $corner-radius-4;
+        overflow: hidden;
 
         @include respond(tablet) {
-            grid-column: 1 / span 6;
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 1;
+            grid-column: 1 / span 5;
         }
 
         @include respond(mobile) {
-            padding: 0;
-            margin: 0;
+            padding: $scale-xl-10 var(--gap) var(--gap) var(--gap);
+            border-radius: 0;
+        }
+
+        .back-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: var(--gap);
+
+            .text-link {
+                color: $brand-dark-1000;
+                
+                & > svg {
+                    color: $brand-dark-800;
+                }
+
+            }
         }
 
         .header-overlay {
             position: absolute;
+            box-sizing: border-box;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
             background: linear-gradient(0deg, $grey-light-500 0%, $grey-light-500 100%), $grey-light-500;
-            backdrop-filter: blur($scale-xl);
+            border-radius: $corner-radius-4;
+            border: $scale-xs-4 solid $stroke-weak; 
+
+            @include respond(mobile) {
+                border-radius: 0;
+                border: none;
+            }
         }
 
         .header-details {
-            grid-column: 2 / span 6;
+            width: 60%;
             display: flex;
             flex-direction: column;
             gap: var(--gap);
-            padding: var(--gap) var(--gap) var(--gap) 0;
 
             @include respond(tablet) {
-                display: flex;
-                flex-direction: column;
-                padding: var(--gap) var(--gap) var(--gap) 0;
-                gap: $scale-root;
-            }
-            
-            @include respond(mobile) {
-                padding: var(--gap);
+                width: 100%;
+                gap: $scale-lg;
             }
 
             & > * {
@@ -74,11 +91,11 @@
             }
 
             h1 {
-                color: $grey-dark-1000;
+                @include responsive-typography(heading-2, $font-family-heading, $font-weight-weak, $grey-dark-1000);
             }
             
             p {
-                color: $grey-dark-700;
+                color: $grey-dark-700
             }
     
             .entry-tags-container {
@@ -97,193 +114,87 @@
                 border-color: $grey-dark-100;
                 color: $grey-dark-1000;
             }
-    
-            .text-link  {
-                color: $brand-dark-1000;
-                
-                & > svg {
-                    color: $brand-dark-800;
-                }
-
-            }
 
         }
         
     }
-
-    .entry-banner {
-        width: 100%;
-    }
-
-    .entry-section-image {
-        grid-column: 8 / span 4;
-        display: block;
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-color: $background-brand;
-        margin-left: calc(-1 * var(--gap));
-        padding-right: var(--gap);
-
-        @include respond(tablet) {
-            grid-column: 4 / span 3;
-            height: $scale-xl-10;
-            margin: var(--gap) 0 0 0;
-            padding: 0;
-            order: 1;
-        }
-
-        @include respond(mobile) {
-            height: auto;
-            object-fit: cover;
-            order: 0;
-            margin: 0;   
-        }
-
-    }
-
-    .entry-content {
-        grid-column: 1 / span 11;
+    
+    .entry-section {
+        grid-column: 1 / span 10;
         display: grid;
-        grid-template-columns: repeat(11, 1fr);
-        height: 100%;
-        justify-self: stretch;
+        grid-template-columns: repeat(10, 1fr);
+        align-items: center;
         gap: var(--gap);
 
         @include respond(tablet) {
-            grid-column: 1 / span 6;
-            grid-template-columns: repeat(6, 1fr);
-            grid-template-rows: auto 1fr;
-            margin-left: calc(-1 * var(--gap));
-            flex-grow: 1;
+            grid-column: 1 / span 5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $scale-lg;
         }
-
+        
         @include respond(mobile) {
-            grid-column: 1 / -1;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: $scale-lg;
             padding: var(--gap);
+
+            &:nth-child(odd) {
+                background: $background-alternate;
+            }
         }
 
-        .entry-nav {
-            grid-column: 2 / span 2;
-            border-right: $scale-xs-4 solid $stroke-weak;
+        .entry-section-content {
+            grid-column: 1 / span 6;
+            display: flex;
+            flex-direction: column;
+            align-content: stretch;
+            justify-content: center;
+            padding: var(--gap);
+            gap: var(--gap);
 
             @include respond(tablet) {
-                grid-column: 1 / span 6;
-                border-right: 0;
-                border-bottom: $scale-xs-4 solid $stroke-weak;
-                display: inline-flex;
-                flex-direction: column;
-
-            }
-
-            @include respond(mobile) {
-                display: none;
-            }
-        
-            & > ul {
-                list-style: none;
                 padding: 0;
+                gap: $scale-root;
+            }
 
-                @include respond(tablet) {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: stretch;
-                }
-
-                & > li {
-                    flex-grow: 1;
-                    text-transform: uppercase;
-                    letter-spacing: $scale-xs-4;
-                    font-size: get-typography(text-small);
-                    padding-bottom: 0;
-                    margin-right: calc(-1 * $scale-xs-4);
-
-                    @include respond(tablet) {
-                        margin-right: 0;
-                        margin-bottom: calc(-1 * $scale-xs-4);
-                    }
-                    
+            h2 {
+                @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong, $text-strong);
+            }
             
-                    & > button {
-                        display: block;
-                        text-align: left;
-                        text-transform: uppercase;
-                        letter-spacing: $scale-xs-4;
-                        font-size: get-typography(text-small);
-                        background: none;
-                        width: 100%;
-                        color: $text-weak;
-                        text-decoration: none;
-                        padding: $scale-root 0;
-
-                        @include respond(tablet) {
-                            padding: $scale-lg $scale-root;
-                        }
-
-                        &:hover {
-                            color: $text-brand;
-                            border-right: $scale-xs-4 solid $stroke-brand-weak;
-
-                            @include respond(tablet) {
-                                color: inherit;
-                                border: 0;
-                            }
-
-                        }
-
-                        &.active {
-                            color: $text-strong;
-                            border-right: $scale-xs-4 solid $stroke-strong;
-
-                            @include respond(tablet) {
-                                border-right: 0;
-                                border-bottom: $scale-xs-4 solid $stroke-strong;
-                            }
-
-                        }
-
-                    } 
-
-                }
+            p {
+                @include responsive-typography(heading-4, $font-family-heading, $font-weight-weak, $text-weak);
                 
             }
-
         }
 
-        .entry-image {
-            grid-column: 4 / span 3;
-            background-size: cover;
+        img {
+            grid-column: 7 / span 4;
+            box-sizing: border-box;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: $corner-radius-4;
+            border: $scale-xs-4 solid $stroke-weak;
+            margin: 0;
         }
 
-    }
+        @include respond-above(tablet) {
+            &:nth-child(even) {
+                .entry-section-content {
+                    grid-column: 5 / span 6;
+                }
 
-    .entry-section-wrapper {
-        display: flex;
-        flex-direction: column;
-        grid-column: 5 / span 4;
-        padding: var(--gap) 0;
-
-        @include respond(tablet) {
-            grid-column: 1 / span 3;
-            padding: 0 0 0 var(--gap);
-            height: 100%;
-        }
-
-        @include respond(mobile) {
-            
-            
-            flex-direction: column;
-            gap: $scale-root;
-            padding: $scale-xl-4 var(--gap);
-        }
-
-        h2 {
-            @include respond(mobile) {
-                display: block;
+                img {
+                    grid-column: 1 / span 4;
+                    order: -1;
+                }
             }
         }
-
-    } 
+        
+        
+    }
     
 }

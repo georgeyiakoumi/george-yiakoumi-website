@@ -16,3 +16,13 @@ $breakpoints: (
     @error "Invalid breakpoint: #{$breakpoint}. Check the $breakpoints map.";
   }
 }
+
+@mixin respond-above($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint) + 1) {
+      @content;
+    }
+  } @else {
+    @error "Invalid breakpoint: #{$breakpoint}. Check the $breakpoints map.";
+  }
+}

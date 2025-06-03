@@ -51,7 +51,7 @@ main {
     height: 100vh;
     overflow: auto;
     will-change: transform;
-    margin-left: calc(-1 * var(--gap));
+    
   
     @include breakpoint.respond(tablet) {
       grid-column: 1 / span 6;
