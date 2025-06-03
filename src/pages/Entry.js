@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { ReactLenis } from "lenis/react";
 import { useParams } from "react-router-dom";
 import Loading from "../components/ui/Loading/Loading";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
@@ -87,69 +88,80 @@ const Entry = ({ collection }) => {
   const backPath = collection === "projects" ? "/projects" : "/ui-lab";
 
   return (
-    <section className="entry">
-      <header
-        style={{
-          backgroundImage: entry.Banner?.url ? `url(${entry.Banner.url})` : undefined,
-        }}
-      >
-        <div className="header-overlay"></div>
-        <div className="back-wrapper">
-          <TextLink
-            to={backPath}
-            label={`Back to ${collection === "projects" ? "projects" : "UI Lab"}`}
-            iconLeft={ArrowLeft}
-            size="tiny"
-          />
-        </div>
-        <section className="header-details">
-          <h1>{entry.Title || "Untitled"}</h1>
-          <p>{entry.Description || ""}</p>
-          <div className="entry-tags-container">
-            {showTags &&
-              entry.Tags?.map((tag, i) => (
-                <Tag
-                  key={i}
-                  label={tag.name}
-                  selected={false}
-                  size="small"
-                  state="default"
-                  dismissible={false}
-                />
-              ))}
-            <Button
-              onClick={() => setShowTags(!showTags)}
-              label={showTags ? "Hide tags" : "Show tags"}
-              size="small"
-              tone="white"
-              variant="secondary"
-              iconLeft={showTags ? CloseIcon : TagIcon}
+    <ReactLenis>
+      <section className="entry">
+        <header
+          style={{
+            backgroundImage: entry.Banner?.url ? `url(${entry.Banner.url})` : undefined,
+          }}
+        >
+          <div className="header-overlay"></div>
+          <div className="back-wrapper">
+            <TextLink
+              to={backPath}
+              label={`Back to ${collection === "projects" ? "projects" : "UI Lab"}`}
+              iconLeft={ArrowLeft}
+              size="tiny"
             />
           </div>
-        </section>
-      </header>
-
-      {sections.map((section) => {
-          const sectionData = sectionContentMap[section];
-          if (!sectionData?.content) return null;
-
-          return (
-            <div className="entry-section" key={section}>
-              <div className="entry-section-content">
-                <h2>{sectionLabels[section]}</h2>
-                <BlocksRenderer content={sectionData.content} />
-              </div>
-              {sectionData.image && (
-                <img
-                  src={sectionData.image}
-                  alt={`${sectionLabels[section]} visual`}
-                  className="entry-section-image"
-                />
-              )}
+          <section className="header-details">
+            <h1>{entry.Title || "Untitled"}</h1>
+            <p>{entry.Description || ""}</p>
+            <div className="entry-tags-container">
+              {showTags &&
+                entry.Tags?.map((tag, i) => (
+                  <Tag
+                    key={i}
+                    label={tag.name}
+                    selected={false}
+                    size="small"
+                    state="default"
+                    dismissible={false}
+                  />
+                ))}
+              <Button
+                onClick={() => setShowTags(!showTags)}
+                label={showTags ? "Hide tags" : "Show tags"}
+                size="small"
+                tone="white"
+                variant="secondary"
+                iconLeft={showTags ? CloseIcon : TagIcon}
+              />
             </div>
-          );
-        })}
-    </section>
+          </section>
+        </header>
+
+        {sections.map((section) => {
+            const sectionData = sectionContentMap[section];
+            if (!sectionData?.content) return null;
+
+            return (
+              <div className="entry-section" key={section}>
+                <div className="entry-section-content">
+                  <h2>{sectionLabels[section]}</h2>
+                  <BlocksRenderer content={sectionData.content} />
+                </div>
+                {sectionData.image && (
+                  <img
+                    src={sectionData.image}
+                    alt={`${sectionLabels[section]} visual`}
+                    className="entry-section-image"
+                  />
+                )}
+              </div>
+            );
+          })}
+
+          <div className="back-wrapper">
+            <TextLink
+              to={backPath}
+              label={`Back to ${collection === "projects" ? "projects" : "UI Lab"}`}
+              iconLeft={ArrowLeft}
+              size="tiny"
+            />
+          </div>
+      </section>
+    </ReactLenis>
   );
 };
 

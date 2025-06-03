@@ -1,9 +1,10 @@
 @use '../styles/base' as *;
 
 .entry {
-    grid-column: 1 / -1;
-    grid-template-columns: repeat(11, 1fr);
-    padding: var(--gap) 0;
+    grid-column: 1 / span 10;
+    grid-template-columns: repeat(10, 1fr);
+    display: grid;
+    padding: var(--gap) 0 !important;
 
     @include respond(tablet) {
         grid-template-columns: repeat(6, 1fr);
@@ -12,15 +13,28 @@
     @include respond(mobile) {
         display: flex;
         flex-direction: column;
-        padding: 0;
+        padding: 0 0 $scale-xl-8 0 !important;
         margin: 0;
         row-gap: 0;
+    }
+
+    .back-wrapper {
+        padding: var(--gap);
+        grid-column: 1 / -1;
+
+        @include respond(tablet) {
+            padding: 0;
+        }
+
+        @include respond(mobile) {
+            padding: var(--gap);
+        }
     }
 
     header {
         z-index: 999;
         position: relative;
-        grid-column: 1 / span 10;
+        grid-column: 1 / -1;
         justify-self: stretch;
         display: flex;
         flex-direction: column;
@@ -44,7 +58,6 @@
             position: absolute;
             top: 0;
             left: 0;
-            padding: var(--gap);
 
             .text-link {
                 color: $brand-dark-1000;
@@ -164,7 +177,7 @@
                 @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong, $text-strong);
             }
             
-            p {
+            p, li {
                 @include responsive-typography(heading-4, $font-family-heading, $font-weight-weak, $text-weak);
                 
             }
