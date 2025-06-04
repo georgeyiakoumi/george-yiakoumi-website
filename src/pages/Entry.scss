@@ -2,12 +2,13 @@
 
 .entry {
     grid-column: 1 / span 10;
-    grid-template-columns: repeat(10, 1fr);
-    display: grid;
+    display: flex;
+    flex-direction: column;
     padding: var(--gap) 0 !important;
 
     @include respond(tablet) {
-        grid-template-columns: repeat(6, 1fr);
+        grid-column: 1 / span 5 !important;;
+        grid-template-columns: repeat(5, 1fr);
     }
 
     @include respond(mobile) {
@@ -58,6 +59,10 @@
             position: absolute;
             top: 0;
             left: 0;
+
+            @include respond(tablet) {
+            padding: var(--gap);
+        }
 
             .text-link {
                 color: $brand-dark-1000;
@@ -133,24 +138,17 @@
     }
     
     .entry-section {
-        grid-column: 1 / span 10;
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        align-items: center;
+        display: flex;
+        flex-direction: column;
         gap: var(--gap);
+        padding: var(--gap);
 
         @include respond(tablet) {
-            grid-column: 1 / span 5;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: $scale-lg;
+            padding: 0;
         }
         
         @include respond(mobile) {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             gap: $scale-lg;
             padding: var(--gap);
 
@@ -160,53 +158,51 @@
         }
 
         .entry-section-content {
-            grid-column: 1 / span 6;
             display: flex;
             flex-direction: column;
-            align-content: stretch;
-            justify-content: center;
-            padding: var(--gap);
-            gap: var(--gap);
+            width: 80%;
+            gap: $scale-lg;
+            
 
             @include respond(tablet) {
+                width: 100%;
                 padding: 0;
-                gap: $scale-root;
             }
+
+            @include respond(mobile) {
+                padding: 0;
+            }
+
 
             h2 {
                 @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong, $text-strong);
             }
             
             p, li {
-                @include responsive-typography(heading-4, $font-family-heading, $font-weight-weak, $text-weak);
-                
+                @include responsive-typography(heading-4, $font-family-heading, $font-weight-weak, $text-weak);    
             }
-        }
+        }   
+
+
+        
 
         img {
-            grid-column: 7 / span 4;
             box-sizing: border-box;
-            width: 100%;
+            width: 50%;
             height: auto;
             object-fit: cover;
             border-radius: $corner-radius-4;
             border: $scale-xs-4 solid $stroke-weak;
             margin: 0;
-        }
 
-        @include respond-above(tablet) {
-            &:nth-child(even) {
-                .entry-section-content {
-                    grid-column: 5 / span 6;
-                }
-
-                img {
-                    grid-column: 1 / span 4;
-                    order: -1;
-                }
+            @include respond(tablet) {
+                width: 70%;
             }
-        }
-        
+
+            @include respond(mobile) {
+                width: 100%;
+            }
+        }        
         
     }
     
