@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
@@ -41,16 +42,12 @@ const Portfolio = ({ collection }) => {
   const isProjects = collection === "projects";
   const introSecondaryLink = isProjects ? (
     <>
-      <h4>For something more visual...</h4>
-      <Button to="/ui-lab"
-      label={isMobile ? "UI Lab" : "Go to UI Lab"}
-      size="small" 
-      variant="secondary" />
+      <p>For something more visual go to the <Link to="/ui-lab">UI lab</Link>.</p>
+      
     </>
   ) : (
     <>
-      <h4>For applied strategy or design thinking...</h4>
-      <Button to="/projects" label="Projects" size="small" variant="tertiary" />
+      <p>For applied strategy or design thinking, <Link to="/projects">projects</Link>.</p>
     </>
   );
 
@@ -115,10 +112,11 @@ const Portfolio = ({ collection }) => {
     <ReactLenis>
       <section className="portfolio">
         {pageData && (
-        <header>{renderContent()}</header>
+        <header>
+          {renderContent()}
+          {introSecondaryLink}        
+        </header>
         )}
-        
-        <section className="other-side">{introSecondaryLink}</section>
 
         <div className="portfolio-filters">
           {allTags.length > 0 && (
