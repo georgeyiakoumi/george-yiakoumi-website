@@ -14,6 +14,7 @@ const TextLink = ({
   disabled = false,
   className = "",
   onClick,
+  hideLabel = false,
 }) => (
   <RouterLink
     to={disabled ? "#" : to}
@@ -22,7 +23,7 @@ const TextLink = ({
     onClick={onClick}
   >
     {IconLeft && <IconLeft />}
-    {label}
+    {!hideLabel && <span>{label}</span>}
     {IconRight && <IconRight />}
   </RouterLink>
 );

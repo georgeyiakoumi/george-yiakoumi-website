@@ -24,7 +24,7 @@ const Sidebar = () => {
   const [homePageUrl, setHomePageUrl] = useState(null);
   const [activeNavLabel, setActiveNavLabel] = useState(null);
   const [previousNavLabel, setPreviousNavLabel] = useState(null);
-  const { isMobile, isMobileView } = useBreakpoint();
+  const { isMobile, isMobileView, isTablet } = useBreakpoint();
 
   const handleSetActive = (label) => {
   if (label !== activeNavLabel) {
@@ -134,6 +134,7 @@ const Sidebar = () => {
                           handleSetActive(label); // ✅ Set the active label
                         }}
                         onBecomingInactive={label === previousNavLabel}
+                        hideLabel={isTablet}
                       />
                     </li>
                   );
@@ -170,9 +171,10 @@ const Sidebar = () => {
                   label={detailsLink.label}
                   iconLeft={Info}
                   size="tiny"
+                  hideLabel={isTablet}
                 />
               )}
-              <small>&copy;{new Date().getFullYear()} George Yiakoumi</small>
+              <small>&copy;{new Date().getFullYear()} <span className="author">George Yiakoumi</span></small>
             </footer>
           </div>
         </div>

@@ -12,12 +12,14 @@
   border-right: $scale-xs-4 solid $stroke-weak;
 
   @include respond(tablet) {
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    flex-direction: column;
     padding: 0 var(--gap);
   }
 
   @include respond(mobile) {
     grid-column: 1 / -1;
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     background: none;
     padding: 0;
@@ -63,12 +65,14 @@
   padding-right: var(--gap);
 
   @include respond(tablet) {
-    grid-column: 1 / span 2;
+    flex-grow: 1;
     padding-right: 0;
+    align-items: center;
   }
 
   @include respond(mobile) {
     grid-column: 1 / span 4;
+    align-items: normal;
   }
 }
 
@@ -160,6 +164,10 @@
   flex-grow: 1;
   display: flex;
 
+  @include respond(tablet) {
+    
+  }
+
   @include respond(mobile) {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -210,6 +218,10 @@
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+
+    @include respond(tablet) {
+      align-items: center;
+    }
   
     @include respond(mobile) {
       justify-content: center;
@@ -230,15 +242,33 @@
   }
   
   footer {
-    
     color: $text-weak;
     display: flex;
     flex-direction: column;
     gap: $scale-root;
     padding-bottom: var(--container-padding);
   
+    @include respond(tablet) {
+      align-items: center;
+    }
+
     @include respond(mobile) {
       padding-bottom: 0;
+    }
+
+    small {
+
+      @include respond(tablet) {
+        text-align: center;
+      }
+
+      @include respond(mobile) {
+        text-align: left;
+      }
+
+      .author {
+        text-wrap:nowrap;
+      }
     }
   
     .social-links {

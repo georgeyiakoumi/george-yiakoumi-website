@@ -11,6 +11,7 @@ const NavItem = ({
   isMobileView,
   onClick,
   onBecomingInactive = false,
+  hideLabel = false,
 }) => {
   const lottieRef = useRef();
   const [justClicked, setJustClicked] = useState(false);
@@ -74,7 +75,7 @@ const NavItem = ({
           className="icon"
         />
       )}
-      <span className="nav-item-label">{label}</span>
+      {!hideLabel && <span className="nav-item-label">{label}</span>}
     </NavLink>
   );
 };

@@ -9,7 +9,7 @@
   padding: var(--container-padding) 0;
 
   @include respond(tablet) {
-    padding: var(--gap) !important;
+    padding: var(--gap) var(--gap) var(--gap) 0 !important;
   }
 
   @include respond(mobile) {
