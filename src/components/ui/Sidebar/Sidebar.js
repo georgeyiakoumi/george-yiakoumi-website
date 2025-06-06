@@ -142,7 +142,6 @@ const Sidebar = () => {
             </nav>
 
             <footer>
-              <small>&copy;{new Date().getFullYear()} George Yiakoumi</small>
               <div className="social-links">
                 {socialLinks.map(({ id, name, url, ariaLabel }) => {
                   const Icon = getIcon(name);
@@ -173,6 +172,7 @@ const Sidebar = () => {
                   size="tiny"
                 />
               )}
+              <small>&copy;{new Date().getFullYear()} George Yiakoumi</small>
             </footer>
           </div>
         </div>

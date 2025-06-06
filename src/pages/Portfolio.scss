@@ -14,7 +14,7 @@
 
   @include respond(mobile) {
     grid-column: 1 / -1;
-    padding: 0 0 8rem 0 !important;
+    padding: 0 0 $scale-xl-8 0 !important;
   }
 
   header {

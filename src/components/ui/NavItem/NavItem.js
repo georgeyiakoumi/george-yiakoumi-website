@@ -51,10 +51,11 @@ const NavItem = ({
   }, [isActive, justClicked]);
 
   useEffect(() => {
-    if (onBecomingInactive && !isActive) {
-      lottieRef.current?.playSegments([15, 30], true);
-    }
-  }, [onBecomingInactive]);
+  if (onBecomingInactive && !isActive) {
+    lottieRef.current?.playSegments([15, 30], true);
+  }
+}, [onBecomingInactive, isActive]);
+
 
   return (
     <NavLink

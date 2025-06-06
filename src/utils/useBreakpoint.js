@@ -26,10 +26,10 @@ const useBreakpoint = () => {
     };
   }, []);
 
-  const isMobile = width < 548;
-  const isTablet = width >= 548 && width < 1024;
-  const isDesktop = width >= 1024;
-  const isMobileView = isMobile || isTablet; // 👈 includes both mobile + tablet
+  const isMobile = width < breakpoints.mobile;
+  const isTablet = width >= breakpoints.mobile && width < breakpoints.tablet;
+  const isDesktop = width >= breakpoints.tablet;
+  const isMobileView = isMobile || isTablet;
   const isReady = typeof width === "number";
 
   return { width, isMobile, isTablet, isDesktop, isMobileView, isReady };

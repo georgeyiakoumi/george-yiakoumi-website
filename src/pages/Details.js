@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from 'react-dom';
+import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
@@ -172,31 +173,33 @@ const Details = () => {
   if (loading) return <Loading title="Loading..." />;
 
   return (
-    <section className="details">
-      <header>{renderContent()}</header>
+    <ReactLenis>
+      <section className="details">
+        <header>{renderContent()}</header>
 
-      <SegmentControl
-        options={[
-          { value: "development", 
-            label: isMobile  ? "Dev" : "Development", 
-            icon: isMobile  ? undefined : <CodeIcon /> 
-          },
-          { value: "backend",
-            label: "Backend",
-            icon: isMobile  ? undefined : <DatabaseIcon /> 
-          },
-          { value: "hosting",
-            label: "Hosting",
-            icon: isMobile  ? undefined : <ServerIcon />
-          },
-        ]}
-        selectedOption={viewMode}
-        setSelectedOption={setViewMode}
-        
-      />
+        <SegmentControl
+          options={[
+            { value: "development", 
+              label: isMobile  ? "Dev" : "Development", 
+              icon: isMobile  ? undefined : <CodeIcon /> 
+            },
+            { value: "backend",
+              label: "Backend",
+              icon: isMobile  ? undefined : <DatabaseIcon /> 
+            },
+            { value: "hosting",
+              label: "Hosting",
+              icon: isMobile  ? undefined : <ServerIcon />
+            },
+          ]}
+          selectedOption={viewMode}
+          setSelectedOption={setViewMode}
+          
+        />
 
-      <div className="details-content">{renderTools(viewMode)}</div>
-    </section>
+        <div className="details-content">{renderTools(viewMode)}</div>
+      </section>
+    </ReactLenis>
   );
 };
 

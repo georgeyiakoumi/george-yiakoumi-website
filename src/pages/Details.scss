@@ -1,19 +1,18 @@
 @use '../styles/base' as *;
 
 .details {
-    grid-column-end: main-end;
+    grid-column: 2 / span 8;
     grid-template-columns: repeat(10, 1fr);
-    padding-right: var(--gap);
-
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
     @include respond(tablet) {
         grid-column: 1 / span 6;
-        display: flex;
-        flex-direction: column;
     }
 
     @include respond(mobile) {
         grid-column: 1 / span 4;
-        padding: $scale-lg;
+        padding: $scale-lg $scale-lg $scale-xl-8 $scale-lg !important;
     }
 
     & > header {
