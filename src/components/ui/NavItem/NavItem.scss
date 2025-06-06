@@ -13,7 +13,7 @@
   transition: all $time;
 
   @include respond(mobile) {
-    padding: $scale-root; 
+    padding: $scale-root $scale-root $scale-root 0;; 
   }
 
   &:hover {
@@ -48,8 +48,8 @@
     flex-shrink: 0;
 
     @include respond(mobile) {
-      width: $scale-xl;
-      height: $scale-xl;
+      width: $scale-xl-2;
+      height: $scale-xl-2;
     } 
 
     svg path { 

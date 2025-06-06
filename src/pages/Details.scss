@@ -55,8 +55,12 @@
             display: flex;
             flex-direction: row;
             align-items: flex-start;
-            gap: var(--gap);
+            gap: $scale-lg;
             @include container;
+
+            @include respond(tablet) {
+            gap: $scale-lg;
+        }
 
             > svg {
                 width: $scale-xl-3;
@@ -72,7 +76,6 @@
                 h2 {
                     font-size: get-typography(heading-3);
                 }
-                
             }
 
             p {

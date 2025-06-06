@@ -2,7 +2,7 @@
 @use 'elevation' as elevation;
 @use 'scale' as scale;
 
-@mixin container ($container-background: var(--colour-background-base), $container-box-shadow: 0, $container-padding: scale.$scale-lg, $container-border: scale.$scale-xs-4 solid semantic.$stroke-weak, $container-border-radius: scale.$corner-radius-2) {
+@mixin container ($container-background: var(--colour-background-base), $container-box-shadow: none, $container-padding: scale.$scale-lg, $container-border: scale.$scale-xs-4 solid semantic.$stroke-weak, $container-border-radius: scale.$corner-radius-2) {
     padding: $container-padding;
     background: $container-background;
     box-shadow: $container-box-shadow;
