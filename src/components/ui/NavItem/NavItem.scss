@@ -1,0 +1,71 @@
+@use '../../../styles/base' as *;
+
+.nav-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: $scale-root;
+  text-decoration: none;
+  color: $text-weak;
+  padding: $scale-sm;
+  border-radius: $corner-radius-2;
+  border: solid $scale-xs-4 rgba(255, 255, 255, 0);
+  transition: all $time;
+
+  @include respond(mobile) {
+    padding: $scale-root; 
+  }
+
+  &:hover {
+    background: $fill-hover;
+    color: $text-strong;
+    border: solid $scale-xs-4 $stroke-weak;
+    
+    @include respond(tablet) {
+      background: none;
+      color: $text-weak;
+      border: solid $scale-xs-4 rgba(255, 255, 255, 0);
+    }
+  }
+  &.active {
+    font-weight: bold;
+    background: none;
+    border: solid $scale-xs-4 rgba(255, 255, 255, 0);
+
+    .nav-item-label {
+      color: $text-strong;
+    }
+
+    .icon svg path {
+      stroke: $text-strong;
+    }
+
+  }
+
+  .icon {
+     width: $scale-xl;
+      height: $scale-xl;
+    flex-shrink: 0;
+
+    @include respond(mobile) {
+      width: $scale-xl;
+      height: $scale-xl;
+    } 
+
+    svg path { 
+      stroke: $text-weak;
+    }
+
+  }
+
+  .nav-item-label {
+    flex: 1;
+    font-size: get-typography(text-small);
+
+    
+
+    @include respond(mobile) {
+      font-size: get-typography(heading-3);
+    } 
+  }
+}

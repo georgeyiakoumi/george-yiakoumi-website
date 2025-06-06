@@ -226,58 +226,6 @@
       @include respond(mobile) {
         gap: var(--gap);
       }
-  
-      & > li {
-        padding-bottom: 0;
-  
-        @include respond(tablet) {
-          padding-bottom: $scale-sm;
-        }
-  
-        & > a {
-          box-sizing: border-box;
-          text-decoration: none;
-          color: var(--colour-text-strong);
-          font-size: get-typography(paragraph);
-          padding: $scale-sm;
-          display: block;
-          border: $scale-xs-4 solid rgba(255, 255, 255, 0);
-          border-radius: $corner-radius-2;
-          transition: all $time, color $time;
-
-          @include respond(tablet) {
-              border: none;
-            }
-  
-          &:hover {
-            background-color: $fill-hover;
-            color: var(--colour-text-weak);
-            border: $scale-xs-4 solid $stroke-weak;
-  
-            @include respond(tablet) {
-              background: none;
-              color: var(--colour-text-strong);
-              border: none;
-            }
-          }
-  
-          &.active {
-            color: var(--colour-text-strong);
-            font-weight: 700;
-          }
-  
-          @include respond(tablet) {
-            font-size: get-typography(paragraph);
-            font-weight: $font-weight-weak;
-            padding: 0;
-          }
-  
-          @include respond(mobile) {
-            font-size: get-typography(heading-3);
-            font-weight: $font-weight-weak;
-          }
-        }
-      }
     }
   }
   

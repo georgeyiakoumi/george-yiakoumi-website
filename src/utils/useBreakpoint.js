@@ -8,19 +8,17 @@ const breakpoints = {
 
 const useBreakpoint = () => {
   const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 1024 // SSR-safe default
+    typeof window !== "undefined" ? window.innerWidth : 1024
   );
 
   useEffect(() => {
     let timeoutId;
-
     const handleResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(() => {
         setWidth(window.innerWidth);
-      }, 0); // debounce resize
+      }, 0);
     };
-
     window.addEventListener("resize", handleResize);
     return () => {
       clearTimeout(timeoutId);
@@ -28,13 +26,14 @@ const useBreakpoint = () => {
     };
   }, []);
 
-  const isMobile = width < breakpoints.mobile;
-  const isMobileWide = width >= breakpoints.mobile && width < breakpoints.tablet;
-  const isTablet = width >= breakpoints.mobile && width < breakpoints.tablet;
-  const isDesktop = width >= breakpoints.tablet;
+  const isMobile = width < 548;
+  const isTablet = width >= 548 && width < 1024;
+  const isDesktop = width >= 1024;
+  const isMobileView = isMobile || isTablet; // 👈 includes both mobile + tablet
   const isReady = typeof width === "number";
 
-  return { width, isMobile, isMobileWide, isTablet, isDesktop, isReady };
+  return { width, isMobile, isTablet, isDesktop, isMobileView, isReady };
+
 };
 
 export default useBreakpoint;
