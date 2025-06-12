@@ -58,16 +58,17 @@
   align-items: center;
   justify-content: center;
   box-shadow: $elevation-raised;
+  left: 0;
   position: absolute;
-  left: 0; // Default position
-  transition: $time;
-
-
+  transform: translateX(0);
+  transition: transform $time, background-color $time, border $time;
+  will-change: transform;
 
   &.dark {
     border: 2px solid $stroke-selected;
     background-color: $background-overlay;
-    left: calc(100% - 2rem); // Position for dark theme
+    transform: translateX(calc(#{$scale-xl-5} - #{$scale-xl}));
+
   }
 }
 

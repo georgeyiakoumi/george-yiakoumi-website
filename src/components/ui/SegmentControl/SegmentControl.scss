@@ -82,6 +82,7 @@
       border-radius: $corner-radius-2;
       box-shadow: $elevation-raised;
       z-index: 1;
+      transition: left $time, width $time;
     }
   
     .segment-option {

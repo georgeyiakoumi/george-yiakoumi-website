@@ -47,7 +47,7 @@ const Portfolio = ({ collection }) => {
     </>
   ) : (
     <>
-      <p>For applied strategy or design thinking, <Link to="/projects">projects</Link>.</p>
+      <p>For applied strategy or design thinking, check out the <Link to="/projects">projects</Link>.</p>
     </>
   );
 

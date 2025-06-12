@@ -4,7 +4,6 @@ import NavItem from "../NavItem/NavItem";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { getIcon } from "../../../utils/iconMapper";
-import { motion } from "framer-motion";
 import TextLink from "../TextLink/TextLink";
 import AboutIcon from "../../../assets/lottie/avatar.json";
 import ProjectsIcon from "../../../assets/lottie/briefcase.json";
@@ -27,11 +26,11 @@ const Sidebar = () => {
   const { isMobile, isMobileView, isTablet } = useBreakpoint();
 
   const handleSetActive = (label) => {
-  if (label !== activeNavLabel) {
-    setPreviousNavLabel(activeNavLabel); // store previous
-    setActiveNavLabel(label);
-  }
-};
+    if (label !== activeNavLabel) {
+      setPreviousNavLabel(activeNavLabel);
+      setActiveNavLabel(label);
+    }
+  };
 
   const lottieIcons = {
     about: AboutIcon,
@@ -105,11 +104,23 @@ const Sidebar = () => {
             </Link>
           )}
           <div className="hamburger-button-wrapper">
-            <button className="hamburger-button" onClick={toggleMenu} aria-label="Toggle Menu">
-              <motion.div className="line" animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3 }} />
-              <motion.div className="line" animate={isOpen ? { opacity: 0 } : { opacity: 1 }} transition={{ duration: 0.3 }} />
-              <motion.div className="line" animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} transition={{ duration: 0.3 }} />
+            <button
+              className={`hamburger-button ${isOpen ? "open" : ""}`}
+              onClick={toggleMenu}
+              aria-label="Toggle Menu"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="32"
+                height="32"
+                className="hamburger-icon"
+              >
+                <line className="line top" x1="3" y1="12" x2="21" y2="12" />
+                <line className="line middle" x1="3" y1="12" x2="21" y2="12" />
+                <line className="line bottom" x1="3" y1="12" x2="21" y2="12" />
+              </svg>
             </button>
+
           </div>
         </div>
 
@@ -131,7 +142,7 @@ const Sidebar = () => {
                         isMobileView={isMobileView}
                         onClick={() => {
                           closeMenu();
-                          handleSetActive(label); // ✅ Set the active label
+                          handleSetActive(label);
                         }}
                         onBecomingInactive={label === previousNavLabel}
                         hideLabel={isTablet}
@@ -147,19 +158,16 @@ const Sidebar = () => {
                 {socialLinks.map(({ id, name, url, ariaLabel }) => {
                   const Icon = getIcon(name);
                   return (
-                    <motion.a
+                    <a
                       key={id}
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={ariaLabel}
                       className="social-link"
-                      whileHover={{ scale: 1.2, rotate: 10 }}
-                      whileTap={{ scale: 0.9 }}
-                      transition={{ type: "spring", stiffness: 300 }}
                     >
                       {Icon && <Icon className="social-icon" />}
-                    </motion.a>
+                    </a>
                   );
                 })}
               </div>

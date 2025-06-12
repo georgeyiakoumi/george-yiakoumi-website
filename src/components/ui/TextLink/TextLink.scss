@@ -11,10 +11,10 @@
 
     &:hover {
 
-        svg {
-            width: $scale-md;
-        }
-
+       span {
+         transform: translateX($scale-xs-2);
+         transition: transform $time;
+       }
     }
 
     &:focus-visible { 
@@ -24,7 +24,6 @@
   
     &:hover:not(.disabled) {
         text-decoration: underline;
-        gap: $scale-sm;
     }
 
    svg {

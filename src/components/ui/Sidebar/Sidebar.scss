@@ -149,12 +149,39 @@
       padding: var(--gap) 0;
       width: $scale-xl;
 
+      .hamburger-icon {
+        stroke: $icon-neutral;
+        stroke-width: 2;
+        stroke-linecap: round;
+      }
+
       .line {
-        width: 100%;
-        height: $scale-xs-2;
-        background-color: var(--colour-text-weak);
-        border-radius: $corner-radius-2;
-        transition: background-color $time;
+        stroke-width: $scale-xs-3;
+        stroke-linecap: round;
+        transform-origin: center;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+
+        &.top {
+          transform:  translateY(-6px);
+        }
+        &.middle {
+          opacity: 1;
+        }
+        &.bottom {
+          transform:  translateY(6px);
+        }
+      }
+
+      &.open .top {
+        transform: rotate(45deg);
+      }
+
+      &.open .middle {
+        opacity: 0;
+      }
+
+      &.open .bottom {
+        transform: rotate(-45deg);
       }
     }
   }
@@ -200,7 +227,7 @@
     grid-column: 1 / span 3;
     background: $background-alternate;
     transform: translateX(-100%);
-    transition: all $time;
+    transition: transform $time;
     padding: $scale-xl-7 var(--gap) var(--gap) var(--gap);
 
     .sidebar.open & {
@@ -278,11 +305,17 @@
       gap: $scale-sm;
   
       .social-icon {
+        transition: transform $time;
         @include respond(mobile) {
           width: $scale-xl;
           height: $scale-xl;
         }
+
+        &:hover {
+          transform: scale(1.125);
+        }
       }
+
     }
   }
 }

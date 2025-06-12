@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useEffect } from "react";
 import { ThemeContext } from "../../../context/ThemeContext";
-import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import animationData from "../../../assets/lottie/ThemeToggle.json";
 import "./ThemeToggle.scss";
@@ -11,15 +10,14 @@ const ThemeToggle = () => {
   const lottieRef = useRef();
 
   useEffect(() => {
-  if (!lottieRef.current) return;
+    if (!lottieRef.current) return;
 
-  if (isLight) {
-    lottieRef.current.playSegments([15, 30], true); // moon → sun
-  } else {
-    lottieRef.current.playSegments([0, 15], true); // sun → moon
-  }
-}, [isLight]);
-
+    if (isLight) {
+      lottieRef.current.playSegments([15, 30], true); // moon → sun
+    } else {
+      lottieRef.current.playSegments([0, 15], true); // sun → moon
+    }
+  }, [isLight]);
 
   return (
     <div className="theme-toggle-container">
@@ -28,12 +26,8 @@ const ThemeToggle = () => {
         onClick={toggleTheme}
         aria-label={`Switch to ${isLight ? "dark" : "light"} mode`}
       >
-        <div className={`theme-toggle-border ${isLight ? "" : "dark"}`}></div>
-        <motion.div
-          className={`toggle-slider ${isLight ? "light" : "dark"}`}
-          layout
-          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-        >
+        <div className={`theme-toggle-border ${isLight ? "" : "dark"}`} />
+        <div className={`toggle-slider ${isLight ? "" : "dark"}`}>
           <div className="toggle-icon">
             <Lottie
               lottieRef={lottieRef}
@@ -43,7 +37,7 @@ const ThemeToggle = () => {
               style={{ width: 24, height: 24 }}
             />
           </div>
-        </motion.div>
+        </div>
       </button>
     </div>
   );
