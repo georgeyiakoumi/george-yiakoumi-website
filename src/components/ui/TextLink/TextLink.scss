@@ -9,12 +9,16 @@
     border-radius: $scale-xs-3;
     transition: all $time;
 
+     span {
+        transition: transform $time;
+    }
+
     &:hover {
 
        span {
-         transform: translateX($scale-xs-2);
-         transition: transform $time;
+         transform: translateX($scale-xs-3);
        }
+
     }
 
     &:focus-visible { 
@@ -26,7 +30,7 @@
         text-decoration: underline;
     }
 
-   svg {
+    svg {
         display: flex;
         width: $scale-md;
         align-items: center;
