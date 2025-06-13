@@ -92,13 +92,11 @@ const Contact = () => {
           name="contact"
           method="POST"
           data-netlify="true"
-          netlify-honeypot="bot-field"
+          data-netlify-honeypot="bot-field" 
           onSubmit={handleSubmit}
         >
-          {/* Required for Netlify to identify the form */}
           <input type="hidden" name="form-name" value="contact" />
 
-          {/* Honeypot field (spam prevention) */}
           <div style={{ display: "none" }}>
             <label>
               Don’t fill this out: <input name="bot-field" />

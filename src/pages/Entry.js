@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ReactLenis } from "lenis/react";
 import { useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import Loading from "../components/ui/Loading/Loading";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Tag from "../components/ui/Tag/Tag";
@@ -163,6 +164,10 @@ const Entry = ({ collection }) => {
       </section>
     </ReactLenis>
   );
+};
+
+Entry.propTypes = {
+  collection: PropTypes.string.isRequired,
 };
 
 export default Entry;

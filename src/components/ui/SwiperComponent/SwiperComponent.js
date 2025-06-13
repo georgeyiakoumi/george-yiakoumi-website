@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -35,6 +36,8 @@ const SwiperComponent = ({
             <img
               src={imageUrl}
               alt={image.alternativeText || "Slide"}
+              width={image.width || 400}
+              height={image.height || 300}
               loading="lazy"
             />
           </SwiperSlide>
@@ -46,6 +49,21 @@ const SwiperComponent = ({
       ))}
     </Swiper>
   );
+};
+
+SwiperComponent.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string.isRequired,
+      alternativeText: PropTypes.string,
+      width: PropTypes.number,
+      height: PropTypes.number,
+    })
+  ),
+  items: PropTypes.array,
+  slidesPerView: PropTypes.number,
+  renderSlide: PropTypes.func.isRequired,
+  customClass: PropTypes.string,
 };
 
 export default SwiperComponent;

@@ -14,10 +14,18 @@ const Tag = ({ label, selectable, selected, onClick, size, state, dismissible })
     }
   };
 
+  const handleKeyDown = (e) => {
+    if ((e.key === "Enter" || e.key === " ") && (selectable || dismissible)) {
+      e.preventDefault();
+      onClick(label);
+    }
+  };
+
   return (
     <div
       className={`tag ${size} ${state} ${selected ? "selected" : ""} ${selectable ? "selectable" : ""} ${dismissible ? "dismissible" : ""}`}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       onMouseEnter={() => selectable && selected && setHovering(true)}
       onMouseLeave={() => selectable && selected && setHovering(false)}
       role={selectable || dismissible ? "button" : "presentation"}
@@ -26,12 +34,10 @@ const Tag = ({ label, selectable, selected, onClick, size, state, dismissible })
       {selectable && selected && !dismissible && (
         hovering ? <CloseIcon className="selected-icon" /> : <CheckIcon className="selected-icon" />
       )}
-      
+
       <span className="tag-label">{label}</span>
 
-      {dismissible && (
-         <CloseIcon />
-      )}
+      {dismissible && <CloseIcon />}
     </div>
   );
 };

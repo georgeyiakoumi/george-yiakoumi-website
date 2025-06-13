@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from "prop-types";
 
 const SvgIcon = ({ svgMarkup, width }) => {
   const [svgElement, setSvgElement] = useState(null);
@@ -34,6 +35,11 @@ const SvgIcon = ({ svgMarkup, width }) => {
     }, {}),
     dangerouslySetInnerHTML: { __html: svgElement.innerHTML }
   }) : null;
+};
+
+SvgIcon.propTypes = {
+  svgMarkup: PropTypes.string.isRequired,
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default SvgIcon;

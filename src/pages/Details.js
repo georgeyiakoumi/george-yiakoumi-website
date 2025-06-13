@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import ReactDOM from 'react-dom';
+import { createRoot } from "react-dom/client";
 import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
@@ -157,13 +157,13 @@ const Details = () => {
             wrapper.appendChild(description);
             el.append(wrapper);
 
-            ReactDOM.render(
+            const root = createRoot(badgeContainer);
+            root.render(
               <Badge
                 tone={tool.paid ? "warning" : "success"}
                 label={tool.paid ? "Paid" : "Free"}
                 icon={tool.paid ? AlertTriangle : CheckCircle}
-              />,
-              badgeContainer
+              />
             );
           }
         }}

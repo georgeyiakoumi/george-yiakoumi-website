@@ -107,7 +107,7 @@ const AppContent = () => {
         >
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<About />} />
-            {Object.entries(navRoutes).map(([url, caseValue]) => {
+            {Object.entries(navRoutes).map(([url]) => {
               let Component;
               switch (url) {
                 case "projects":

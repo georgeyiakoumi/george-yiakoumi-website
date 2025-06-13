@@ -1,84 +1,79 @@
 @use '../../../styles/base' as *;
 
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    padding: $scale-lg;
-    background: $fill-overlay;
+  position: fixed;
+  inset: 0;
+  padding: $scale-lg;
+  background: $fill-overlay;
+  backdrop-filter: blur(0px);
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity $time, backdrop-filter $time;
+
+  &.open {
+    opacity: 1;
     backdrop-filter: blur($scale-lg);
+  }
+
+}
+
+.modal-wrapper {
+  @include breakpoint.respond(mobile) {
+    width: 100%;
+    flex-grow: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    padding: $scale-lg;
+  }
+}
 
-    @include breakpoint.respond(mobile) {
-      
-    }
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: $scale-root;
+  background: $background-overlay;
+  padding: $scale-xl;
+  border-radius: $corner-radius-4;
+  box-shadow: $elevation-overlay;
+  position: relative;
 
+  @include breakpoint.respond(mobile) {
+    flex-grow: 1;
   }
 
-  .modal-wrapper {
-
-    @include breakpoint.respond(mobile) {
-      width: 100%;
-      flex-grow: 1;
-      display: flex;
-      padding: $scale-lg;
-  
-    }
-    
+  button {
+    align-self: flex-start;
   }
-  
-  .modal-content {
+
+  .modal-body {
     display: flex;
     flex-direction: column;
     gap: $scale-root;
-    background: $background-overlay;
-    padding: $scale-xl;
-    border-radius: $corner-radius-4;
-    box-shadow: $elevation-overlay;
-    position: relative;
 
-    @include breakpoint.respond(mobile) {
-      flex-grow: 1;
-      
-    }
-
-    button {
-      align-self: flex-start;
-    }
-
-    .modal-body {
+    .segment-content {
       display: flex;
-      flex-direction: column;
-      gap: $scale-root;
-
-      .segment-content {
-        display: flex;
-        min-height: $scale-xl-9;
-        @include container($container-background: var(--colour-background-sunken), $container-box-shadow: $elevation-sunken);
-      }
-    }
-
-  }
-  
-  .close-button {
-    position: absolute;
-    top: $scale-xl;
-    right: $scale-xl;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
-
-  .close-icon {
-    cursor: pointer;
-
-    &:hover path {
-      stroke: var(--colour-icon-brand);
-      transition: stroke $time;
+      min-height: $scale-xl-9;
+      @include container($container-background: var(--colour-background-sunken), $container-box-shadow: $elevation-sunken);
     }
   }
+}
+
+.close-button {
+  position: absolute;
+  top: $scale-xl;
+  right: $scale-xl;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.close-icon {
+  cursor: pointer;
+
+  &:hover path {
+    stroke: var(--colour-icon-brand);
+    transition: stroke $time;
+  }
+}

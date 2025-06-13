@@ -25,6 +25,8 @@
 
         .portfolio-item-thumb {
             object-fit: cover;
+            width: 100%;
+            height: 100%;
         }
     
         .portfolio-item {
@@ -77,6 +79,7 @@
     
         .portfolio-item-thumb {
             width: 20%;
+            height: auto;
             border-top-left-radius: $corner-radius-2;
             border-bottom-left-radius: $corner-radius-2;
 

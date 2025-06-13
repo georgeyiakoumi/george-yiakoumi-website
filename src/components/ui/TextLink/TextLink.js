@@ -40,6 +40,7 @@ TextLink.propTypes = {
   disabled: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  hideLabel: PropTypes.bool,
 };
 
 export default TextLink;

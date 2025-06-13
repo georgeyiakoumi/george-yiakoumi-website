@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
@@ -108,8 +109,8 @@ const Portfolio = ({ collection }) => {
         <Arun />
         <h1>Nothing to see here, yet.</h1>
         <p>
-          I'm still adding to this, but would hate for it to be the reason we don't work together.
-          If you're keen, and are open to having a chat, I can show you some stuff over a call.
+          I&apos;m still adding to this, but would hate for it to be the reason we don&apos;t work together.
+          If you&apos;re keen, and are open to having a chat, I can show you some stuff over a call.
         </p>
         <Button to="/contact?from=ui-lab" label="Get in touch" iconLeft={Send} />
       </section>
@@ -199,6 +200,10 @@ const Portfolio = ({ collection }) => {
       </section>
     </ReactLenis>
   );
+};
+
+Portfolio.propTypes = {
+  collection: PropTypes.string.isRequired,
 };
 
 export default Portfolio;
