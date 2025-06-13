@@ -99,7 +99,8 @@ const Contact = () => {
 
           <div style={{ display: "none" }}>
             <label>
-              Don’t fill this out: <input name="bot-field" />
+              Don’t fill this out: 
+              <input name="bot-field" autoComplete="off" />
             </label>
           </div>
 

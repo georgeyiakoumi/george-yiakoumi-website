@@ -44,7 +44,7 @@ const About = () => {
             try {
               const response = await fetch(business.image.url);
               const svgText = await response.text();
-              newSvgIcons[business.name] = svgText; // Store raw SVG markup
+              newSvgIcons[business.name] = svgText;
             } catch (error) {
               console.error(`Failed to fetch SVG for ${business.name}:`, error);
             }
@@ -57,7 +57,7 @@ const About = () => {
     }
   }, [aboutData]);
 
-  if (loading) return <Loading title="Loading..." />; // Display loading indicator;
+  if (loading) return <Loading title="Loading..." />;
   if (!aboutData) return <p>Error loading content.</p>;
 
   const { content, businesses } = aboutData;
