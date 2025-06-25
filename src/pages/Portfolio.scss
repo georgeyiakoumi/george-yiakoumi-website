@@ -62,7 +62,8 @@
 
   .portfolio-filters {
     grid-column: 1 / span 8;
-    display: block;  
+    display: flex;
+    align-items: center;
     position: relative;
 
     @include respond(mobile) {

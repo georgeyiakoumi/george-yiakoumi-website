@@ -1,150 +1,96 @@
 @use '../../../styles/base' as *;
 
-.segment-control-wrapper {
+.segment-wrapper {
+  position: relative;
   display: flex;
-  height: $scale-xl-3;
+  flex-direction: column;
+  align-items: center;
+  border-radius: $corner-radius-full;
+  background-color: $background-sunken;
+  border: $scale-xs-4 solid $stroke-weak;
+  box-sizing: border-box;
+}
 
-  @include respond(mobile) {
-    justify-content: center;
-    height: $scale-xl;
+.segment-list {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  
+  width: 100%;
+  padding: 0;
+
+  & li {
+    padding-bottom: 0;
+    list-style-type: none;
+  }
+}
+
+.segment-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: $scale-xs $scale-root;
+  font-size: get-typography(paragraph);
+  font-weight: 500;
+  border: none;
+  border-radius: $corner-radius-full;
+  background: none;
+  color: $text-weak;
+  cursor: pointer;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: $fill-hover;
+    border-radius: $corner-radius-full;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: -1;
   }
 
-  &.size-medium {
-    
-    .segment-option {
-      height: 100%;
-      padding: 0 $scale-root;
-
-      .segment-icon {
-  
-        svg {
-          width: $scale-md;
-          height: $scale-md;
-        }
-  
-      }
-
-      .segment-label {
-        font-size: get-typography(paragraph);
-      }
-
-    }
-
+  &:hover::before {
+    opacity: 1;
   }
 
-  &.size-small {
-
-    .segment-option {
-      padding: 0 $scale-sm;
-
-      .segment-icon {
-  
-        svg {
-          width: $scale-root;
-          height: $scale-root;
-        }
-  
-      }
-
-      .segment-label {
-        font-size: get-typography(text-small);
-      }
-
-    }
-    
-  }
-  
-  .segment-control {
-    position: relative;
+  .segment-icon {
+    margin-right: $scale-xs;
     display: flex;
-    background-color: $fill-weak;
-    border: 0;
-    border-radius: $corner-radius-2;
 
-    .segment-control-border {
-      box-sizing: border-box;
-      display: block;
-      width: 100%;
-      height: 100%;
-      border-radius: $corner-radius-2;
-      border: $scale-xs-4 solid $stroke-weak;
-      position: absolute;
+    svg {
+      width: $scale-md;
+      height: $scale-md;
     }
-  
-    .segment-highlight {
-      box-sizing: border-box;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      background-color: $background-overlay;
-      border: $scale-xs-4 solid $stroke-strong;
-      border-radius: $corner-radius-2;
-      box-shadow: $elevation-raised;
-      z-index: 1;
-      transition: left $time, width $time;
-    }
-  
-    .segment-option {
-      position: relative;
-      flex: 1;
-      gap: $scale-xs;
-      color: $text-weak;
-      background: none;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: $time;
-      z-index: 1;
-
-      &:first-of-type {
-        border-top-left-radius: $corner-radius-2;
-        border-bottom-left-radius: $corner-radius-2;
-      }
-
-      &:last-of-type {
-        border-top-right-radius: $corner-radius-2;
-        border-bottom-right-radius: $corner-radius-2;
-      }
-      
-      .segment-icon {
-        display: flex;
-  
-        svg {
-          color: var(--colour-stroke-strong);
-        }
-  
-      }
-
-      .segment-label {
-        padding: 0 $scale-xs-2;
-      }
-  
-      &:hover:not(.active) {
-        background-color: $fill-weak;
-      }
-  
-      &:active:not(.active) {
-        background-color: $fill-press;
-      }
-  
-      &.active {
-        color: $text-strong;
-        pointer-events: none;
-        
-        .segment-icon {
-  
-          svg {
-            color: var(--colour-icon-neutral);
-          }
-  
-        }
-  
-      }
-  
-    }
-  
   }
+}
 
+.segment-overlay-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  z-index: 5;
+}
+
+.segment-overlay-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  transition: clip-path 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  clip-path: inset(0 100% 0 0 round 1000px);
+  border-radius: $corner-radius-full;
+  background-color: $background-overlay;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.segment-button-overlay {
+  color: $text-strong;
 }

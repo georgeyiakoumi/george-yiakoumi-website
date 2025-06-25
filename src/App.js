@@ -12,42 +12,12 @@ import Entry from "./pages/Entry";
 import NotFound from "./pages/NotFound";
 import "./styles/main.scss";
 
-const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
-// SEO_API_URL is kept for future use
 const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;
 
 const AppContent = () => {
   const location = useLocation();
   const [seoData, setSeoData] = useState(null);
-  const [navRoutes, setNavRoutes] = useState({});
-  const [, setHomePageUrl] = useState("about");
-
-  useEffect(() => {
-    const fetchNavigation = async () => {
-      try {
-        const response = await fetch(NAV_API_URL);
-        const data = await response.json();
-        if (data?.data?.NavLinks) {
-          const dynamicRoutes = {};
-          let detectedHomePage = "about";
-
-          data.data.NavLinks.forEach(({ label, url }) => {
-            dynamicRoutes[url] = label.toLowerCase();
-            if (label.toLowerCase() === "about") {
-              detectedHomePage = url;
-            }
-          });
-
-          setNavRoutes(dynamicRoutes);
-          setHomePageUrl(detectedHomePage);
-        }
-      } catch (error) {
-        console.error("Error fetching navigation:", error);
-      }
-    };
-    fetchNavigation();
-  }, []);
 
   useEffect(() => {
     const fetchSeo = async () => {
@@ -64,13 +34,10 @@ const AppContent = () => {
     fetchSeo();
   }, []);
 
-
   useEffect(() => {
     console.log(
-      `Sup, fellow dev 👋 \n\nCheers for peeking under the hood. \n\n- \n\n v${version}`,
-
+      `Sup, nerds 👋 \n\nCheers for peeking under the hood. \n\n- \n\n v${version}`
     );
-
   }, []);
 
   return (
@@ -107,28 +74,10 @@ const AppContent = () => {
         >
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<About />} />
-            {Object.entries(navRoutes).map(([url, caseValue]) => {
-              let Component;
-              switch (url) {
-                case "projects":
-                  Component = <Portfolio collection="projects" />;
-                  break;
-                case "ui-lab":
-                  Component = <Portfolio collection="creative-outputs" />;
-                  break;
-                case "contact":
-                  Component = <Contact />;
-                  break;
-                case "details":
-                  Component = <Details />;
-                  break;
-                default:
-                  Component = <NotFound />;
-              }
-              return <Route key={url} path={`/${url}`} element={Component} />;
-            })}
+            <Route path="/projects" element={<Portfolio collection="projects" />} />
             <Route path="/projects/:slug" element={<Entry collection="projects" />} />
-            <Route path="/ui-lab/:slug" element={<Entry collection="creative-outputs" />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/details" element={<Details />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </motion.main>

@@ -16,22 +16,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100% !important;
+    width: 100%;
     height: auto;
+    padding-bottom: $scale-lg;
+    min-height: $scale-xl-4;
   }
 
   .swiper-pagination-bullet {
     background-color: $icon-neutral;
+    transition: background-color $time
   }
 
   .swiper-pagination-bullet-active {
-    background-color: $icon-brand;
+    background-color: $icon-neutral;
   }
-
 }
 
 .swiper-horizontal {
   @include respond(mobile) {
-      padding: 0 var(--gap) !important;
+    padding: 0 var(--gap);
   }
 }

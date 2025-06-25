@@ -1,56 +1,64 @@
-import React, { useState, useRef, useLayoutEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import "./SegmentControl.scss";
 
-const SegmentControl = ({
-  options,
-  selectedOption,
-  setSelectedOption,
-  size = "medium",
-}) => {
-  const [highlightStyle, setHighlightStyle] = useState({ left: 0, width: 0 });
+const SegmentControl = ({ options, selectedOption, setSelectedOption }) => {
   const containerRef = useRef(null);
+  const activeButtonRef = useRef(null);
 
-  useLayoutEffect(() => {
-    const updateHighlight = () => {
-      const activeButton = containerRef.current?.querySelector(
-        ".segment-option.active"
-      );
-      if (!activeButton) return;
+  useEffect(() => {
+    const container = containerRef.current;
+    const activeButton = activeButtonRef.current;
 
-      const rect = activeButton.getBoundingClientRect();
-      const containerRect = containerRef.current.getBoundingClientRect();
+    if (container && activeButton) {
+      const { offsetLeft, offsetWidth } = activeButton;
+      const containerWidth = container.offsetWidth;
 
-      setHighlightStyle({
-        left: rect.left - containerRect.left,
-        width: rect.width,
-      });
-    };
+      const leftPercent = (offsetLeft / containerWidth) * 100;
+      const rightPercent = 100 - ((offsetLeft + offsetWidth) / containerWidth) * 100;
 
-    updateHighlight();
-    window.addEventListener("resize", updateHighlight);
-    return () => window.removeEventListener("resize", updateHighlight);
+      container.style.clipPath = `inset(0 ${rightPercent.toFixed()}% 0 ${leftPercent.toFixed()}% round 1000px)`;
+    }
   }, [selectedOption]);
 
   return (
-    <div className={`segment-control-wrapper size-${size}`}>
-      <div className="segment-control" ref={containerRef}>
-        <div className="segment-control-border"></div>
-        <div
-          className="segment-highlight"
-          style={highlightStyle}
-        />
+    <div className="segment-wrapper">
+      <ul className="segment-list">
         {options.map(({ value, label, icon }) => (
-          <button
-            key={value}
-            className={`segment-option ${selectedOption === value ? "active" : ""}`}
-            onClick={() => setSelectedOption(value)}
-            aria-label={`Select ${label}`}
-          >
-            {icon && <span className="segment-icon">{icon}</span>}
-            <span className="segment-label">{label}</span>
-          </button>
+          <li key={value}>
+            <button
+              ref={selectedOption === value ? activeButtonRef : null}
+              className="segment-button"
+              onClick={() => setSelectedOption(value)}
+            >
+              {icon && <span className="segment-icon">{icon}</span>}
+              {label}
+            </button>
+          </li>
         ))}
+      </ul>
+
+      <div className="segment-overlay-shadow">
+        <div
+          className="segment-overlay-container"
+          ref={containerRef}
+          aria-hidden="true"
+          role="presentation"
+        >
+          <ul className="segment-list segment-list-overlay">
+            {options.map(({ value, label, icon }) => (
+              <li key={value}>
+                <button
+                  className="segment-button segment-button-overlay"
+                  tabIndex={-1}
+                >
+                  {icon && <span className="segment-icon">{icon}</span>}
+                  {label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
@@ -67,6 +75,10 @@ SegmentControl.propTypes = {
   selectedOption: PropTypes.string.isRequired,
   setSelectedOption: PropTypes.func.isRequired,
   size: PropTypes.oneOf(["small", "medium"]),
+};
+
+SegmentControl.defaultProps = {
+  size: "medium",
 };
 
 export default SegmentControl;

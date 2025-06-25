@@ -4,13 +4,11 @@ import NavItem from "../NavItem/NavItem";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { getIcon } from "../../../utils/iconMapper";
-import TextLink from "../TextLink/TextLink";
 import AboutIcon from "../../../assets/lottie/avatar.json";
 import ProjectsIcon from "../../../assets/lottie/briefcase.json";
-import UiLabIcon from "../../../assets/lottie/lightning.json";
+import DetailsIcon from "../../../assets/lottie/lightning.json";
 import ContactIcon from "../../../assets/lottie/plane.json";
 import { ReactComponent as GyLogo } from "../../../assets/logos/gy-logo.svg";
-import { ReactComponent as Info } from "../../../assets/icons/info.svg";
 import "./Sidebar.scss";
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
@@ -35,7 +33,7 @@ const Sidebar = () => {
   const lottieIcons = {
     about: AboutIcon,
     projects: ProjectsIcon,
-    uilab: UiLabIcon,
+    details: DetailsIcon,
     contact: ContactIcon,
   };
 
@@ -88,9 +86,6 @@ const Sidebar = () => {
     }
   };
 
-  const detailsLink = navLinks.find(link => link.url === "details");
-  const filteredNavLinks = navLinks.filter(link => link.url !== "details");
-
   return (
     <aside className={`sidebar ${isOpen ? "open" : ""} ${isClosing ? "closing" : ""}`}>
       <div className="sidebar-wrapper">
@@ -120,7 +115,6 @@ const Sidebar = () => {
                 <line className="line bottom" x1="3" y1="12" x2="21" y2="12" />
               </svg>
             </button>
-
           </div>
         </div>
 
@@ -128,7 +122,7 @@ const Sidebar = () => {
           <div className="sidebar-contents-container">
             <nav>
               <ul>
-                {filteredNavLinks.map(({ id, label, url, iconName }) => {
+                {navLinks.map(({ id, label, url, iconName }) => {
                   const lottieData = lottieIcons[iconName];
                   const isActive = label === activeNavLabel;
 
@@ -172,17 +166,10 @@ const Sidebar = () => {
                 })}
               </div>
 
-              {detailsLink && (
-                <TextLink
-                  onClick={closeMenu}
-                  to={`/${detailsLink.url}`}
-                  label={detailsLink.label}
-                  iconLeft={Info}
-                  size="tiny"
-                  hideLabel={isTablet}
-                />
-              )}
-              <small>&copy;{new Date().getFullYear()} <span className="author">George Yiakoumi</span></small>
+              <small>
+                &copy;{new Date().getFullYear()}{" "}
+                <span className="author">George Yiakoumi</span>
+              </small>
             </footer>
           </div>
         </div>

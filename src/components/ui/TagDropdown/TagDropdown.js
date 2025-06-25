@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import PropTypes from "prop-types";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import "./TagDropdown.scss";
 import Tag from "../Tag/Tag";
@@ -130,6 +131,12 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
       )}
     </div>
   );
+};
+
+TagDropdown.propTypes = {
+  allTags: PropTypes.arrayOf(PropTypes.string),
+  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedTags: PropTypes.func.isRequired,
 };
 
 export default TagDropdown;

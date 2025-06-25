@@ -10,7 +10,7 @@ const NotFound = () => {
     <section className="blank">
       <Smokey/>  
       <h1>You lost, fam?</h1>
-      <p>Smokey says "Shoo!".</p>
+      <p>Smokey says &ldquo;Shoo!&rdquo;.</p>
       <TextLink to="/" label="Listen to Smokey and go home" iconLeft={ArrowLeft} />
     
     </section>
