@@ -17,7 +17,7 @@ const SegmentControl = ({ options, selectedOption, setSelectedOption }) => {
       const leftPercent = (offsetLeft / containerWidth) * 100;
       const rightPercent = 100 - ((offsetLeft + offsetWidth) / containerWidth) * 100;
 
-      container.style.clipPath = `inset(0 ${rightPercent.toFixed()}% 0 ${leftPercent.toFixed()}% round 1000px)`;
+      container.style.clipPath = `inset(0 ${rightPercent.toFixed()}% 0 ${leftPercent.toFixed(2)}% round 1000px)`;
     }
   }, [selectedOption]);
 

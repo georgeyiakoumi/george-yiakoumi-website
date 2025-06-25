@@ -90,6 +90,8 @@
   background-color: $background-overlay;
   z-index: 6;
   pointer-events: none;
+  will-change: clip-path;
+  transform: translateZ(0);
 }
 
 .segment-button-overlay {
