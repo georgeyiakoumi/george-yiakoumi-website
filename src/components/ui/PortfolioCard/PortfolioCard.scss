@@ -9,19 +9,22 @@
         transition: all $time;
         color: $text-weak;
     
-        &:hover {
-            @include container($container-background: var(--colour-background-overlay), $container-box-shadow: $elevation-overlay, $container-padding: 0);
+        @include respond-above(desktop) {
+            &:hover {
+                @include container($container-background: var(--colour-background-overlay), $container-box-shadow: $elevation-overlay, $container-padding: 0);
 
-            .button.variant-secondary.tone-brand {
-                background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
-                border-color: $stroke-brand-strong;
-                color: $text-brand;
+                .button.variant-secondary.tone-brand {
+                    background: linear-gradient(0deg, #{$fill-hover}, #{$fill-hover}), rgba(255, 255, 255, 0.01);
+                    border-color: $stroke-brand-strong;
+                    color: $text-brand;
 
-                .icon {
-                    color: $icon-brand;
+                    .icon {
+                        color: $icon-brand;
+                    }
                 }
-            }
+            }    
         }
+        
 
         .portfolio-item-thumb {
             object-fit: cover;
@@ -38,7 +41,6 @@
 
             h2 {
                 @include responsive-typography(heading-4);
-                
             }
         }
     }

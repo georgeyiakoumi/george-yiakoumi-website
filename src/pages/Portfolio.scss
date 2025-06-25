@@ -102,12 +102,15 @@
 
   }
 
+  @include respond-above(desktop) {
     .entries-container:has(.portfolio-item-card:hover) .portfolio-item-card:not(:hover) {
       opacity: 0.25;
-      filter:blur($scale-xs-3);
+      filter: blur($scale-xs-3);
       animation: $time;
     }
+  }
 
+  
   .portfolio-display {
 
     grid-column: 1 / -1;

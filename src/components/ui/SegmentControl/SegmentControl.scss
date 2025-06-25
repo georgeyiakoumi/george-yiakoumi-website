@@ -15,7 +15,8 @@
   position: relative;
   display: flex;
   justify-content: center;
-  
+  overflow: hidden;
+  border-radius: $corner-radius-full;
   width: 100%;
   padding: 0;
 
