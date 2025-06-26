@@ -123,7 +123,7 @@ const TagDropdown = ({ allTags = [], selectedTags, setSelectedTags }) => {
       {selectedTags.length > 0 && (
         <Button
           {...(!isMobile && { label: "Clear all" })}
-          size={isMobile ? "small" : undefined}
+          size="small"
           variant="tertiary"
           iconLeft={Delete}
           onClick={handleClearAll}

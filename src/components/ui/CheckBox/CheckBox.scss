@@ -45,6 +45,7 @@
     .checkbox-box {
         box-sizing: border-box;
         display: inline-flex;
+        flex-shrink: 0;
         align-items: center;
         justify-content: center;
         border: $scale-xs-4 solid $stroke-strong;
