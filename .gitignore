@@ -29,3 +29,7 @@ yarn-error.log*
 .lighthouseci
 
 .performance-reports
+
+# Logos that I've added via Strapi anyway
+/src/assets/logos/businesses/
+/src/assets/logos/tools/
