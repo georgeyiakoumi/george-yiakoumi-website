@@ -42,7 +42,6 @@ main {
   @include breakpoint.respond(mobile) {
     grid-column: 1 / -1;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 0fr;
     height: auto;
     padding: scale.$scale-xl-7 0 0 0;
   }
