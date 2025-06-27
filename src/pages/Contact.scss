@@ -11,13 +11,28 @@
     }
 
     @include respond(mobile) {
-        padding-left: var(--gap);
-        padding-right: var(--gap);
+        padding-left: var(--gap) !important;
+        padding-right: var(--gap) !important;
     }
 
     & > * {
         @include respond (mobile) {
             align-self: center;
+        }
+    }
+
+    header {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-direction: column;
+        gap: $scale-lg;
+
+        @include respond(tablet) {
+        grid-column: 1 / -1; 
+        }
+
+        @include respond(mobile) {
+            align-self: stretch;
         }
     }
 

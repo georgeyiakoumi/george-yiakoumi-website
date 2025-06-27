@@ -13,7 +13,9 @@
   }
 
   @include respond(mobile) {
-    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     padding: 0 0 $scale-xl-8 0 !important;
   }
 

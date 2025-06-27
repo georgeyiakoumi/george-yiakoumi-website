@@ -16,7 +16,7 @@
   @include respond(mobile) {
     grid-column: 1 / -1;
     grid-template-columns: 1fr;
-    padding: var(--gap);
+    padding: var(--gap) !important;
     place-self: start;
   }
 

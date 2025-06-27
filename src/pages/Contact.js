@@ -59,6 +59,7 @@ const Contact = () => {
 
   return (
     <section className="contact">
+      <header>
       {contactContent.map((block, index) => {
         switch (block.type) {
           case "heading":
@@ -81,6 +82,7 @@ const Contact = () => {
             return null;
         }
       })}
+      </header>
 
       {formStatus === "success" ? (
         <p className="form-success">Thank you! Your message has been sent.</p>

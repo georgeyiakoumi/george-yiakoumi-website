@@ -2,8 +2,7 @@
 
 .details {
     grid-column: 2 / span 8;
-    grid-template-columns: repeat(10, 1fr);
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     align-items: start;
     gap: var(--gap);
@@ -17,7 +16,7 @@
     }
 
     & > header {
-        grid-column: 1 / span 8;
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: var(--gap); 
@@ -25,6 +24,10 @@
         @include respond(tablet) {
             gap: $scale-root;
             display: flex;
+        }
+
+        p {
+            max-width: 64ch;
         }
     }
 
@@ -37,10 +40,9 @@
     }
 
     .details-content {
-        grid-column: 1 / span 8;
+        align-self: stretch;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        justify-self: stretch;
         gap: var(--gap);
 
         @include respond(tablet) {
