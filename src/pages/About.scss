@@ -62,19 +62,16 @@
     }
 
   .company-logo-wrapper {
-    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 $scale-md;
-    min-height: $scale-root;
     min-width: $scale-root;
 
     svg,
     img {
       height: auto;
       width: auto;
-      min-height: $scale-root;
       min-width: $scale-root;
     }
   }
