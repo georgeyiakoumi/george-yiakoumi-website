@@ -70,10 +70,8 @@
     min-width: $scale-root;
 
     svg, img {
-      height: auto;
+      height: 100%;
       width: auto;
-      min-height: $scale-sm;
-      min-width: $scale-root;
     }
   }
 
