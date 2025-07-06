@@ -69,10 +69,11 @@
     min-height: $scale-root;
     min-width: $scale-root;
 
-    svg,
-    img {
+    svg, img {
       height: auto;
       width: auto;
+      min-height: $scale-sm;
+      min-width: $scale-root;
     }
   }
 
