@@ -105,7 +105,7 @@
   }
 
   @include respond-above(desktop) {
-    .entries-container:has(.portfolio-item-card:hover) .portfolio-item-card:not(:hover) {
+    .entries-container:has(.project-item-card:hover) .project-item-card:not(:hover) {
       opacity: 0.25;
       filter: blur($scale-xs-3);
       animation: $time;
@@ -113,21 +113,21 @@
   }
 
   
-  .portfolio-display {
+  .project-display {
 
     grid-column: 1 / -1;
 
-    .portfolio-grid {
+    .project-grid {
       display: grid;
       align-items: stretch;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--gap);
     }
   
-    .portfolio-list {
+    .project-list {
       display: flex;
       flex-direction: column;
-      gap: var(--gap);
+      gap: $scale-root;
       list-style: none;
       margin: 0;
       padding: 0;

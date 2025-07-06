@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
-import PortfolioCard from "../components/ui/PortfolioCard/PortfolioCard";
+import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Loading from "../components/ui/Loading/Loading";
 import TagDropdown from "../components/ui/TagDropdown/TagDropdown";
@@ -143,16 +143,17 @@ const Portfolio = ({ collection }) => {
           </div>
         </div>
 
-        <div className={`portfolio-display ${viewMode}`}>
+        <div className={`project-display ${viewMode}`}>
           {(viewMode === "grid" || viewMode === "list") && (
-            <div className={`entries-container portfolio-${viewMode}`}>
+            <div className={`entries-container project-${viewMode}`}>
               {filteredEntries.map((item) => (
-                <PortfolioCard
+                <ProjectCard
                   key={item.id}
                   slug={item.Slug || item.slug || ""}
                   thumbnail={item.Thumbnail.url || ""}
                   title={item.Title || "Untitled"}
                   tags={item.Tags || []}
+                  description={item.Description || ""}
                   routePrefix="projects"
                 />
               ))}
@@ -164,7 +165,7 @@ const Portfolio = ({ collection }) => {
               items={filteredEntries}
               slidesPerView={1}
               renderSlide={(item) => (
-                <PortfolioCard
+                <ProjectCard
                   slug={item.Slug || item.slug || ""}
                   thumbnail={item.Thumbnail.url || ""}
                   title={item.Title || "Untitled"}
@@ -172,7 +173,7 @@ const Portfolio = ({ collection }) => {
                   routePrefix="projects"
                 />
               )}
-              customClass="portfolio-swiper"
+              
             />
           )}
         </div>
