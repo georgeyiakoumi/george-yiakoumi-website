@@ -76,7 +76,7 @@
     font-size: get-typography(text-small);
 
     @include respond(mobile) {
-      font-size: get-typography(heading-3);
+      font-size: get-typography(heading-4);
     }
   }
 }
