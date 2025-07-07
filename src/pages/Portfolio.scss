@@ -105,9 +105,12 @@
   }
 
   @include respond-above(desktop) {
+    .project-item-card {
+      transition: all $time;
+    }
+    
     .entries-container:has(.project-item-card:hover) .project-item-card:not(:hover) {
       opacity: 0.25;
-      transition: all $time;
     }
   }
 
