@@ -47,12 +47,16 @@ const Sidebar = () => {
     }
   }, [isMobileView, isOpen]);
 
+  // Set initial state on mount
   useEffect(() => {
-    if (isMobileView && isOpen && !isClosing) {
-      // Set initial state
+    if (isMobileView && sidebarContentsRef.current && sidebarContentsContainerRef.current) {
       gsap.set(sidebarContentsRef.current, { opacity: 0 });
       gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
-      
+    }
+  }, [isMobileView]);
+
+  useEffect(() => {
+    if (isMobileView && isOpen && !isClosing) {
       // Animate in
       const tl = gsap.timeline();
       tl.to(sidebarContentsRef.current, {
