@@ -17,6 +17,7 @@ const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?popu
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const [navLinks, setNavLinks] = useState([]);
   const [socialLinks, setSocialLinks] = useState([]);
   const [homePageUrl, setHomePageUrl] = useState(null);
@@ -26,6 +27,7 @@ const Sidebar = () => {
   
   const sidebarContentsRef = useRef(null);
   const sidebarContentsContainerRef = useRef(null);
+  const currentAnimationRef = useRef(null);
 
   const handleSetActive = (label) => {
     if (label !== activeNavLabel) {
@@ -56,9 +58,24 @@ const Sidebar = () => {
   }, [isMobileView]);
 
   useEffect(() => {
-    if (isMobileView && isOpen && !isClosing) {
+    if (isMobileView && isOpen && !isClosing && !isAnimating) {
+      // Kill any existing animation
+      if (currentAnimationRef.current) {
+        currentAnimationRef.current.kill();
+      }
+      
+      setIsAnimating(true);
+      
       // Animate in
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsAnimating(false);
+          currentAnimationRef.current = null;
+        }
+      });
+      
+      currentAnimationRef.current = tl;
+      
       tl.to(sidebarContentsRef.current, {
         opacity: 1,
         duration: 0.2,
@@ -70,7 +87,7 @@ const Sidebar = () => {
         ease: "power2.inOut"
       }, "-=0.1");
     }
-  }, [isOpen, isMobileView, isClosing]);
+  }, [isOpen, isMobileView, isClosing, isAnimating]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
@@ -97,14 +114,24 @@ const Sidebar = () => {
 
   const closeMenu = () => {
     if (isMobileView && isOpen) {
+      // Kill any existing animation
+      if (currentAnimationRef.current) {
+        currentAnimationRef.current.kill();
+      }
+      
       setIsClosing(true);
+      setIsAnimating(true);
       
       const tl = gsap.timeline({
         onComplete: () => {
           setIsOpen(false);
           setIsClosing(false);
+          setIsAnimating(false);
+          currentAnimationRef.current = null;
         }
       });
+      
+      currentAnimationRef.current = tl;
       
       tl.to(sidebarContentsContainerRef.current, {
         x: "-120%",
@@ -116,15 +143,17 @@ const Sidebar = () => {
         duration: 0.2,
         ease: "power2.inOut"
       }, "-=0.1");
-    } else {
+    } else if (!isMobileView) {
       setIsOpen(false);
     }
   };
 
   const toggleMenu = () => {
     if (isOpen && isMobileView) {
+      // Always allow closing, even during animation
       closeMenu();
-    } else {
+    } else if (!isAnimating) {
+      // Only allow opening if not currently animating
       setIsOpen(true);
     }
   };
