@@ -103,11 +103,6 @@
                 gap: $scale-lg;
             }
 
-            & > * {
-                grid-column: 1 / -1;
-                
-            }
-
             h1 {
                 @include responsive-typography(heading-2, $font-family-heading, $font-weight-weak, $grey-dark-1000);
             }
@@ -132,9 +127,7 @@
                 border-color: $grey-dark-100;
                 color: $grey-dark-1000;
             }
-
-        }
-        
+        } 
     }
     
     .entry-section {
@@ -142,9 +135,6 @@
         flex-direction: column;
         gap: var(--gap);
         padding: var(--gap);
-        
-  transform: translateY(60px);
-  will-change: transform, opacity;
 
         @include respond(tablet) {
             gap: $scale-lg;
@@ -176,7 +166,6 @@
                 padding: 0;
             }
 
-
             h2 {
                 @include responsive-typography(heading-1, $font-family-heading, $font-weight-strong, $text-strong);
             }
@@ -185,9 +174,6 @@
                 @include responsive-typography(heading-4, $font-family-heading, $font-weight-weak, $text-weak);    
             }
         }   
-
-
-        
 
         img {
             box-sizing: border-box;
@@ -206,7 +192,5 @@
                 width: 100%;
             }
         }        
-        
     }
-    
 }
