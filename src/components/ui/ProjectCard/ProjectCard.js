@@ -36,8 +36,7 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
         opacity: 1,
         duration: 0.4,
         delay: 0.1,
-        ease: "power2.out",
-        delay: 0.1
+        ease: "power2.out"
       });
     }
   };
