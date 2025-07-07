@@ -228,18 +228,22 @@
     grid-column: 1 / span 3;
     background: $background-alternate;
     display: flex;
-    transform: translateX(-100%);
-    transition: transform $time;
     padding: var(--gap);
     border-radius: $corner-radius-4;
     gap: var(--gap);
+    align-self: end;
+    transform: translateX(-100%);
+    transition: transform $time;
+    will-change: transform;
 
     .sidebar.open & {
       transform: translateX(0%);
+      will-change: transform;
     }
 
     .sidebar.closing & {
       transform: translateX(-100%);
+      will-change: transform;
     }
   }
 
