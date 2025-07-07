@@ -35,15 +35,7 @@
     @include respond(mobile) {
       background: $fill-overlay;
       backdrop-filter: blur($scale-xs);
-      opacity: 1;
       pointer-events: auto;
-    }
-  }
-  
-  &.open .sidebar-contents-container {
-    @include respond(mobile) {
-      transform: translateX(0%);
-      transition: all $time;
     }
   }
 
@@ -200,19 +192,15 @@
     gap: var(--gap);
     background: transparent;
     backdrop-filter: none;
-    opacity: 0;
     pointer-events: none;
-    transition: all $time;
     inset: 0; 
     padding: var(--gap);
 
     .sidebar.open & {
-      opacity: 1;
       pointer-events: auto;
     }
 
     .sidebar.closing & {
-      opacity: 0;
       pointer-events: none;
     }
   }
@@ -232,19 +220,7 @@
     border-radius: $corner-radius-4;
     gap: var(--gap);
     align-self: end;
-    transform: translateX(-100%);
-    transition: transform $time;
     will-change: transform;
-
-    .sidebar.open & {
-      transform: translateX(0%);
-      will-change: transform;
-    }
-
-    .sidebar.closing & {
-      transform: translateX(-100%);
-      will-change: transform;
-    }
   }
 
   nav {

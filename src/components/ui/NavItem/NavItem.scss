@@ -14,7 +14,7 @@
   z-index: 0;
 
   @include respond(mobile) {
-    padding: $scale-root $scale-root $scale-root 0;
+    padding: $scale-root 0;
   }
 
   .hover-layer {
@@ -39,7 +39,7 @@
   }
 
   &.active {
-    font-weight: bold;
+    font-weight: $font-weight-strong;
 
     .nav-item-label {
       color: $text-strong;

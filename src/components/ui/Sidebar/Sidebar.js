@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom"; 
 import NavItem from "../NavItem/NavItem";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { getIcon } from "../../../utils/iconMapper";
+import { gsap } from "gsap";
 import AboutIcon from "../../../assets/lottie/avatar.json";
 import ProjectsIcon from "../../../assets/lottie/briefcase.json";
 import DetailsIcon from "../../../assets/lottie/lightning.json";
@@ -22,6 +23,9 @@ const Sidebar = () => {
   const [activeNavLabel, setActiveNavLabel] = useState(null);
   const [previousNavLabel, setPreviousNavLabel] = useState(null);
   const { isMobile, isMobileView, isTablet } = useBreakpoint();
+  
+  const sidebarContentsRef = useRef(null);
+  const sidebarContentsContainerRef = useRef(null);
 
   const handleSetActive = (label) => {
     if (label !== activeNavLabel) {
@@ -42,6 +46,27 @@ const Sidebar = () => {
       setIsOpen(false);
     }
   }, [isMobileView, isOpen]);
+
+  useEffect(() => {
+    if (isMobileView && isOpen && !isClosing) {
+      // Set initial state
+      gsap.set(sidebarContentsRef.current, { opacity: 0 });
+      gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
+      
+      // Animate in
+      const tl = gsap.timeline();
+      tl.to(sidebarContentsRef.current, {
+        opacity: 1,
+        duration: 0.2,
+        ease: "power2.inOut"
+      })
+      .to(sidebarContentsContainerRef.current, {
+        x: "0%",
+        duration: 0.2,
+        ease: "power2.inOut"
+      }, "-=0.1");
+    }
+  }, [isOpen, isMobileView, isClosing]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
@@ -67,12 +92,26 @@ const Sidebar = () => {
   }, []);
 
   const closeMenu = () => {
-    if (isMobileView) {
+    if (isMobileView && isOpen) {
       setIsClosing(true);
-      setTimeout(() => {
-        setIsOpen(false);
-        setIsClosing(false);
-      }, 300);
+      
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsOpen(false);
+          setIsClosing(false);
+        }
+      });
+      
+      tl.to(sidebarContentsContainerRef.current, {
+        x: "-120%",
+        duration: 0.2,
+        ease: "power2.inOut"
+      })
+      .to(sidebarContentsRef.current, {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power2.inOut"
+      }, "-=0.1");
     } else {
       setIsOpen(false);
     }
@@ -118,8 +157,8 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="sidebar-contents">
-          <div className="sidebar-contents-container">
+        <div className="sidebar-contents" ref={sidebarContentsRef} onClick={closeMenu}>
+          <div className="sidebar-contents-container" ref={sidebarContentsContainerRef} onClick={(e) => e.stopPropagation()}>
             <nav>
               <ul>
                 {navLinks.map(({ id, label, url, iconName }) => {
