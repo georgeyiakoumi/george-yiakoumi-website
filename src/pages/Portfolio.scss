@@ -107,8 +107,7 @@
   @include respond-above(desktop) {
     .entries-container:has(.project-item-card:hover) .project-item-card:not(:hover) {
       opacity: 0.25;
-      filter: blur($scale-xs-3);
-      animation: $time;
+      transition: all $time;
     }
   }
 

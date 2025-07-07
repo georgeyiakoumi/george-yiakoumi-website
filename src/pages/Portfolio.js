@@ -155,6 +155,7 @@ const Portfolio = ({ collection }) => {
                   tags={item.Tags || []}
                   description={item.Description || ""}
                   routePrefix="projects"
+                  viewMode={viewMode}
                 />
               ))}
             </div>
@@ -171,6 +172,7 @@ const Portfolio = ({ collection }) => {
                   title={item.Title || "Untitled"}
                   tags={item.Tags || []}
                   routePrefix="projects"
+                  viewMode={viewMode}
                 />
               )}
               
