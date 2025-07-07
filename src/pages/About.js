@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Loading from "../components/ui/Loading/Loading";
 import SvgIcon from "../utils/SvgIcon";
 import Marquee from "react-fast-marquee";
 import "./About.scss";
@@ -14,7 +15,7 @@ const optimizeCloudinaryUrl = (url) => {
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
-  
+  const [loading, setLoading] = useState(true);
   const [svgIcons, setSvgIcons] = useState({});
 
   useEffect(() => {
@@ -27,6 +28,8 @@ const About = () => {
         }
       } catch (error) {
         console.error("Error fetching about data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -55,6 +58,7 @@ const About = () => {
     }
   }, [aboutData]);
 
+  if (loading) return <Loading title="Loading..." />;
   if (!aboutData) return <p>Error loading content.</p>;
 
   const { content, businesses } = aboutData;
