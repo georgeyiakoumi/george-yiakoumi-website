@@ -203,6 +203,8 @@
     opacity: 0;
     pointer-events: none;
     transition: all $time;
+    inset: 0; 
+    padding: var(--gap);
 
     .sidebar.open & {
       opacity: 1;
@@ -225,9 +227,12 @@
   @include respond(mobile) {
     grid-column: 1 / span 3;
     background: $background-alternate;
+    display: flex;
     transform: translateX(-100%);
     transition: transform $time;
-    padding: $scale-xl-7 var(--gap) var(--gap) var(--gap);
+    padding: var(--gap);
+    border-radius: $corner-radius-4;
+    gap: var(--gap);
 
     .sidebar.open & {
       transform: translateX(0%);
@@ -258,7 +263,7 @@
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: $scale-xs;
+      
 
       & > li {
         padding-bottom: 0;
@@ -301,13 +306,13 @@
     .social-links {
       display: flex;
       flex-wrap: wrap;
-      gap: $scale-sm;
+      gap: $scale-root;
   
       .social-icon {
         transition: transform $time;
         @include respond(mobile) {
-          width: $scale-xl;
-          height: $scale-xl;
+          width: $scale-xl-2;
+          height: $scale-xl-2;
         }
 
         &:hover {
