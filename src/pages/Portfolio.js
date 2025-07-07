@@ -80,7 +80,7 @@ const Portfolio = ({ collection }) => {
   };
 
   if (loading) {
-    return <Loading title="Fetching entries..." description="This may take a few seconds." />;
+    return <Loading title="Loading projects" description="This may take a few seconds." />;
   }
 
   if (entries.length === 0) {

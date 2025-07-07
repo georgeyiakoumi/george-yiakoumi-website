@@ -43,7 +43,7 @@ main {
   @include breakpoint.respond(mobile) {
     display: flex;
     flex-direction: column;
-    
+    flex-grow: 1;
     height: auto;
     padding: scale.$scale-xl-7 0 0 0;
   }

@@ -4,7 +4,7 @@ import "./Loading.scss";
 
 const Loading = ({ title, description }) => {
   return (
-    <section className="blank">
+    <section className="loading">
       <Spinner />
       <h3>{title}</h3>
       <p>{description}</p>

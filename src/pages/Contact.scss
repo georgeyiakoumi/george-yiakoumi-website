@@ -33,6 +33,7 @@
 
         @include respond(mobile) {
             align-self: stretch;
+            align-items: center;
         }
     }
 

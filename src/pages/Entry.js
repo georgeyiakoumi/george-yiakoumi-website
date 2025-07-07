@@ -60,7 +60,7 @@ const Entry = ({ collection }) => {
     load();
   }, [slug, collection]);
 
-  if (loading) return <Loading title="Loading..." />;
+  if (loading) return <Loading title="Loading project" description="This may take a few seconds." />;
   if (!entry) return <NotFound />;
 
   const sectionContentMap = {
