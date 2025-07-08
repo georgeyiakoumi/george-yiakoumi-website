@@ -60,18 +60,6 @@
       }
     }
   
-    .clear-all {
-      position: absolute;
-      top: 50%;
-      right: 1rem;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--colour-accent);
-      font-size: 0.8rem;
-      cursor: pointer;
-      text-decoration: underline;
-    }
   }
 
   .tag-options {
@@ -120,14 +108,6 @@
         }
       }
 
-      .custom-checkbox {
-        width: 1rem;
-        height: 1rem;
-        border: 2px solid var(--colour-border);
-        border-radius: 4px;
-        background: transparent;
-        flex-shrink: 0;
-      }
     }
   }
 }

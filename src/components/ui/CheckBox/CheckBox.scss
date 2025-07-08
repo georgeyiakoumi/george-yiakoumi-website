@@ -77,22 +77,6 @@
         color: $text-strong;
     }
   
-    // State styles
-    &.hover .checkbox-box {
-        border-color: var(--colour-hover, #999);
-        background-color: $fill-hover;
-    }
-  
-    &.pressed .checkbox-box {
-        background-color: var(--colour-pressed-bg, #eee);
-        border-color: var(--colour-pressed-border, #666);
-    }
-  
-    &.focused .checkbox-box {
-        outline: 2px solid var(--colour-focus, #66f);
-        outline-offset: 2px;
-    }
-  
     &.disabled {
         pointer-events: none;
         opacity: 0.5;

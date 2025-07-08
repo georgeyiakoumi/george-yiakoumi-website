@@ -13,10 +13,6 @@
   z-index: 1000;
   transition: opacity $time, backdrop-filter $time;
 
-  &.open {
-    opacity: 1;
-    backdrop-filter: blur($scale-lg);
-  }
 
 }
 
@@ -69,11 +65,3 @@
   cursor: pointer;
 }
 
-.close-icon {
-  cursor: pointer;
-
-  &:hover path {
-    stroke: var(--colour-icon-brand);
-    transition: stroke $time;
-  }
-}
