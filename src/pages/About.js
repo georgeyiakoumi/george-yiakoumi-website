@@ -112,6 +112,7 @@ const About = () => {
       </section>
 
       {businesses.length > 0 && (
+                
         <section className="companies-carousel-wrapper">
           <div className="fade-edges left" />
           <Marquee

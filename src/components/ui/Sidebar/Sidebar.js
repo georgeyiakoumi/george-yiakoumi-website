@@ -68,7 +68,7 @@ const Sidebar = () => {
       gsap.set(sidebarContentsRef.current, { opacity: 0 });
       gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
       if (catRef.current) {
-        gsap.set(catRef.current, {xPercent: 50, opacity: 0});
+        gsap.set(catRef.current, {x: '5rem', opacity: 0});
       }
     }
   }, [isMobile]);
@@ -105,8 +105,8 @@ const Sidebar = () => {
       
       if (catRef.current) {
         tl.to(catRef.current, {
-          yPercent: -40,
-          xPercent: 50,
+          x: '5rem',
+          y: '-6rem',
           opacity: 1,
           duration: 0.3,
           ease: "back.out(1.7)"
@@ -161,7 +161,7 @@ const Sidebar = () => {
       
       if (catRef.current) {
         tl.to(catRef.current, {
-          yPercent: 0,
+          y: '-2rem',
           opacity: 0,
           duration: 0.2,
           delay: 0.2,
