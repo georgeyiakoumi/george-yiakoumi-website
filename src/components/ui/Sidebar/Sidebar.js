@@ -10,6 +10,7 @@ import ProjectsIcon from "../../../assets/lottie/briefcase.json";
 import DetailsIcon from "../../../assets/lottie/lightning.json";
 import ContactIcon from "../../../assets/lottie/plane.json";
 import { ReactComponent as GyLogo } from "../../../assets/logos/gy-logo.svg";
+import { ReactComponent as CatIcon } from "../../../assets/images/arun-sleepypooka.svg";
 import "./Sidebar.scss";
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
@@ -27,6 +28,7 @@ const Sidebar = () => {
   
   const sidebarContentsRef = useRef(null);
   const sidebarContentsContainerRef = useRef(null);
+  const catRef = useRef(null);
   const currentAnimationRef = useRef(null);
 
   const handleSetActive = (label) => {
@@ -49,16 +51,30 @@ const Sidebar = () => {
     }
   }, [isMobileView, isOpen]);
 
+  // Reset opacity when leaving mobile view
+  useEffect(() => {
+    if (!isMobile && sidebarContentsRef.current) {
+      gsap.set(sidebarContentsRef.current, { opacity: 1 });
+      gsap.set(sidebarContentsContainerRef.current, { x: "0%" });
+      if (catRef.current) {
+        gsap.set(catRef.current, { yPercent: 20, opacity: 0 });
+      }
+    }
+  }, [isMobile]);
+
   // Set initial state on mount
   useEffect(() => {
-    if (isMobileView && sidebarContentsRef.current && sidebarContentsContainerRef.current) {
+    if (isMobile && sidebarContentsRef.current && sidebarContentsContainerRef.current) {
       gsap.set(sidebarContentsRef.current, { opacity: 0 });
       gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
+      if (catRef.current) {
+        gsap.set(catRef.current, {});
+      }
     }
-  }, [isMobileView]);
+  }, [isMobile]);
 
   useEffect(() => {
-    if (isMobileView && isOpen && !isClosing && !isAnimating) {
+    if (isMobile && isOpen && !isClosing && !isAnimating) {
       // Kill any existing animation
       if (currentAnimationRef.current) {
         currentAnimationRef.current.kill();
@@ -86,8 +102,17 @@ const Sidebar = () => {
         duration: 0.2,
         ease: "power2.inOut"
       }, "-=0.1");
+      
+      if (catRef.current) {
+        tl.to(catRef.current, {
+          yPercent: -25,
+          opacity: 1,
+          duration: 0.3,
+          ease: "back.out(1.7)"
+        }, "-=0.05");
+      }
     }
-  }, [isOpen, isMobileView, isClosing, isAnimating]);
+  }, [isOpen, isMobile, isClosing, isAnimating]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
@@ -113,7 +138,7 @@ const Sidebar = () => {
   }, []);
 
   const closeMenu = () => {
-    if (isMobileView && isOpen) {
+    if (isMobile && isOpen) {
       // Kill any existing animation
       if (currentAnimationRef.current) {
         currentAnimationRef.current.kill();
@@ -133,11 +158,21 @@ const Sidebar = () => {
       
       currentAnimationRef.current = tl;
       
+      if (catRef.current) {
+        tl.to(catRef.current, {
+          yPercent: 0,
+          opacity: 0,
+          duration: 0.2,
+          delay: 0.2,
+          ease: "power2.inOut"
+        });
+      }
+      
       tl.to(sidebarContentsContainerRef.current, {
         x: "-120%",
         duration: 0.2,
         ease: "power2.inOut"
-      })
+      }, "-=0.1")
       .to(sidebarContentsRef.current, {
         opacity: 0,
         duration: 0.2,
@@ -149,7 +184,7 @@ const Sidebar = () => {
   };
 
   const toggleMenu = () => {
-    if (isOpen && isMobileView) {
+    if (isOpen && isMobile) {
       // Always allow closing, even during animation
       closeMenu();
     } else if (!isAnimating) {
@@ -191,6 +226,13 @@ const Sidebar = () => {
         </div>
 
         <div className="sidebar-contents" ref={sidebarContentsRef} onClick={closeMenu}>
+
+        {isMobile && (
+          <div className="cat-container">
+            <CatIcon className="cat-icon" ref={catRef}/>
+          </div>
+        )}
+
           <div className="sidebar-contents-container" ref={sidebarContentsContainerRef} onClick={(e) => e.stopPropagation()}>
             <nav>
               <ul>
@@ -243,7 +285,10 @@ const Sidebar = () => {
                 <span className="author">George Yiakoumi</span>
               </small>
             </footer>
+
           </div>
+          
+          
         </div>
       </div>
     </aside>
