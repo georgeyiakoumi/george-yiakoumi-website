@@ -209,8 +209,9 @@
 
 .cat-container {
   position: absolute;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--gap);
   inset: 0;
   box-sizing:border-box;
   justify-content: center;
@@ -220,8 +221,12 @@
   pointer-events: none;
 
   .cat-icon {
-    width: $scale-xl-9;
-    height: $scale-xl-9;
+    display: block;
+    grid-column: 1 / span 3;
+    align-self: center;
+    justify-self: center;
+    width: 60%;
+    
   }
 }
 

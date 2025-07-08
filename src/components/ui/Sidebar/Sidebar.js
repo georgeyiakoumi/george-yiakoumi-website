@@ -68,7 +68,7 @@ const Sidebar = () => {
       gsap.set(sidebarContentsRef.current, { opacity: 0 });
       gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
       if (catRef.current) {
-        gsap.set(catRef.current, {x: '5rem', opacity: 0});
+        gsap.set(catRef.current, {opacity: 0});
       }
     }
   }, [isMobile]);
@@ -105,7 +105,6 @@ const Sidebar = () => {
       
       if (catRef.current) {
         tl.to(catRef.current, {
-          x: '5rem',
           y: '-6rem',
           opacity: 1,
           duration: 0.3,
