@@ -7,33 +7,36 @@ import useBreakpoint from "../../../utils/useBreakpoint";
 import "./ProjectCard.scss";
 
 const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", description, viewMode }) => {
-  const contentRef = useRef(null);
-  const titleRef = useRef(null);
   const descRef = useRef(null);
-  const cardRef = useRef(null);
   const { isDesktop } = useBreakpoint();
 
   useEffect(() => {
     if (viewMode === 'grid' && isDesktop) {
       // Set initial states only for grid view on desktop
-      gsap.set(contentRef.current, { yPercent: 20 });
-      gsap.set(descRef.current, { opacity: 0});
+      gsap.set(descRef.current, { 
+        height: 0,
+        opacity: 0,
+        y: 0
+      });
     } else {
       // Reset styles for other view modes or non-desktop
-      gsap.set(contentRef.current, { yPercent: 0 });
-      gsap.set(descRef.current, { opacity: 1});
+      gsap.set(descRef.current, { 
+        height: "auto",
+        opacity: 1,
+        y: 0 
+      });
     }
   }, [viewMode, isDesktop]);
 
   const handleMouseEnter = () => {
     if (viewMode === 'grid' && isDesktop) {
-      gsap.to(contentRef.current, {
-        yPercent: 0,
-        duration: 0.4,
-        ease: "power2.out"
-      });
+      // Kill any existing animations
+      gsap.killTweensOf(descRef.current);
+      
       gsap.to(descRef.current, {
+        height: "auto",
         opacity: 1,
+        y: 0,
         duration: 0.4,
         delay: 0.1,
         ease: "power2.out"
@@ -43,16 +46,16 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
 
   const handleMouseLeave = () => {
     if (viewMode === 'grid' && isDesktop) {
-      gsap.to(contentRef.current, {
-        yPercent: 20,
-        duration: 0.4,
-        ease: "power2.inOut"
-      });
+      // Kill any existing animations
+      gsap.killTweensOf(descRef.current);
+      
       gsap.to(descRef.current, {
+        height: 0,
         opacity: 0,
-        duration: 0.4,
-        delay: 0.1,
-        ease: "power2.inOut",
+        y: 0,
+        duration: 0.3,
+        delay: 0.05,
+        ease: "power2.inOut"
       });
     }
   };
@@ -62,7 +65,6 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
       to={`/${routePrefix}/${slug}`}
       className="project-item-card-link"
       aria-label={`View project: ${title}`}
-      ref={cardRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -73,8 +75,8 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
           aria-label={title}
           style={{ backgroundImage: `url(${thumbnail})` }}
         />
-        <div className="project-item-content" ref={contentRef}>
-          <h2 ref={titleRef}>{title}</h2>
+        <div className="project-item-content">
+          <h2>{title}</h2>
           <p ref={descRef}>{description}</p>
         </div>
       </article>

@@ -1,5 +1,7 @@
 @use '../../../styles/base' as *;
 
+$project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-900, 0) 0%, rgba($grey-solid-900, 0.85) 100%);
+
 .project-item-card-link {
     display: block;
     text-decoration: none;
@@ -7,29 +9,32 @@
     border-radius: $corner-radius-2;
     overflow: hidden;
 
-    .project-item-card {
-        position: relative;
-        display: block;
-        height: 100%;
+    .project-item-card {    
+        position: relative;    
+        display: flex;
+        aspect-ratio: 4 / 3;
+        flex-direction: column;
+        border-radius: $corner-radius-2;
+        justify-content: flex-end;
+        overflow: hidden;
 
         .project-item-thumb {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            aspect-ratio: 16 / 9;
-            width: 100%;
-            height: 100%;
+            z-index: -1;
         }
     
         .project-item-content {
-            position: absolute;
-            width: 100%;
-            height:100%;
             inset: 0;
             box-sizing: border-box;
             padding: var(--gap);
-            background: linear-gradient(180deg, rgba($grey-solid-900, 0) 0%, rgba($grey-solid-900, 0.85) 100%);
+            background: $project-item-card-content-gradient;
             display: flex;
+            gap: $scale-xs-2;
             flex-direction: column;
             justify-content: flex-end;
             pointer-events: none;
@@ -44,38 +49,24 @@
             p {
                 @include responsive-typography(text-small, $font-family-heading, $font-weight-strong, $text-strong);
                 color: $grey-dark-700;
-                margin: 0;
-                margin-top: 8px;
+                opacity: 0;
+                overflow: visible;
             }
         }
     }
 }
 
-.project-grid {
-
-    .project-item-card {
-        display: flex;
-        aspect-ratio: 4 / 3;
-        flex-direction: column;
-        border-radius: $corner-radius-2;
-        overflow: hidden;
-
-        .project-item-content > .button {    
-            align-self: start;
-        }
-    }
-
-}
-
 .project-list  {
 
     .project-item-card {
+        
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-gap: var(--gap);
-        border-radius: $corner-radius-4;
+        border-radius: $corner-radius-2;
         border: solid $scale-xs-4 $stroke-weak;
         overflow: hidden;
+        aspect-ratio: 0;
         transition: border $time;
         will-change: border;
 
@@ -91,14 +82,25 @@
             border: none;
             display: flex;
             aspect-ratio: 2 / 1;
+
+            &:hover {
+                border: none;
+            }
         }
 
         .project-item-thumb {
             grid-column: 1 / span 2;
-            height: 100%;
+            height: auto;
+            position: static;
+            z-index: 0;
 
             @include respond(mobile) {
                 width: 100%;
+                position: absolute;
+                left:0;
+                top: 0;
+                right: 0;
+                bottom: 0;
             }
         }
 
@@ -110,6 +112,7 @@
             grid-column: 3 / -1;
             padding: var(--gap) var(--gap) var(--gap) 0;
             background: none;
+            
 
             h2 {
                 color: $text-strong;
@@ -117,13 +120,15 @@
 
             p {
                 color: $text-weak;
+                height: auto !important;
+                opacity: 1 !important;
+                transform: none !important;
             }
 
             @include respond(mobile) {
-                position: absolute;
                 justify-content: end;
                 padding: var(--gap);
-                background: linear-gradient(0deg, #{$grey-solid-900}, rgba($grey-solid-900, 0));
+                background: $project-item-card-content-gradient;
 
                 h2 {
                     color: $grey-dark-1000;

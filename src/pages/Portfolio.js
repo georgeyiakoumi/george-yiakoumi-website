@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
+import { gsap } from "gsap";
+import { Flip } from "gsap/Flip";
 import useBreakpoint from "../utils/useBreakpoint";
 import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
@@ -14,6 +16,8 @@ import { ReactComponent as ListIcon } from "../assets/icons/list.svg";
 import { ReactComponent as CarouselIcon } from "../assets/icons/carousel.svg";
 import { ReactComponent as Send } from "../assets/icons/send.svg";
 import "./Portfolio.scss";
+
+gsap.registerPlugin(Flip);
 
 const API_BASE = process.env.REACT_APP_STRAPI_URL.replace(/\/$/, "");
 
@@ -28,7 +32,41 @@ const Portfolio = ({ collection }) => {
   const [selectedTags, setSelectedTags] = useState([]);
   const [SwiperComponent, setSwiperComponent] = useState(null);
 
+  const entriesContainerRef = useRef(null);
   const { isMobile, isTablet, isDesktop } = useBreakpoint();
+
+  // Custom function to handle view mode changes with Flip animation
+  const handleViewModeChange = (newViewMode) => {
+    if (newViewMode === viewMode) return;
+    
+    // Only animate between grid and list (not swiper)
+    if ((viewMode === "grid" || viewMode === "list") && 
+        (newViewMode === "grid" || newViewMode === "list") &&
+        entriesContainerRef.current) {
+      
+      // Capture current state of all project cards
+      const state = Flip.getState(entriesContainerRef.current.children);
+      
+      // Change the view mode
+      setViewMode(newViewMode);
+      
+      // Animate on next frame after DOM updates
+      requestAnimationFrame(() => {
+        Flip.from(state, {
+          duration: 0.3,
+          ease: "power2.inOut",
+          absolute: true, // Use absolute positioning during transition
+          onComplete: () => {
+            // Ensure any hover states are reset
+            gsap.set(entriesContainerRef.current.children, { clearProps: "all" });
+          }
+        });
+      });
+    } else {
+      // For swiper transitions or any other case, just change without animation
+      setViewMode(newViewMode);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -125,7 +163,7 @@ const Portfolio = ({ collection }) => {
                   { value: "list", label: "List", icon: <ListIcon /> },
                 ]}
                 selectedOption={viewMode}
-                setSelectedOption={setViewMode}
+                setSelectedOption={handleViewModeChange}
               />
             )}
 
@@ -137,7 +175,7 @@ const Portfolio = ({ collection }) => {
                   { value: "list", label: "List", icon: <ListIcon /> },
                 ]}
                 selectedOption={viewMode}
-                setSelectedOption={setViewMode}
+                setSelectedOption={handleViewModeChange}
               />
             )}
           </div>
@@ -145,7 +183,7 @@ const Portfolio = ({ collection }) => {
 
         <div className={`project-display ${viewMode}`}>
           {(viewMode === "grid" || viewMode === "list") && (
-            <div className={`entries-container project-${viewMode}`}>
+            <div className={`entries-container project-${viewMode}`} ref={entriesContainerRef}>
               {filteredEntries.map((item) => (
                 <ProjectCard
                   key={item.id}
