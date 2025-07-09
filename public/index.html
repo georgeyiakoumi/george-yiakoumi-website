@@ -9,6 +9,51 @@
     <!-- DNS prefetch for external resources -->
     <link rel="dns-prefetch" href="https://portfolio-cms-n9hb.onrender.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+    
+    <!-- Critical CSS for above-the-fold content -->
+    <style>
+      :root {
+        --colour-background-base: #ffffff;
+        --colour-text-strong: #000000;
+        --colour-text-weak: #666666;
+        --colour-text-brand: #0066cc;
+      }
+      
+      [data-theme="dark"] {
+        --colour-background-base: #1a1a1a;
+        --colour-text-strong: #ffffff;
+        --colour-text-weak: #cccccc;
+        --colour-text-brand: #4d9fff;
+      }
+      
+      body {
+        font-family: Mulish, sans-serif;
+        background-color: var(--colour-background-base);
+        color: var(--colour-text-strong);
+        margin: 0;
+        padding: 0;
+        line-height: 1.5;
+      }
+      
+      .motion-wrapper {
+        min-height: 100vh;
+      }
+      
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+      
+      .loading-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: var(--colour-background-base);
+      }
+    </style>
     <!-- PWA Support -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     
@@ -22,20 +67,32 @@
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap">
     </noscript>
 
-    <!-- Global site tag (gtag.js) - Google Analytics - Optimized -->
+    <!-- Google Analytics - Optimized with delay -->
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-6KLVHD991N');
       
-      // Load Google Analytics script asynchronously after page load
-      window.addEventListener('load', function() {
-        const script = document.createElement('script');
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6KLVHD991N';
-        script.async = true;
-        document.head.appendChild(script);
+      // Load Google Analytics script asynchronously after user interaction or 3 seconds
+      let gaLoaded = false;
+      function loadGA() {
+        if (!gaLoaded) {
+          const script = document.createElement('script');
+          script.src = 'https://www.googletagmanager.com/gtag/js?id=G-6KLVHD991N';
+          script.async = true;
+          document.head.appendChild(script);
+          gaLoaded = true;
+        }
+      }
+      
+      // Load on first user interaction
+      ['mousedown', 'touchstart', 'keydown', 'scroll'].forEach(event => {
+        document.addEventListener(event, loadGA, { once: true, passive: true });
       });
+      
+      // Fallback: load after 3 seconds
+      setTimeout(loadGA, 3000);
     </script>
 
   </head>

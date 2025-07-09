@@ -1,16 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "./context/ThemeContext";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
 import About from "./pages/About";
-import Portfolio from "./pages/Portfolio";
-import Contact from "./pages/Contact";
-import Details from "./pages/Details";
-import Entry from "./pages/Entry";
-import NotFound from "./pages/NotFound";
 import "./styles/main.scss";
+
+// Lazy load non-critical components
+const Portfolio = lazy(() => import("./pages/Portfolio"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Details = lazy(() => import("./pages/Details"));
+const Entry = lazy(() => import("./pages/Entry"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+
+// Loading component
+const LoadingFallback = () => (
+  <div className="loading-container">
+    <div>Loading...</div>
+  </div>
+);
 
 const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;
@@ -79,14 +88,16 @@ const AppContent = () => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<About />} />
-            <Route path="/projects" element={<Portfolio collection="projects" />} />
-            <Route path="/projects/:slug" element={<Entry collection="projects" />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/details" element={<Details />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<LoadingFallback />}>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<About />} />
+              <Route path="/projects" element={<Portfolio collection="projects" />} />
+              <Route path="/projects/:slug" element={<Entry collection="projects" />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/details" element={<Details />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </motion.main>
       </AnimatePresence>
     </>
