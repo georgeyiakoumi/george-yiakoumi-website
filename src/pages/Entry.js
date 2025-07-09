@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { ReactLenis } from "lenis/react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import Loading from "../components/ui/Loading/Loading";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import Tag from "../components/ui/Tag/Tag";
 import TextLink from "../components/ui/TextLink/TextLink";
@@ -60,8 +59,8 @@ const Entry = ({ collection }) => {
     load();
   }, [slug, collection]);
 
-  if (loading) return <Loading title="Loading project" description="This may take a few seconds." />;
-  if (!entry) return <NotFound />;
+  if (!entry && !loading) return <NotFound />;
+  if (!entry) return null; // Still loading
 
   const sectionContentMap = {
     challenge: {

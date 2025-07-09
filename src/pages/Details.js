@@ -4,7 +4,6 @@ import { ReactLenis } from "lenis/react";
 import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
-import Loading from "../components/ui/Loading/Loading";
 import { ReactComponent as ServerIcon } from "../assets/icons/server.svg";
 import { ReactComponent as DatabaseIcon } from "../assets/icons/database.svg";
 import { ReactComponent as CodeIcon } from "../assets/icons/code.svg";
@@ -21,7 +20,6 @@ const Details = () => {
   const [svgIcons, setSvgIcons] = useState({});
   const [content, setContent] = useState([]);
   const svgRefs = useRef({});
-  const [loading, setLoading] = useState(true);
   const { isMobile } = useBreakpoint();
 
   useEffect(() => {
@@ -56,8 +54,6 @@ const Details = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -170,7 +166,7 @@ const Details = () => {
       ></div>
     ));
 
-  if (loading) return <Loading title="Loading..." />;
+  // Show page immediately, content will populate when loaded
 
   return (
     <ReactLenis>

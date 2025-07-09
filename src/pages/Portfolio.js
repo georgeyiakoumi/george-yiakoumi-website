@@ -7,7 +7,6 @@ import { Flip } from "gsap/Flip";
 import useBreakpoint from "../utils/useBreakpoint";
 import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
-import Loading from "../components/ui/Loading/Loading";
 import TagDropdown from "../components/ui/TagDropdown/TagDropdown";
 import Button from "../components/ui/Button/Button";
 import { ReactComponent as Arun } from "../assets/images/arun-sleepypooka.svg";
@@ -117,11 +116,8 @@ const Portfolio = ({ collection }) => {
     return pageData?.projectsContent ? <BlocksRenderer content={pageData.projectsContent} /> : null;
   };
 
-  if (loading) {
-    return <Loading title="Loading projects" description="This may take a few seconds." />;
-  }
 
-  if (entries.length === 0) {
+  if (entries.length === 0 && !loading) {
     return (
       <section className="blank">
         <Arun />

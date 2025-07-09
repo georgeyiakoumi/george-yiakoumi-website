@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../components/ui/Button/Button";
-import Loading from "../components/ui/Loading/Loading";
 import { ReactComponent as Send } from "../assets/icons/send.svg";
 import "./Contact.scss";
 
@@ -10,7 +9,6 @@ const CONTACT_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/contact-pag
 const Contact = () => {
   const [formStatus, setFormStatus] = useState("");
   const [contactContent, setContactContent] = useState(null);
-  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const from = searchParams.get("from");
@@ -33,8 +31,6 @@ const Contact = () => {
         }
       } catch (error) {
         console.error("Error fetching contact content:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -54,7 +50,6 @@ const Contact = () => {
       .catch(() => setFormStatus("error"));
   };
 
-  if (loading) return <Loading title="One sec..." />;
   if (!contactContent) return <p>Error loading content.</p>;
 
   return (
