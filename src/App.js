@@ -14,12 +14,8 @@ const Details = lazy(() => import("./pages/Details"));
 const Entry = lazy(() => import("./pages/Entry"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Loading component
-const LoadingFallback = () => (
-  <div className="loading-container">
-    <div>Loading...</div>
-  </div>
-);
+// Minimal loading fallback for code splitting (invisible)
+const LoadingFallback = () => null;
 
 const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;

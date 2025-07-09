@@ -4,14 +4,26 @@ import NavItem from "../NavItem/NavItem";
 import useBreakpoint from "../../../utils/useBreakpoint";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { getIcon } from "../../../utils/iconMapper";
-import { gsap } from "gsap";
-import AboutIcon from "../../../assets/lottie/avatar.json";
-import ProjectsIcon from "../../../assets/lottie/briefcase.json";
-import DetailsIcon from "../../../assets/lottie/lightning.json";
-import ContactIcon from "../../../assets/lottie/plane.json";
 import { ReactComponent as GyLogo } from "../../../assets/logos/gy-logo.svg";
 import { ReactComponent as CatIcon } from "../../../assets/images/arun-sleepypooka.svg";
 import "./Sidebar.scss";
+
+// Lazy load GSAP and Lottie animations
+const loadGSAP = () => import("gsap").then(module => module.gsap);
+const loadLottieIcons = async () => {
+  const [AboutIcon, ProjectsIcon, DetailsIcon, ContactIcon] = await Promise.all([
+    import("../../../assets/lottie/avatar.json"),
+    import("../../../assets/lottie/briefcase.json"), 
+    import("../../../assets/lottie/lightning.json"),
+    import("../../../assets/lottie/plane.json")
+  ]);
+  return {
+    avatar: AboutIcon.default,
+    briefcase: ProjectsIcon.default,
+    lightning: DetailsIcon.default,
+    plane: ContactIcon.default
+  };
+};
 
 const NAV_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/navigation?populate=*";
 
@@ -24,6 +36,8 @@ const Sidebar = () => {
   const [homePageUrl, setHomePageUrl] = useState(null);
   const [activeNavLabel, setActiveNavLabel] = useState(null);
   const [previousNavLabel, setPreviousNavLabel] = useState(null);
+  const [lottieIcons, setLottieIcons] = useState({});
+  const [gsap, setGsap] = useState(null);
   const { isMobile, isMobileView, isTablet } = useBreakpoint();
   
   const sidebarContentsRef = useRef(null);
@@ -38,12 +52,27 @@ const Sidebar = () => {
     }
   };
 
-  const lottieIcons = {
-    about: AboutIcon,
-    projects: ProjectsIcon,
-    details: DetailsIcon,
-    contact: ContactIcon,
-  };
+  // Load animations and GSAP dynamically
+  useEffect(() => {
+    const loadAssets = async () => {
+      try {
+        const [gsapInstance, lottieData] = await Promise.all([
+          loadGSAP(),
+          loadLottieIcons()
+        ]);
+        setGsap(gsapInstance);
+        setLottieIcons({
+          about: lottieData.avatar,
+          projects: lottieData.briefcase,
+          details: lottieData.lightning,
+          contact: lottieData.plane,
+        });
+      } catch (error) {
+        console.error('Failed to load animations:', error);
+      }
+    };
+    loadAssets();
+  }, []);
 
   useEffect(() => {
     if (!isMobileView && isOpen) {
@@ -53,28 +82,28 @@ const Sidebar = () => {
 
   // Reset opacity when leaving mobile view
   useEffect(() => {
-    if (!isMobile && sidebarContentsRef.current) {
+    if (!isMobile && sidebarContentsRef.current && gsap) {
       gsap.set(sidebarContentsRef.current, { opacity: 1 });
       gsap.set(sidebarContentsContainerRef.current, { x: "0%" });
       if (catRef.current) {
         gsap.set(catRef.current, { yPercent: 20, opacity: 0 });
       }
     }
-  }, [isMobile]);
+  }, [isMobile, gsap]);
 
   // Set initial state on mount
   useEffect(() => {
-    if (isMobile && sidebarContentsRef.current && sidebarContentsContainerRef.current) {
+    if (isMobile && sidebarContentsRef.current && sidebarContentsContainerRef.current && gsap) {
       gsap.set(sidebarContentsRef.current, { opacity: 0 });
       gsap.set(sidebarContentsContainerRef.current, { x: "-120%" });
       if (catRef.current) {
         gsap.set(catRef.current, {opacity: 0});
       }
     }
-  }, [isMobile]);
+  }, [isMobile, gsap]);
 
   useEffect(() => {
-    if (isMobile && isOpen && !isClosing && !isAnimating) {
+    if (isMobile && isOpen && !isClosing && !isAnimating && gsap) {
       // Kill any existing animation
       if (currentAnimationRef.current) {
         currentAnimationRef.current.kill();
@@ -112,7 +141,7 @@ const Sidebar = () => {
         }, "-=0.05");
       }
     }
-  }, [isOpen, isMobile, isClosing, isAnimating]);
+  }, [isOpen, isMobile, isClosing, isAnimating, gsap]);
 
   useEffect(() => {
     const fetchNavigation = async () => {
@@ -138,7 +167,7 @@ const Sidebar = () => {
   }, []);
 
   const closeMenu = () => {
-    if (isMobile && isOpen) {
+    if (isMobile && isOpen && gsap) {
       // Kill any existing animation
       if (currentAnimationRef.current) {
         currentAnimationRef.current.kill();
@@ -178,6 +207,9 @@ const Sidebar = () => {
         duration: 0.2,
         ease: "power2.inOut"
       }, "-=0.1");
+    } else if (isMobile && isOpen && !gsap) {
+      // Fallback when GSAP isn't loaded yet
+      setIsOpen(false);
     } else if (!isMobileView) {
       setIsOpen(false);
     }
