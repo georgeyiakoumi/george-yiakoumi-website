@@ -18,8 +18,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 // Loading fallback for code splitting
 const LoadingFallback = () => (
   <Loading 
-    title="Loading page" 
-    description="Please wait while the page loads."
+    title="Loading..." 
   />
 );
 
