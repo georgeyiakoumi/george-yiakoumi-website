@@ -72,10 +72,9 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 
             .project-item-tools {
                 position: absolute;
-                inset: var(--gap) 0 0 var(--gap);
+                top: var(--gap);
                 display: flex;
                 flex-direction: row;
-                place-self: flex-start;
                 gap: $scale-xs-2;
                 padding: $scale-xs-2;
                 background: $grey-light-500;
@@ -83,8 +82,8 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 
                 .tool-icon {
                     display: flex;
-                    min-width: $scale-md;
-                    min-height: $scale-md;
+                    width: $scale-md;
+                    height: $scale-md;
 
                     svg {
                         width: 100%;

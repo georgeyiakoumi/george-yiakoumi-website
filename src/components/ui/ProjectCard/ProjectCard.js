@@ -52,9 +52,9 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
       gsap.killTweensOf(thumbRef.current);
       
       gsap.to(thumbRef.current, {
-        scale: 1.1,
-        rotation: 2,
-        filter: "blur(1px)",
+        scale: 1.5,
+        rotation: 5,
+        filter: "blur(1rem)",
         duration: 0.4,
         ease: "power2.out"
       });
