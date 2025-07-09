@@ -12,7 +12,7 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
     .project-item-card {    
         position: relative;    
         display: flex;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 4 / 2;
         flex-direction: column;
         border-radius: $corner-radius-2;
         justify-content: flex-end;
