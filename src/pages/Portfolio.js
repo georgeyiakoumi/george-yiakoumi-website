@@ -191,6 +191,7 @@ const Portfolio = ({ collection }) => {
                   thumbnail={item.Thumbnail.url || ""}
                   title={item.Title || "Untitled"}
                   tags={item.Tags || []}
+                  tools={item.Tools}
                   description={item.Description || ""}
                   routePrefix="projects"
                   viewMode={viewMode}
@@ -209,6 +210,7 @@ const Portfolio = ({ collection }) => {
                   thumbnail={item.Thumbnail.url || ""}
                   title={item.Title || "Untitled"}
                   tags={item.Tags || []}
+                  tools={item.Tools}
                   routePrefix="projects"
                   viewMode={viewMode}
                 />

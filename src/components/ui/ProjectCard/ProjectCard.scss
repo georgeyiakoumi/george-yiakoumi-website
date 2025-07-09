@@ -6,17 +6,30 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
     display: block;
     text-decoration: none;
     color: inherit;
-    border-radius: $corner-radius-2;
-    overflow: hidden;
 
     .project-item-card {    
         position: relative;    
         display: flex;
-        aspect-ratio: 4 / 2;
+        aspect-ratio: 4 / 3;
         flex-direction: column;
         border-radius: $corner-radius-2;
+        border: $scale-xs-4 solid $stroke-weak;
         justify-content: flex-end;
         overflow: hidden;
+
+        &:hover {
+            border: solid $scale-xs-4 $stroke-strong;
+            transition: border $time;
+            will-change: border;
+        }
+
+        @include respond(mobile) {
+            border: none;
+
+            &:hover {
+                border: none;
+            }
+        }
 
         .project-item-thumb {
             position: absolute;
@@ -34,23 +47,48 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
             padding: var(--gap);
             background: $project-item-card-content-gradient;
             display: flex;
-            gap: $scale-xs-2;
+            gap: $scale-xs;
             flex-direction: column;
             justify-content: flex-end;
             pointer-events: none;
             overflow: hidden;
 
+          
+
             h2 { 
                 @include responsive-typography(heading-4, $font-family-heading, $font-weight-strong, $text-strong);
                 color: $grey-dark-1000;
                 margin: 0;
+                text-shadow: 0 0 $scale-xs-2 rgba(0, 0, 0, 0.25);
             }
 
             p {
                 @include responsive-typography(text-small, $font-family-heading, $font-weight-strong, $text-strong);
                 color: $grey-dark-700;
-                opacity: 0;
-                overflow: visible;
+                
+            }
+
+            .project-item-tools {
+                position: absolute;
+                inset: var(--gap) 0 0 var(--gap);
+                display: flex;
+                flex-direction: row;
+                place-self: flex-start;
+                gap: $scale-xs-2;
+                padding: $scale-xs-2;
+                background: $grey-light-500;
+                border-radius: $corner-radius-2;
+
+                .tool-icon {
+                    display: flex;
+                    min-width: $scale-md;
+                    min-height: $scale-md;
+
+                    svg {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
             }
         }
     }
@@ -59,7 +97,6 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 .project-list  {
 
     .project-item-card {
-        
         display: grid;
         grid-template-columns: repeat(8, 1fr);
         grid-gap: var(--gap);
@@ -69,12 +106,6 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
         aspect-ratio: 0;
         transition: border $time;
         will-change: border;
-
-        &:hover {
-            border: solid $scale-xs-4 $stroke-strong;
-            transition: border $time;
-            will-change: border;
-        }
 
         @include respond(mobile) {
             flex-direction: column;
@@ -112,7 +143,6 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
             grid-column: 3 / -1;
             padding: var(--gap) var(--gap) var(--gap) 0;
             background: none;
-            
 
             h2 {
                 color: $text-strong;
@@ -127,6 +157,7 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 
             @include respond(mobile) {
                 justify-content: end;
+                height: 100%;
                 padding: var(--gap);
                 background: $project-item-card-content-gradient;
 
@@ -136,6 +167,31 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 
                 p {
                     display: none;
+                }
+               
+            }
+
+            .project-item-tools {
+                position: static;
+                inset: 0;
+                display: flex;
+                flex-direction: row;
+                place-self: flex-start;
+                gap: $scale-xs-2;
+                background: none;
+                padding: var(--gap) 0 0 0;
+
+                @include respond(mobile) {
+                    position: absolute;
+                    inset: var(--gap) 0 0 var(--gap);
+                    display: flex;
+                    flex-direction: row;
+                    place-self: flex-start;
+                    gap: $scale-xs-2;
+                    padding: $scale-xs-2;
+                    background: $grey-light-500;
+                    border-radius: $corner-radius-2;
+               
                 }
             }
         }
@@ -157,6 +213,7 @@ $project-item-card-content-gradient: linear-gradient(180deg, rgba($grey-solid-90
 
             .project-item-content {
                 padding: var(--gap);
+                height: 100%;
 
                 p {
                     display: none;
