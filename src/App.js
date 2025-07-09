@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "./context/ThemeContext";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
+import Loading from "./components/ui/Loading/Loading";
 import About from "./pages/About";
 import "./styles/main.scss";
 
@@ -14,8 +15,13 @@ const Details = lazy(() => import("./pages/Details"));
 const Entry = lazy(() => import("./pages/Entry"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-// Minimal loading fallback for code splitting (invisible)
-const LoadingFallback = () => null;
+// Loading fallback for code splitting
+const LoadingFallback = () => (
+  <Loading 
+    title="Loading page" 
+    description="Please wait while the page loads."
+  />
+);
 
 const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";
 const version = process.env.REACT_APP_VERSION;
