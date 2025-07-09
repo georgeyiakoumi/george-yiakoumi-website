@@ -14,6 +14,7 @@ const optimizeCloudinaryUrl = (url) => {
 
 const About = () => {
   const [aboutData, setAboutData] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [svgIcons, setSvgIcons] = useState({});
 
   useEffect(() => {
@@ -26,6 +27,8 @@ const About = () => {
         }
       } catch (error) {
         console.error("Error fetching about data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -54,6 +57,11 @@ const About = () => {
     }
   }, [aboutData]);
 
+  // Don't render anything until data is loaded to prevent sequential loading
+  if (loading) {
+    return null;
+  }
+  
   if (!aboutData) return <p>Error loading content.</p>;
 
   const { content, businesses } = aboutData;

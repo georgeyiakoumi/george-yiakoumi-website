@@ -20,6 +20,7 @@ const Details = () => {
   const [svgIcons, setSvgIcons] = useState({});
   const [content, setContent] = useState([]);
   const svgRefs = useRef({});
+  const [loading, setLoading] = useState(true);
   const { isMobile } = useBreakpoint();
 
   useEffect(() => {
@@ -54,6 +55,8 @@ const Details = () => {
         }
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -166,7 +169,10 @@ const Details = () => {
       ></div>
     ));
 
-  // Show page immediately, content will populate when loaded
+  // Don't render anything until data is loaded to prevent sequential loading
+  if (loading) {
+    return null;
+  }
 
   return (
     <ReactLenis>

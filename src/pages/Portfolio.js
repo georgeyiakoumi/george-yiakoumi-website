@@ -116,8 +116,12 @@ const Portfolio = ({ collection }) => {
     return pageData?.projectsContent ? <BlocksRenderer content={pageData.projectsContent} /> : null;
   };
 
+  // Don't render anything until data is loaded to prevent sequential loading
+  if (loading) {
+    return null;
+  }
 
-  if (entries.length === 0 && !loading) {
+  if (entries.length === 0) {
     return (
       <section className="blank">
         <Arun />

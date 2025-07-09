@@ -9,6 +9,7 @@ const CONTACT_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/contact-pag
 const Contact = () => {
   const [formStatus, setFormStatus] = useState("");
   const [contactContent, setContactContent] = useState(null);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const from = searchParams.get("from");
@@ -31,6 +32,8 @@ const Contact = () => {
         }
       } catch (error) {
         console.error("Error fetching contact content:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -50,6 +53,11 @@ const Contact = () => {
       .catch(() => setFormStatus("error"));
   };
 
+  // Don't render anything until data is loaded to prevent sequential loading
+  if (loading) {
+    return null;
+  }
+  
   if (!contactContent) return <p>Error loading content.</p>;
 
   return (

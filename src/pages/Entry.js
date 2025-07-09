@@ -59,8 +59,12 @@ const Entry = ({ collection }) => {
     load();
   }, [slug, collection]);
 
-  if (!entry && !loading) return <NotFound />;
-  if (!entry) return null; // Still loading
+  // Don't render anything until data is loaded to prevent sequential loading
+  if (loading) {
+    return null;
+  }
+  
+  if (!entry) return <NotFound />;
 
   const sectionContentMap = {
     challenge: {
