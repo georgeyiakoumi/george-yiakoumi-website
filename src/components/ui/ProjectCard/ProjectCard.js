@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import useBreakpoint from "../../../utils/useBreakpoint";
+import useIntersectionObserver from "../../../utils/useIntersectionObserver";
 import { getToolIcon } from "../../../utils/toolsMapper";
 import "./ProjectCard.scss";
 
@@ -13,6 +14,10 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
   const thumbRef = useRef(null);
   const initialContentHeight = useRef(null);
   const { isDesktop } = useBreakpoint();
+  const { ref: intersectionRef, hasIntersected } = useIntersectionObserver({
+    rootMargin: '100px',
+    threshold: 0.1,
+  });
 
   useEffect(() => {
     if (viewMode === 'grid' && isDesktop) {
@@ -120,11 +125,17 @@ const ProjectCard = ({ slug, thumbnail, title, routePrefix = "project", descript
     >
       <article className="project-item-card">
         <div
-          ref={thumbRef}
+          ref={(node) => {
+            thumbRef.current = node;
+            intersectionRef.current = node;
+          }}
           className="project-item-thumb"
           role="img"
           aria-label={title}
-          style={{ backgroundImage: `url(${thumbnail})` }}
+          style={{ 
+            backgroundImage: hasIntersected ? `url(${thumbnail})` : 'none',
+            backgroundColor: hasIntersected ? 'transparent' : '#f0f0f0'
+          }}
         />
 
         <div ref={contentRef} className="project-item-content">

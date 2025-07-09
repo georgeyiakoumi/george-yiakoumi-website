@@ -225,7 +225,19 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <div className="sidebar-contents" ref={sidebarContentsRef} onClick={closeMenu}>
+        <div 
+          className="sidebar-contents" 
+          ref={sidebarContentsRef} 
+          onClick={closeMenu}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              closeMenu();
+            }
+          }}
+          role="button"
+          tabIndex="0"
+          aria-label="Close sidebar"
+        >
 
         {isMobile && (
           <div className="cat-container">
@@ -233,7 +245,19 @@ const Sidebar = () => {
           </div>
         )}
 
-          <div className="sidebar-contents-container" ref={sidebarContentsContainerRef} onClick={(e) => e.stopPropagation()}>
+          <div 
+            className="sidebar-contents-container" 
+            ref={sidebarContentsContainerRef} 
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.stopPropagation();
+              }
+            }}
+            role="button"
+            tabIndex="0"
+            aria-label="Main navigation container"
+          >
             <nav>
               <ul>
                 {navLinks.map(({ id, label, url, iconName }) => {

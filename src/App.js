@@ -22,13 +22,23 @@ const AppContent = () => {
   useEffect(() => {
     const fetchSeo = async () => {
       try {
-        const res = await fetch(SEO_API_URL);
+        const controller = new AbortController();
+        const res = await fetch(SEO_API_URL, {
+          signal: controller.signal,
+          headers: {
+            'Cache-Control': 'max-age=3600',
+          },
+        });
         const data = await res.json();
         if (data?.data) {
           setSeoData(data.data);
         }
+        
+        return () => controller.abort();
       } catch (err) {
-        console.error("Error fetching SEO data:", err);
+        if (err.name !== 'AbortError') {
+          console.error("Error fetching SEO data:", err);
+        }
       }
     };
     fetchSeo();
