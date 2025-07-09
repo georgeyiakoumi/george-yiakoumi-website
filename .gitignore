@@ -32,7 +32,6 @@ yarn-error.log*
 
 # Logos that I've added via Strapi anyway
 /src/assets/logos/businesses/
-/src/assets/logos/tools/
 
 # Claude
 CLAUDE.md
