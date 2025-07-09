@@ -25,9 +25,6 @@ const AppContent = () => {
         const controller = new AbortController();
         const res = await fetch(SEO_API_URL, {
           signal: controller.signal,
-          headers: {
-            'Cache-Control': 'max-age=3600',
-          },
         });
         const data = await res.json();
         if (data?.data) {
