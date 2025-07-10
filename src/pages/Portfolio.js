@@ -120,7 +120,7 @@ const Portfolio = ({ collection }) => {
 
   // Show loading spinner while data is being fetched
   if (loading) {
-    return <Loading title="Loading projects..." />;
+    return <Loading title="Loading..." />;
   }
 
   if (entries.length === 0) {

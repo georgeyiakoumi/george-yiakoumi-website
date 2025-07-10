@@ -163,7 +163,7 @@ const Details = () => {
 
   // Show loading spinner while data is being fetched
   if (loading) {
-    return <Loading title="Loading tools..." />;
+    return <Loading title="Loading..." />;
   }
 
   return (
