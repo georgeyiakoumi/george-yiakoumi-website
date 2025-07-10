@@ -17,9 +17,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback for code splitting
 const LoadingFallback = () => (
-  <Loading 
-    title="Loading..." 
-  />
+  <Loading title="Loading..." />
 );
 
 const SEO_API_URL = "https://portfolio-cms-n9hb.onrender.com/api/global-seo?populate=*";

@@ -4,11 +4,13 @@ import { BlocksRenderer } from "@strapi/blocks-react-renderer";
 import { ReactLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
+import { motion } from "framer-motion";
 import useBreakpoint from "../utils/useBreakpoint";
 import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import TagDropdown from "../components/ui/TagDropdown/TagDropdown";
 import Button from "../components/ui/Button/Button";
+import Loading from "../components/ui/Loading/Loading";
 import { ReactComponent as Arun } from "../assets/images/arun-sleepypooka.svg";
 import { ReactComponent as GridIcon } from "../assets/icons/grid.svg";
 import { ReactComponent as ListIcon } from "../assets/icons/list.svg";
@@ -116,14 +118,19 @@ const Portfolio = ({ collection }) => {
     return pageData?.projectsContent ? <BlocksRenderer content={pageData.projectsContent} /> : null;
   };
 
-  // Don't render anything until data is loaded to prevent sequential loading
+  // Show loading spinner while data is being fetched
   if (loading) {
-    return null;
+    return <Loading title="Loading projects..." />;
   }
 
   if (entries.length === 0) {
     return (
-      <section className="blank">
+      <motion.section 
+        className="blank"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         <Arun />
         <h1>Nothing to see here, yet.</h1>
         <p>
@@ -131,13 +138,18 @@ const Portfolio = ({ collection }) => {
           If you&apos;re keen, and are open to having a chat, I can show you some stuff over a call.
         </p>
         <Button to="/contact" label="Get in touch" iconLeft={Send} />
-      </section>
+      </motion.section>
     );
   }
 
   return (
     <ReactLenis>
-      <section className="portfolio">
+      <motion.section 
+        className="portfolio"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
+      >
         {pageData && (
           <header>
             {renderContent()}
@@ -219,7 +231,7 @@ const Portfolio = ({ collection }) => {
             />
           )}
         </div>
-      </section>
+      </motion.section>
     </ReactLenis>
   );
 };
