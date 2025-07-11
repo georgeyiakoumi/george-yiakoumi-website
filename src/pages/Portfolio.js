@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { ReactLenis } from "lenis/react";
 import { gsap } from "gsap";
 import { Flip } from "gsap/Flip";
-import { motion } from "framer-motion";
 import useBreakpoint from "../utils/useBreakpoint";
 import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
@@ -34,7 +32,7 @@ const Portfolio = ({ collection }) => {
   const [SwiperComponent, setSwiperComponent] = useState(null);
 
   const entriesContainerRef = useRef(null);
-  const { isMobile, isTablet, isDesktop } = useBreakpoint();
+  const { isMobile, isTablet } = useBreakpoint();
 
   // Custom function to handle view mode changes with Flip animation
   const handleViewModeChange = (newViewMode) => {
@@ -125,7 +123,7 @@ const Portfolio = ({ collection }) => {
 
   if (entries.length === 0) {
     return (
-      <motion.section 
+      <section 
         className="blank"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -138,26 +136,30 @@ const Portfolio = ({ collection }) => {
           If you&apos;re keen, and are open to having a chat, I can show you some stuff over a call.
         </p>
         <Button to="/contact" label="Get in touch" iconLeft={Send} />
-      </motion.section>
+      </section>
     );
   }
 
-  return (
-    <ReactLenis>
-      <motion.section 
-        className="portfolio"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
-        {pageData && (
-          <header>
-            {renderContent()}
-          </header>
-        )}
+  const renderProjectCard = (item) => (
+    <ProjectCard
+      key={item.id}
+      slug={item.Slug || item.slug || ""}
+      thumbnail={item.Thumbnail?.url || ""}
+      title={item.Title || "Untitled"}
+      tags={item.Tags || []}
+      tools={item.Tools}
+      description={item.Description || ""}
+      routePrefix="projects"
+      viewMode={viewMode}
+    />
+  );
 
-        <div className="portfolio-filters">
-          {allTags.length > 0 && (
+  return (
+    <section className="portfolio">
+      <header>
+          {renderContent()}
+          <div className="portfolio-filters">
+            {allTags.length > 0 && (
             <div className="tag-dropdown-wrapper">
               <TagDropdown
                 allTags={allTags}
@@ -165,74 +167,50 @@ const Portfolio = ({ collection }) => {
                 setSelectedTags={setSelectedTags}
               />
             </div>
-          )}
-
-          <div className="segment-control-wrapper">
-            {isDesktop && (
-              <SegmentControl
-                options={[
-                  { value: "grid", label: "Grid", icon: <GridIcon /> },
-                  { value: "list", label: "List", icon: <ListIcon /> },
-                ]}
-                selectedOption={viewMode}
-                setSelectedOption={handleViewModeChange}
-              />
             )}
-
-            {isMobile && (
+            <div className="segment-control-wrapper">
               <SegmentControl
-                size="small"
-                options={[
-                  { value: "swiper", label: "Carousel", icon: <CarouselIcon /> },
-                  { value: "list", label: "List", icon: <ListIcon /> },
-                ]}
-                selectedOption={viewMode}
-                setSelectedOption={handleViewModeChange}
+                size={isMobile ? "small" : undefined}
+                options={
+                  isMobile
+                    ? [
+                        { value: "swiper", label: "Carousel", icon: <CarouselIcon /> },
+                        { value: "list", label: "List", icon: <ListIcon /> },
+                      ]
+                    : [
+                        { value: "grid", label: "Grid", icon: <GridIcon /> },
+                        { value: "list", label: "List", icon: <ListIcon /> },
+                      ]
+                }
+                selectedOption={viewMode === "grid" && isMobile ? "swiper" : viewMode}
+                setSelectedOption={(val) => {
+                  const translatedVal = isMobile && val === "grid" ? "swiper" : val;
+                  handleViewModeChange(translatedVal);
+                }}
               />
-            )}
+            </div>
           </div>
-        </div>
+        </header>
+
+      {pageData && (
 
         <div className={`project-display ${viewMode}`}>
           {(viewMode === "grid" || viewMode === "list") && (
-            <div className={`entries-container project-${viewMode}`} ref={entriesContainerRef}>
-              {filteredEntries.map((item) => (
-                <ProjectCard
-                  key={item.id}
-                  slug={item.Slug || item.slug || ""}
-                  thumbnail={item.Thumbnail.url || ""}
-                  title={item.Title || "Untitled"}
-                  tags={item.Tags || []}
-                  tools={item.Tools}
-                  description={item.Description || ""}
-                  routePrefix="projects"
-                  viewMode={viewMode}
-                />
-              ))}
-            </div>
+          <div className={`entries-container project-${viewMode}`} ref={entriesContainerRef}>
+            {filteredEntries.map(renderProjectCard)}
+          </div>
           )}
 
           {viewMode === "swiper" && SwiperComponent && (
             <SwiperComponent
               items={filteredEntries}
               slidesPerView={1}
-              renderSlide={(item) => (
-                <ProjectCard
-                  slug={item.Slug || item.slug || ""}
-                  thumbnail={item.Thumbnail.url || ""}
-                  title={item.Title || "Untitled"}
-                  tags={item.Tags || []}
-                  tools={item.Tools}
-                  routePrefix="projects"
-                  viewMode={viewMode}
-                />
-              )}
-              
+              renderSlide={renderProjectCard}
             />
           )}
         </div>
-      </motion.section>
-    </ReactLenis>
+      )}
+    </section>
   );
 };
 

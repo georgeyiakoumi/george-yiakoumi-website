@@ -32,69 +32,22 @@ main {
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: 1fr; 
   gap: var(--gap);
-  height: auto;
-  align-content: start; 
+  height: 100vh;
+  overflow: auto;
+  align-content: start;
+  scroll-behavior: smooth;
 
   @include breakpoint.respond(tablet) {
     grid-template-columns: repeat(6, 1fr);
-    height: auto;
+    height: 100vh;
   }
 
   @include breakpoint.respond(mobile) {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    height: auto;
-    padding: scale.$scale-xl-7 0 0 0;
-  }
-
-  .lenis {
-    grid-column: 1 / span 11;
     height: 100vh;
-    overflow: auto;
-    will-change: transform;
-    
-  
-    @include breakpoint.respond(tablet) {
-      grid-column: 1 / span 6;
-    }
-  
-    @include breakpoint.respond(mobile) {
-      grid-column: 1 / span 4;
-      margin-left: 0;
-    }
-  
-    & > div {
-      display: grid;
-      grid-template-columns: repeat(11, 1fr);
-      gap: var(--gap);
-  
-      @include breakpoint.respond(tablet) {
-        grid-template-columns: repeat(6, 1fr);
-        margin-left: 0;
-      }
-  
-      @include breakpoint.respond(mobile) {
-        display: flex;
-        
-      }
-      
-  
-      & > section {
-        padding: var(--container-padding) 0;
-  
-        @include breakpoint.respond(tablet) {
-          grid-column: 1 / span 6;
-          padding-right: var(--gap);
-        }
-  
-        @include breakpoint.respond(mobile) {
-          padding-right: 0;
-        }
-      }
-  
-    }
-  
+    padding: scale.$scale-xl-7 0 0 0;
   }
 
   & > section {

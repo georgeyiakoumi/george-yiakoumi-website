@@ -1,10 +1,10 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
 import { Helmet } from "react-helmet";
 import { ThemeProvider } from "./context/ThemeContext";
 import Sidebar from "./components/ui/Sidebar/Sidebar";
 import Loading from "./components/ui/Loading/Loading";
+import PageTransition from "./components/PageTransition";
 import About from "./pages/About";
 import "./styles/main.scss";
 
@@ -78,27 +78,18 @@ const AppContent = () => {
 
       <Sidebar />
 
-      <AnimatePresence mode="wait">
-        <motion.main
-          className="motion-wrapper"
-          key={location.pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-        >
-          <Suspense fallback={<LoadingFallback />}>
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<About />} />
-              <Route path="/projects" element={<Portfolio collection="projects" />} />
-              <Route path="/projects/:slug" element={<Entry collection="projects" />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/details" element={<Details />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </motion.main>
-      </AnimatePresence>
+      <PageTransition>
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<About />} />
+            <Route path="/projects" element={<Portfolio collection="projects" />} />
+            <Route path="/projects/:slug" element={<Entry collection="projects" />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/details" element={<Details />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </PageTransition>
     </>
   );
 };

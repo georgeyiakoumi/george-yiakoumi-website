@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { ReactLenis } from "lenis/react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
@@ -92,7 +91,7 @@ const Entry = ({ collection }) => {
   const backPath = collection === "projects" ? "/projects" : "/ui-lab";
 
   return (
-    <ReactLenis>
+    <>
       <section className="entry">
         <header
           style={{
@@ -165,7 +164,7 @@ const Entry = ({ collection }) => {
             />
           </div>
       </section>
-    </ReactLenis>
+    </>
   );
 };
 

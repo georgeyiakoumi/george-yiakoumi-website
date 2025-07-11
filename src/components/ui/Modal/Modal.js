@@ -1,30 +1,48 @@
 import PropTypes from "prop-types";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { modalAnimations } from "../../../utils/gsapAnimations";
 import { ReactComponent as Close } from '../../../assets/icons/close.svg';
 import Button from "../Button/Button";
 import "./Modal.scss";
 
 const Modal = ({ isOpen, onClose, title, children, buttonLabel }) => {
+  const overlayRef = useRef(null);
+  const contentRef = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsVisible(true);
+      modalAnimations.enter(overlayRef.current, contentRef.current);
+    } else if (isVisible) {
+      modalAnimations.exit(overlayRef.current, contentRef.current, () => {
+        setIsVisible(false);
+      });
+    }
+  }, [isOpen, isVisible]);
+
+  if (!isVisible) return null;
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div 
-          className="modal-overlay"
-          initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
-          animate={{ opacity: 1, backdropFilter: "blur(5px)" }}
-          exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
-          transition={{ duration: 0.3 }}
-          onClick={onClose}
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events
+    <div 
+      ref={overlayRef}
+      className="modal-overlay"
+      onClick={onClose}
+      onKeyDown={(e) => e.key === 'Escape' && onClose()}
+      role="dialog"
+      aria-modal="true"
+      tabIndex={-1}
+    >
+      <div className="modal-wrapper">
+        {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div
+          ref={contentRef}
+          className="modal-content"
+          onClick={(e) => e.stopPropagation()}
+          onKeyDown={(e) => e.stopPropagation()}
+          role="document"
         >
-          <div className="modal-wrapper">
-            <motion.div
-              className="modal-content"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-            >
               <button className="close-button" onClick={onClose} aria-label="Close modal">
                 <Close />
               </button>
@@ -38,11 +56,9 @@ const Modal = ({ isOpen, onClose, title, children, buttonLabel }) => {
                 type="submit"
                 onClick={onClose}
               />
-            </motion.div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        </div>
+      </div>
+    </div>
   );
 };
 

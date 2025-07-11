@@ -38,9 +38,9 @@ This is a React-based portfolio website built with Create React App. Key archite
 - **Theme Implementation**: CSS custom properties with `data-theme` attribute switching
 
 ### Key Dependencies
-- **Animation**: Framer Motion for page transitions and component animations
+- **Animation**: GSAP for page transitions and component animations
 - **Carousel**: Swiper.js for interactive content carousels
-- **Smooth Scrolling**: Lenis for enhanced scroll behavior
+- **Smooth Scrolling**: Native CSS scroll-behavior applied to main element
 - **Icons**: Custom SVG icon system with utility mapper
 - **Lottie**: Lottie React for animated illustrations
 

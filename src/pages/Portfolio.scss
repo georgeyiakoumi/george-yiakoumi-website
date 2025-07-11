@@ -1,12 +1,11 @@
 @use '../styles/base' as *;
 
 .portfolio {
-  grid-column: 2 / span 8;
+  grid-column: 1 / span 9;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  
   height: auto;
-  padding: var(--container-padding) 0;
+  padding: 0 0 var(--container-padding) 0 !important;
 
   @include respond(tablet) {
     padding: var(--gap) var(--gap) var(--gap) 0 !important;
@@ -20,13 +19,16 @@
   }
 
   header {
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
     display: flex;
     flex-direction: column;
     gap: $scale-lg;
+    padding-top: var(--container-padding);
+    justify-self: stretch;
 
     @include respond(tablet) {
       grid-column: 1 / -1; 
+      padding-top: 0;
     }
 
     @include respond(mobile) {
@@ -34,43 +36,13 @@
     }
   }
 
-  .other-side {
-    grid-column: 6 / span 3;
-    @include container($container-background: var(--colour-background-sunken), $container-box-shadow: $elevation-sunken);
-    display: flex;
-    flex-direction: column;
-    gap: $scale-root;
-    align-items: flex-start;
-    align-self: start;
-
-    @include respond(tablet) {
-      order: -1;
-      grid-column: 1 / -1;
-      flex-direction: row;
-      justify-content: space-between;
-    }
-
-    @include respond(mobile) {
-      flex-direction: row;
-      border-radius: 0;
-      padding: $scale-sm;
-      
-      h4 {
-        font-size: get-typography(paragraph);
-      }
-    }
-
-  }  
-
   .portfolio-filters {
-    grid-column: 1 / span 8;
+    grid-column: 1 / span 9;
     display: flex;
     align-items: center;
     position: relative;
-
-    @include respond(mobile) {
-      margin: 0 var(--gap);      
-    }
+    transition: all 0.3s ease;
+    padding: $scale-md 0;
 
     .tag-dropdown-wrapper {
       position: absolute;
@@ -117,7 +89,11 @@
   
   .project-display {
 
-    grid-column: 1 / -1;
+    grid-column: 2 / -1;
+
+    @include respond(tablet) {
+        grid-column-start: 1;
+      }
 
     .project-grid {
       display: grid;

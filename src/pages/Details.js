@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { createRoot } from "react-dom/client";
-import { ReactLenis } from "lenis/react";
-import { motion } from "framer-motion";
 import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
 import Badge from "../components/ui/Badge/Badge";
-import Loading from "../components/ui/Loading/Loading";
 import { ReactComponent as ServerIcon } from "../assets/icons/server.svg";
 import { ReactComponent as DatabaseIcon } from "../assets/icons/database.svg";
 import { ReactComponent as CodeIcon } from "../assets/icons/code.svg";
@@ -54,23 +51,6 @@ const Details = () => {
 
           setTools(categorizedTools);
           setContent(data.data.content || []);
-          
-          // Fetch SVGs immediately after setting tools
-          const newSvgIcons = {};
-          for (const category in categorizedTools) {
-            for (const tool of categorizedTools[category]) {
-              if (tool.logoUrl && tool.logoUrl.endsWith(".svg")) {
-                try {
-                  const svgResponse = await fetch(tool.logoUrl);
-                  const svgText = await svgResponse.text();
-                  newSvgIcons[tool.name] = svgText;
-                } catch (error) {
-                  console.error(`Failed to fetch SVG for ${tool.name}:`, error);
-                }
-              }
-            }
-          }
-          setSvgIcons(newSvgIcons);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -81,6 +61,33 @@ const Details = () => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchSvgs = async () => {
+      setSvgIcons({});
+      const newSvgIcons = {};
+
+      for (const category in tools) {
+        for (const tool of tools[category]) {
+          if (tool.logoUrl && tool.logoUrl.endsWith(".svg")) {
+            try {
+              const response = await fetch(tool.logoUrl);
+              const svgText = await response.text();
+              newSvgIcons[tool.name] = svgText;
+            } catch (error) {
+              console.error(`Failed to fetch SVG for ${tool.name}:`, error);
+            }
+          }
+        }
+      }
+
+      setSvgIcons(newSvgIcons);
+    };
+
+    if (Object.keys(tools).some((key) => tools[key].length > 0)) {
+      fetchSvgs();
+    }
+  }, [tools]);
 
   useEffect(() => {
     Object.keys(svgIcons).forEach((toolName) => {
@@ -161,19 +168,14 @@ const Details = () => {
       ></div>
     ));
 
-  // Show loading spinner while data is being fetched
+  // Don't render anything until data is loaded to prevent sequential loading
   if (loading) {
-    return <Loading title="Loading..." />;
+    return null;
   }
 
   return (
-    <ReactLenis>
-      <motion.section 
-        className="details"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
+    
+      <section className="details">
         <header>{renderContent()}</header>
 
         <SegmentControl
@@ -197,8 +199,8 @@ const Details = () => {
         />
 
         <div className="details-content">{renderTools(viewMode)}</div>
-      </motion.section>
-    </ReactLenis>
+      </section>
+    
   );
 };
 
