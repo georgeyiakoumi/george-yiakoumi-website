@@ -4,13 +4,11 @@
     grid-column-end: 10;
 
     @include respond(mobile) {
-        grid-column: 1 / span 4;
-        padding: $scale-lg $scale-lg $scale-xl-8 $scale-lg !important;
+        grid-column-end: 1;
     }
 
     .segment-control {
         @include respond(mobile) {
-            margin-bottom: $scale-xl;
             align-self: center;
         }
     }
@@ -26,6 +24,12 @@
             flex-direction: column;
             width: 100%;
             gap: $scale-root;
+        }
+
+        @include respond(mobile) {
+            box-sizing: border-box;
+            padding: var(--gap);
+
         }
     }
 
