@@ -28,7 +28,8 @@
     height: $scale-xl-7;
     overflow: hidden;
     width: 100%;
-    z-index: 1100;
+    pointer-events: none;
+    
   }
 
   &.open .sidebar-contents {
@@ -43,6 +44,7 @@
 
     @include respond(mobile) {
       height: 100vh;
+      pointer-events: auto;
     }
     
   }
@@ -85,6 +87,7 @@
     right: 0;
     z-index: 1200;
     box-shadow: $elevation-overlay;
+    pointer-events: auto;
   }
 
   .brand-wordmark {

@@ -23,6 +23,7 @@ const SwiperComponent = ({
       modules={[Pagination]}
       spaceBetween={10}
       slidesPerView={slidesPerView}
+      centeredSlides={true}
       pagination={{ clickable: true }}
       className={customClass}
     >

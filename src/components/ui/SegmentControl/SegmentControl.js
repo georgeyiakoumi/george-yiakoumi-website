@@ -22,7 +22,7 @@ const SegmentControl = ({ options, selectedOption, setSelectedOption }) => {
   }, [selectedOption]);
 
   return (
-    <div className="segment-wrapper">
+    <div className="segment-control">
       <ul className="segment-list">
         {options.map(({ value, label, icon }) => (
           <li key={value}>

@@ -1,15 +1,8 @@
 @use '../styles/base' as *;
 
-.portfolio {
-  grid-column: 1 / span 9;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  height: auto;
-  padding: 0 0 var(--container-padding) 0 !important;
+.projects {
+  grid-column-end: 10;
 
-  @include respond(tablet) {
-    padding: var(--gap) var(--gap) var(--gap) 0 !important;
-  }
 
   @include respond(mobile) {
     display: flex;
@@ -18,91 +11,39 @@
     padding: 0 0 $scale-xl-8 0 !important;
   }
 
-  header {
-    grid-column: 2 / -1;
-    display: flex;
-    flex-direction: column;
-    gap: $scale-lg;
-    padding-top: var(--container-padding);
-    justify-self: stretch;
-
-    @include respond(tablet) {
-      grid-column: 1 / -1; 
-      padding-top: 0;
-    }
-
-    @include respond(mobile) {
-      padding: var(--gap) var(--gap) 0 var(--gap);
-    }
-  }
-
-  .portfolio-filters {
-    grid-column: 1 / span 9;
+  .filters {
     display: flex;
     align-items: center;
     position: relative;
-    transition: all 0.3s ease;
-    padding: $scale-md 0;
-
-    .tag-dropdown-wrapper {
-      position: absolute;
-      width: 100%;
-      display: grid;
-      grid-template-columns: repeat(8, 1fr);
-      align-items: start;
-      gap: var(--gap);
-
-      @include respond(tablet) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-    }
-
-    .tag-dropdown {
-      grid-column: 1 / -1;
-
-      @include respond(mobile) {
-        order: -1;
-      }
-
-    }
-
-    .segment-control-wrapper {
-
-    display: flex;
-    width: 100%;
-    justify-content:  flex-end;
-
-    }
-
+    padding: 0;
+    justify-content: space-between;
   }
 
   @include respond-above(desktop) {
     .project-item-card {
-      transition: all $time;
+      transition: opacity $time;
     }
     
     .entries-container:has(.project-item-card:hover) .project-item-card:not(:hover) {
-      opacity: 0.25;
+      opacity: 0.15;
     }
   }
 
-  
-  .project-display {
+  .projects-wrapper {
 
-    grid-column: 2 / -1;
+    @include respond(mobile) {
+      width: 100%;
+      display: flex;      
+    }
 
-    @include respond(tablet) {
-        grid-column-start: 1;
-      }
-
-    .project-grid {
+    > .grid {
       display: grid;
       align-items: stretch;
       grid-template-columns: repeat(2, 1fr);
       gap: var(--gap);
     }
   
-    .project-list {
+    > .list {
       display: flex;
       flex-direction: column;
       gap: $scale-root;

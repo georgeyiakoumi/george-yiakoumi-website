@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
 import PropTypes from "prop-types";
 import { BlocksRenderer } from "@strapi/blocks-react-renderer";
-import { gsap } from "gsap";
-import { Flip } from "gsap/Flip";
+import { projectCardsEntranceAnimation, flipLayoutTransition } from "../utils/gsapAnimations";
 import useBreakpoint from "../utils/useBreakpoint";
 import ProjectCard from "../components/ui/ProjectCard/ProjectCard";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
@@ -16,23 +15,27 @@ import { ReactComponent as CarouselIcon } from "../assets/icons/carousel.svg";
 import { ReactComponent as Send } from "../assets/icons/send.svg";
 import "./Portfolio.scss";
 
-gsap.registerPlugin(Flip);
-
 const API_BASE = process.env.REACT_APP_STRAPI_URL.replace(/\/$/, "");
 
 const Portfolio = ({ collection }) => {
   const COLLECTION_API = `${API_BASE}/api/${collection}?populate=*`;
   const PAGE_API = `${API_BASE}/api/portfolio-page?populate=*`;
-
   const [entries, setEntries] = useState([]);
   const [pageData, setPageData] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
   const [loading, setLoading] = useState(true);
+  
   const [selectedTags, setSelectedTags] = useState([]);
   const [SwiperComponent, setSwiperComponent] = useState(null);
-
   const entriesContainerRef = useRef(null);
   const { isMobile, isTablet } = useBreakpoint();
+
+  useEffect(() => {
+    if (!loading) {
+      const projCard = document.querySelectorAll('.project-item-card-link');
+      projectCardsEntranceAnimation(projCard);
+    }
+  }, [loading]);
 
   // Custom function to handle view mode changes with Flip animation
   const handleViewModeChange = (newViewMode) => {
@@ -43,23 +46,9 @@ const Portfolio = ({ collection }) => {
         (newViewMode === "grid" || newViewMode === "list") &&
         entriesContainerRef.current) {
       
-      // Capture current state of all project cards
-      const state = Flip.getState(entriesContainerRef.current.children);
-      
-      // Change the view mode
-      setViewMode(newViewMode);
-      
-      // Animate on next frame after DOM updates
-      requestAnimationFrame(() => {
-        Flip.from(state, {
-          duration: 0.3,
-          ease: "power2.inOut",
-          absolute: true, // Use absolute positioning during transition
-          onComplete: () => {
-            // Ensure any hover states are reset
-            gsap.set(entriesContainerRef.current.children, { clearProps: "all" });
-          }
-        });
+      // Use the centralized flip animation function
+      flipLayoutTransition(entriesContainerRef.current.children, () => {
+        setViewMode(newViewMode);
       });
     } else {
       // For swiper transitions or any other case, just change without animation
@@ -124,11 +113,7 @@ const Portfolio = ({ collection }) => {
   if (entries.length === 0) {
     return (
       <section 
-        className="blank"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4, ease: "easeOut" }}
-      >
+        className="blank">
         <Arun />
         <h1>Nothing to see here, yet.</h1>
         <p>
@@ -155,20 +140,18 @@ const Portfolio = ({ collection }) => {
   );
 
   return (
-    <section className="portfolio">
+    <section className="projects">
       <header>
           {renderContent()}
-          <div className="portfolio-filters">
+          <div className="filters">
             {allTags.length > 0 && (
-            <div className="tag-dropdown-wrapper">
               <TagDropdown
                 allTags={allTags}
                 selectedTags={selectedTags}
                 setSelectedTags={setSelectedTags}
               />
-            </div>
             )}
-            <div className="segment-control-wrapper">
+              {!isTablet && (
               <SegmentControl
                 size={isMobile ? "small" : undefined}
                 options={
@@ -188,15 +171,15 @@ const Portfolio = ({ collection }) => {
                   handleViewModeChange(translatedVal);
                 }}
               />
-            </div>
+            )}
           </div>
         </header>
 
       {pageData && (
 
-        <div className={`project-display ${viewMode}`}>
+        <div className={`projects-wrapper`}>
           {(viewMode === "grid" || viewMode === "list") && (
-          <div className={`entries-container project-${viewMode}`} ref={entriesContainerRef}>
+          <div className={`${viewMode}`} ref={entriesContainerRef}>
             {filteredEntries.map(renderProjectCard)}
           </div>
           )}

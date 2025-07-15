@@ -1,13 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import { createRoot } from "react-dom/client";
 import useBreakpoint from "../utils/useBreakpoint";
 import SegmentControl from "../components/ui/SegmentControl/SegmentControl";
-import Badge from "../components/ui/Badge/Badge";
+import ToolCard from "../components/ui/ToolCard/ToolCard";
 import { ReactComponent as ServerIcon } from "../assets/icons/server.svg";
 import { ReactComponent as DatabaseIcon } from "../assets/icons/database.svg";
 import { ReactComponent as CodeIcon } from "../assets/icons/code.svg";
-import { ReactComponent as CheckCircle } from "../assets/icons/check-circle.svg";
-import { ReactComponent as AlertTriangle } from "../assets/icons/alert-triangle.svg";
 
 import "./Details.scss";
 
@@ -125,47 +122,11 @@ const Details = () => {
 
   const renderTools = (category) =>
     tools[category].map((tool, index) => (
-      <div
-        key={index}
-        className="details-container"
-        ref={(el) => {
-          if (!el || !svgIcons[tool.name]) return;
-
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(svgIcons[tool.name], "image/svg+xml");
-          const svgElement = doc.querySelector("svg");
-
-          if (svgElement) {
-            el.innerHTML = "";
-            el.append(svgElement);
-
-            const wrapper = document.createElement("div");
-            wrapper.className = "details-wrapper-container";
-
-            const header = document.createElement("header");
-            header.innerHTML = `<h2>${tool.name}</h2>`;
-
-            const badgeContainer = document.createElement("div");
-            header.appendChild(badgeContainer);
-
-            const description = document.createElement("p");
-            description.textContent = tool.description;
-
-            wrapper.appendChild(header);
-            wrapper.appendChild(description);
-            el.append(wrapper);
-
-            const root = createRoot(badgeContainer);
-            root.render(
-              <Badge
-                tone={tool.paid ? "warning" : "success"}
-                label={tool.paid ? "Paid" : "Free"}
-                icon={tool.paid ? AlertTriangle : CheckCircle}
-              />
-            );
-          }
-        }}
-      ></div>
+      <ToolCard 
+        key={index} 
+        tool={tool} 
+        svgIcon={svgIcons[tool.name]} 
+      />
     ));
 
   // Don't render anything until data is loaded to prevent sequential loading
@@ -176,7 +137,9 @@ const Details = () => {
   return (
     
       <section className="details">
-        <header>{renderContent()}</header>
+        <header>
+          {renderContent()}
+        </header>
 
         <SegmentControl
           options={[
@@ -195,10 +158,11 @@ const Details = () => {
           ]}
           selectedOption={viewMode}
           setSelectedOption={setViewMode}
-          
         />
 
-        <div className="details-content">{renderTools(viewMode)}</div>
+        <div className="tools-container">
+          {renderTools(viewMode)}
+        </div>
       </section>
     
   );

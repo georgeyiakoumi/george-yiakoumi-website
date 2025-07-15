@@ -1,9 +1,11 @@
 import { gsap } from 'gsap';
+import { Flip } from 'gsap/Flip';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register GSAP plugins
+gsap.registerPlugin(Flip, ScrollTrigger);
 
-// Animation utilities for GSAP
+// Used by PageTransition.js for smooth page transitions
 export const pageTransition = {
   // Animate page entrance
   enter: (element, onComplete) => {
@@ -15,7 +17,7 @@ export const pageTransition = {
     gsap.to(element, { 
       opacity: 1, 
       duration: 0.5, 
-      ease: 'power2.inOut',
+      ease: 'power3.inOut',
       onComplete 
     });
   },
@@ -27,12 +29,13 @@ export const pageTransition = {
     gsap.to(element, {
       opacity: 0,
       duration: 0.5,
-      ease: 'power2.inOut',
+      ease: 'power3.inOut',
       onComplete
     });
   }
 };
 
+// Used by Modal.js for modal enter/exit animations
 export const modalAnimations = {
   // Animate modal entrance
   enter: (overlay, content) => {
@@ -69,106 +72,47 @@ export const modalAnimations = {
   }
 };
 
-export const fadeInUp = (element, delay = 0) => {
-  if (!element) return;
-  
-  // Set initial state immediately to prevent flicker
-  gsap.set(element, { opacity: 0, y: 20 });
-  
-  gsap.to(element, { 
-    opacity: 1, 
-    y: 0, 
-    duration: 0.6, 
-    delay,
-    ease: 'power2.out' 
+// Used by About.js for seamless company logo carousel animation
+export const companiesCarouselAnimation = () => {
+  // Create seamless infinite loop - move by 1/3 since we have 3 sets
+  return gsap.to(".companies-marquee", {
+    x: "-33.333%",
+    repeat: -1,
+    duration: 20,
+    ease: "linear"
   });
 };
 
-export const fadeIn = (element, delay = 0) => {
-  if (!element) return;
-  
-  // Set initial state immediately to prevent flicker
-  gsap.set(element, { opacity: 0 });
-  
-  gsap.to(element, { 
-    opacity: 1, 
-    duration: 0.4, 
-    delay,
-    ease: 'power2.out' 
+// Used by Portfolio.js for project cards entrance animation
+export const projectCardsEntranceAnimation = (elements) => {
+  // Animate project cards fading in with stagger effect
+  return gsap.from(elements, { 
+    duration: 0.5, 
+    opacity: 0, 
+    stagger: 0.25, 
+    ease: 'power3.inOut' 
   });
 };
 
-export const createStickyHeaderAnimation = (headerElement, triggerElement) => {
-  if (!headerElement || !triggerElement) {
-    console.log('Missing elements:', { headerElement, triggerElement });
-    return;
-  }
-
-  console.log('Setting up sticky header animation');
-  console.log('Header element:', headerElement);
-  console.log('Trigger element:', triggerElement);
-
-  // Create the scroll trigger animation - use trigger element's bottom edge
-  const scrollTrigger = ScrollTrigger.create({
-    trigger: triggerElement,
-    start: 'bottom top+=100',
-    end: 'bottom top+=100',
-    markers: true, // Add markers for debugging
-    onEnter: () => {
-      console.log('Header becoming sticky');
-      
-      // Add sticky class and use !important styles
-      headerElement.classList.add('sticky-header');
-      headerElement.style.setProperty('position', 'sticky', 'important');
-      headerElement.style.setProperty('grid-column', '1 / -1', 'important');
-      headerElement.style.setProperty('padding-top', 'var(--gap)', 'important');
-      headerElement.style.setProperty('background', 'var(--colour-background-raised)', 'important');
-      headerElement.style.setProperty('z-index', '31', 'important');
-      headerElement.style.setProperty('width', '100%', 'important');
-      headerElement.style.setProperty('gap', '0', 'important');
-      headerElement.style.setProperty('border-bottom', '0.0613rem solid var(--colour-stroke-strong)', 'important');
-      headerElement.style.setProperty('top', '0', 'important');
-      
-      // Animate h2 font size
-      const h1 = headerElement.querySelector('h1');
-      if (h1) {
-        h1.style.setProperty('font-size', '2rem', 'important');
+// Used by Portfolio.js for smooth layout transitions between grid and list views
+export const flipLayoutTransition = (elements, callback) => {
+  // Capture current state of elements before layout change
+  const state = Flip.getState(elements);
+  
+  // Execute the callback that changes the layout
+  if (callback) callback();
+  
+  // Animate from previous state to new state on next frame
+  requestAnimationFrame(() => {
+    Flip.from(state, {
+      duration: 0.3,
+      ease: "power2.inOut",
+      absolute: true, // Use absolute positioning during transition
+      onComplete: () => {
+        // Clear any transform properties after animation
+        gsap.set(elements, { clearProps: "all" });
       }
-      
-      // Hide p elements
-      const pElements = headerElement.querySelectorAll('p');
-      pElements.forEach(p => {
-        p.style.setProperty('display', 'none', 'important');
-      });
-    },
-    onLeave: () => {
-      console.log('Header reverting to normal');
-      
-      // Remove sticky class and clear all styles
-      headerElement.classList.remove('sticky-header');
-      headerElement.style.removeProperty('position');
-      headerElement.style.removeProperty('grid-column');
-      headerElement.style.removeProperty('padding-top');
-      headerElement.style.removeProperty('background');
-      headerElement.style.removeProperty('z-index');
-      headerElement.style.removeProperty('width');
-      headerElement.style.removeProperty('gap');
-      headerElement.style.removeProperty('border-bottom');
-      headerElement.style.removeProperty('top');
-      
-      // Revert h2 font size
-      const h2 = headerElement.querySelector('h2');
-      if (h2) {
-        h2.style.removeProperty('font-size');
-      }
-      
-      // Show p elements
-      const pElements = headerElement.querySelectorAll('p');
-      pElements.forEach(p => {
-        p.style.removeProperty('display');
-      });
-    }
+    });
   });
-
-  return scrollTrigger;
 };
+

@@ -122,6 +122,12 @@ h6 {
 
 p {
   @include responsive-typography(paragraph, $font-family-body, $font-weight-weak, semantic.$text-weak);
+  max-width: 64ch;
+
+    @include breakpoint.respond(tablet) {
+      width: 100%;
+    }
+
 }
 
 small {

@@ -1,19 +1,20 @@
 @use '../styles/base' as *;
 
 .entry {
-    grid-column: 1 / span 10;
+    grid-column-start: 1 !important;
+    grid-column-end: 11;
     display: flex;
     flex-direction: column;
-    padding: var(--gap) 0 !important;
+    padding: var(--gap) 0 0 0 !important;
+    align-items: stretch;
 
     @include respond(tablet) {
-        grid-column: 1 / span 5 !important;;
-        grid-template-columns: repeat(5, 1fr);
+        padding-right: var(--gap) !important;
+        margin: 0;
+        gap: var(--gap);
     }
 
     @include respond(mobile) {
-        display: flex;
-        flex-direction: column;
         padding: 0 0 $scale-xl-8 0 !important;
         margin: 0;
         row-gap: 0;
@@ -24,7 +25,7 @@
         grid-column: 1 / -1;
 
         @include respond(tablet) {
-            padding: 0;
+            padding: var(--gap) 0;
         }
 
         @include respond(mobile) {
@@ -47,7 +48,7 @@
         overflow: hidden;
 
         @include respond(tablet) {
-            grid-column: 1 / span 5;
+            
         }
 
         @include respond(mobile) {
@@ -61,8 +62,13 @@
             left: 0;
 
             @include respond(tablet) {
-            padding: var(--gap);
-        }
+                padding: var(--gap);
+            }
+
+            @include respond(mobile) {
+                position: static;
+                padding: 0;
+            }
 
             .text-link {
                 color: $brand-dark-1000;
@@ -93,22 +99,28 @@
         }
 
         .header-details {
-            width: 60%;
             display: flex;
             flex-direction: column;
-            gap: var(--gap);
+            padding: 0 !important;
+            gap: $scale-lg;
+
+            > h1 {
+                @include responsive-typography(heading-2, $font-family-heading, $font-weight-weak, $grey-dark-1000);
+                width: 100%;   
+            }
+            
+            > p {
+                color: $grey-dark-700;
+                width: 100%;
+            }
 
             @include respond(tablet) {
                 width: 100%;
                 gap: $scale-lg;
-            }
 
-            h1 {
-                @include responsive-typography(heading-2, $font-family-heading, $font-weight-weak, $grey-dark-1000);
-            }
-            
-            p {
-                color: $grey-dark-700
+                h1, p {
+                    width: 100%;
+                }
             }
     
             .entry-tags-container {

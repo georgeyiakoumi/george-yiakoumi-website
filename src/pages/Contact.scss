@@ -2,54 +2,23 @@
 
 .contact {
     grid-column-end: 8;
-    display: flex; 
-    flex-direction: column;
-    gap: var(--gap);
-
-    @include respond(tablet) {
-        grid-column-end: 6;
-    }
-
-    @include respond(mobile) {
-        padding-left: var(--gap) !important;
-        padding-right: var(--gap) !important;
-    }
-
-    & > * {
-        @include respond (mobile) {
-            align-self: center;
-        }
-    }
-
-    header {
-        grid-column: 1 / -1;
-        display: flex;
-        flex-direction: column;
-        gap: $scale-lg;
-
-        @include respond(tablet) {
-        grid-column: 1 / -1; 
-        }
-
-        @include respond(mobile) {
-            align-self: stretch;
-            align-items: center;
-        }
-    }
 
     form {
-        width: 100%;
         display: flex;
         flex-direction: column;
         gap: var(--gap);
+        align-self: stretch;
+
+        @include respond(mobile) {
+            padding: 0 var(--gap) var(--gap) var(--gap);
+        }
         
-        .form-row {
-            width: 100%;              
+        .form-row {      
             display: grid;
-            grid-template-columns: 1fr 1fr; 
+            grid-template-columns: repeat(2, 1fr); 
             gap: var(--gap);
 
-            @include respond(tablet) {
+            @include respond(mobile) {
                 display: flex;
                 flex-direction: column;
             }
@@ -58,7 +27,6 @@
         .form-group {
             display: flex;
             flex-direction: column;
-            align-self: stretch;
         }
 
         @include respond(mobile) {

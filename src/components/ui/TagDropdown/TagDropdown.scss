@@ -1,11 +1,11 @@
 @use '../../../styles/base' as *;
 
 .tag-dropdown {
-  position: relative;
   display: flex;
   flex-direction: row;
   gap: $scale-xs;
   align-items: center;
+  flex-grow: 1;
 
   .selected-tags {
     height: $scale-xl;
@@ -64,13 +64,14 @@
 
   .tag-options {
     position: absolute;
-    top: 100%;
-    left: 0; 
+    flex-grow: 1;
     width: 100%;
+    top: 100%;
+    left: 0;
     display: inline-grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: var(--gap);
-    margin-top: $scale-xs;
+    box-sizing: border-box;
     background: $background-overlay;
     box-shadow: $elevation-overlay;
     border: $scale-xs-4 solid $stroke-brand-weak;
@@ -79,7 +80,7 @@
     z-index: 9999;
 
     @include respond(tablet) {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
 
     @include respond(mobile) {

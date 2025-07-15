@@ -1,44 +1,21 @@
 @use '../styles/base' as *;
 
 .details {
-    grid-column: 2 / span 8;
-    display: flex !important;
-    flex-direction: column;
-    align-items: start;
-    gap: var(--gap);
-    @include respond(tablet) {
-        grid-column: 1 / span 6;
-    }
+    grid-column-end: 10;
 
     @include respond(mobile) {
         grid-column: 1 / span 4;
         padding: $scale-lg $scale-lg $scale-xl-8 $scale-lg !important;
     }
 
-    & > header {
-        display: flex;
-        flex-direction: column;
-        gap: var(--gap); 
-
-        @include respond(tablet) {
-            gap: $scale-root;
-            display: flex;
-        }
-
-        p {
-            max-width: 64ch;
-        }
-    }
-
-    .segment-control-wrapper {
-        
+    .segment-control {
         @include respond(mobile) {
+            margin-bottom: $scale-xl;
             align-self: center;
         }
- 
     }
 
-    .details-content {
+    .tools-container {
         align-self: stretch;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -50,46 +27,6 @@
             width: 100%;
             gap: $scale-root;
         }
-
-        .details-container {
-            justify-self: stretch;
-            align-self: stretch;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-start;
-            gap: $scale-lg;
-            @include container;
-
-            @include respond(tablet) {
-            gap: $scale-lg;
-        }
-
-            > svg {
-                width: $scale-xl-3;
-                min-width: $scale-xl-3;
-                height: auto;
-            }
-
-            header {
-                display: flex;
-                align-items: center;
-                gap: $scale-sm;
-
-                h2 {
-                    font-size: get-typography(heading-3);
-                }
-
-                div {
-                    display: flex;
-                }
-            }
-
-            p {
-                font-size: get-typography(text-small) !important;
-            }
-            
-        }
-
     }
 
 }

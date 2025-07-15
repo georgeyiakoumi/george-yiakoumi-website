@@ -1,0 +1,31 @@
+// Page transition styles for react-transition-group
+.page-enter {
+  opacity: 0;
+}
+
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 800ms ease-in-out;
+}
+
+.page-exit {
+  opacity: 1;
+}
+
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+
+// Ensure proper positioning for transitions
+main {
+  position: relative;
+  
+  > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+  }
+}

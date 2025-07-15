@@ -1,0 +1,43 @@
+@use '../../../styles/base' as *;
+
+.tool-card {
+    @include container ($container-padding: $scale-root);
+    display: flex;
+    flex-direction: row;
+    gap: $scale-md;
+    align-self: stretch;
+
+    > svg {
+        width: $scale-xl-3;
+        min-width: $scale-xl-3;
+        height: auto;
+        align-self: start;
+    }
+
+    .tool-card-text {
+        display: flex;
+        flex-direction: column;
+        align-self: stretch;
+        
+        > header {
+        display: flex;
+        align-items: center;
+        gap: $scale-sm;
+        flex-wrap:wrap;
+
+            > h2 {
+                font-size: get-typography(heading-3);
+            }
+
+            > div {
+                display: flex;
+            }
+        }
+
+        > p {
+            font-size: get-typography(text-small);
+        }
+
+    } 
+
+}

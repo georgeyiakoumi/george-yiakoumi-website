@@ -3,76 +3,83 @@
 @use "./scale" as scale;
 @use "./spacing" as spacing;
 
-body {
-  background-color: var(--colour-background-base);
-  color: var(--colour-text-weak);
-  transition: transition.$time;    
-}
-
 #root {
-  display: grid;
-  grid-template-columns: [sidebar] 5fr [main] 11fr [main-end];
-  gap: var(--gap);
-  height: 100vh;
 
-  @include breakpoint.respond(tablet) {
-    grid-template-columns: [sidebar] 2fr [main] 6fr [main-end];
-  }
-
-  @include breakpoint.respond(mobile) {
-    display: flex;
-    flex-direction: column;
-  }
-
-}
-
-main {
-  grid-column: main / main-end;
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  grid-template-rows: 1fr; 
-  gap: var(--gap);
-  height: 100vh;
-  overflow: auto;
-  align-content: start;
-  scroll-behavior: smooth;
-
-  @include breakpoint.respond(tablet) {
-    grid-template-columns: repeat(6, 1fr);
-    height: 100vh;
-  }
-
-  @include breakpoint.respond(mobile) {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    height: 100vh;
-    padding: scale.$scale-xl-7 0 0 0;
-  }
-
-  & > section {
+  #smooth-wrapper {
     display: grid;
-    grid-column-start: 2;
-    align-content: start;
-    gap: var(--gap);
-    padding: var(--container-padding) 0;
+    grid-template-columns: [sidebar] 5fr [main] 11fr [main-end];
+    grid-gap: var(--gap);
 
     @include breakpoint.respond(tablet) {
-      grid-column-start: 1;
-      padding-top: var(--gap);
+      grid-template-columns: [sidebar] 1fr [main] 5fr [main-end];
     }
 
     @include breakpoint.respond(mobile) {
       display: flex;
       flex-direction: column;
-      padding-top: var(--gap);
+    }
+   
+    aside {
+      grid-column: span sidebar;
+      position: sticky;
+      height: 100svh;
+      top: 0;
+      z-index: 10;
+
+      @include breakpoint.respond(mobile) {
+        position: absolute;
+      }
     }
 
-    & > * {
-      grid-column: 1 / -1;
-      place-self: start;
-    }
+    #smooth-content {
+      grid-column: main / main-end;
 
+      @include breakpoint.respond(mobile) {
+          grid-column: 1 / -1;
+        }
+
+      main {
+        display: grid;
+        grid-template-columns: repeat(11, 1fr);
+        height: 100%;
+
+        @include breakpoint.respond(tablet) {
+          grid-template-columns: 1fr;
+        }
+
+        > section {
+          grid-column-start: 2;
+          display: flex;
+          flex-direction: column;
+          padding: var(--container-padding) 0;
+          align-items: start;
+
+          @include breakpoint.respond(tablet) {
+            grid-column-start: 1;
+
+            padding-right: var(--gap);
+          }
+
+          @include breakpoint.respond(mobile) {
+
+            padding-top: scale.$scale-xl-7 !important;
+            padding-right: 0;
+            gap: 0;
+          }
+
+          & > header {
+            display: flex;
+            flex-direction: column;
+            gap: scale.$scale-lg;
+            align-self: stretch;
+
+            @include breakpoint.respond(mobile) {
+              padding: var(--gap);
+            }
+
+          }
+        }
+      }
+    } 
   }
-
 }

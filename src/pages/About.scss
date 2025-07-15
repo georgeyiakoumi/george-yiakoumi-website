@@ -2,37 +2,17 @@
 
 .about {
   grid-column-end: 10;
-  grid-template-columns: repeat(8, 1fr);
-  place-items: center;
-  padding-bottom: 0;
-
-  @include respond(tablet) {
-    grid-column-start: 1;
-    grid-column-end: 6;
-    grid-template-columns: repeat(5, 1fr);
-    gap: $scale-lg;
-  }
-
-  @include respond(mobile) {
-    grid-column: 1 / -1;
-    grid-template-columns: 1fr;
-    padding: var(--gap) !important;
-    place-self: start;
-  }
+  padding-bottom: 0 !important;
+  
 
   .avatar-wrapper {
     box-sizing: border-box;
-    grid-column: span 2;
-    width: 100%;
+    width: $scale-xl-8;
+    height: $scale-xl-8;
     aspect-ratio: 1 / 1;
     border-radius: $corner-radius-full;
     border: solid $scale-xs-4 $stroke-weak;
     overflow: hidden;
-
-    @include respond(mobile) {
-      align-self: center;
-      max-width: $scale-xl-9;
-    }
 
     img.avatar {
       width: 100%;
@@ -41,64 +21,57 @@
     }
   }
 
-  h1 {
-    align-self: center;
-  }
+  .companies-carousel-wrapper {
+    align-self: stretch;
+    position: relative;
+    overflow: hidden;
+    padding-top: 0 !important;
 
-  p {
-    max-width: 64ch;
-
-    @include respond(tablet) {
-      width: 100%;
-    }
-  }
-}
-
-.companies-carousel-wrapper {
-  position: relative;
-  overflow: hidden;
-  grid-column-end: 9;
-  padding-top: 0;
-
-   @include respond(mobile) {
-      grid-column-end: -1;
+    // Fade edges with pseudo-elements
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 120px;
+      pointer-events: none;
+      z-index: 2;
     }
 
-  .company-logo-wrapper {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 $scale-md;
-    min-height: $scale-root;
-    min-width: $scale-root;
+    &::before {
+      left: 0;
+      background: linear-gradient(to right, var(--colour-background-base) 0%, transparent 100%);
+    }
 
-    svg,
-    img {
-      height: auto;
-      width: auto;
+    &::after {
+      right: 0;
+      background: linear-gradient(to left, var(--colour-background-base) 0%, transparent 100%);
+    }
+
+    .companies-marquee {
+      display: flex;
+      width: max-content;
+      animation: none; // Let GSAP handle the animation
+      will-change: transform;
+
+    }
+
+    .company-logo {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 $scale-md;
       min-height: $scale-root;
       min-width: $scale-root;
-    }
-  }
 
-  .fade-edges {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: $scale-xl;
-    height: $scale-xl;
-    pointer-events: none;
-    z-index: 2;
-
-    &.left {
-      left: 0;
-      background: linear-gradient(to right, $background-base 0%, transparent 100%);
-    }
-
-    &.right {
-      right: 0;
-      background: linear-gradient(to left, $background-base 0%, transparent 100%);
+      > svg, img {
+        height: auto;
+        width: auto;
+        min-height: $scale-root;
+        min-width: $scale-root;
+      }
     }
   }
 }

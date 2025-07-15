@@ -8,18 +8,13 @@
   height: auto;
 
   .swiper-wrapper {
-    width: 100%;
     margin-bottom: $scale-xl-3;
+    align-self: start;
+    
   }
 
   .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
     
-    min-height: $scale-xl-4;
   }
 
   .swiper-pagination-bullet {
